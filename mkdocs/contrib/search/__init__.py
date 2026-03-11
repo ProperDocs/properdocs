@@ -60,7 +60,7 @@ class _PluginConfig(base.Config):
 
 
 class SearchPlugin(BasePlugin[_PluginConfig]):
-    """Add a search feature to MkDocs."""
+    """Add a search feature to ProperDocs."""
 
     def on_config(self, config: MkDocsConfig, **kwargs) -> MkDocsConfig:
         """Add plugin templates and scripts to config."""

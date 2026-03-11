@@ -122,7 +122,7 @@ ConfigWarnings = List[Tuple[str, str]]
 
 class Config(UserDict):
     """
-    Base class for MkDocs configuration, plugin configuration (and sub-configuration) objects.
+    Base class for ProperDocs configuration, plugin configuration (and sub-configuration) objects.
 
     It should be subclassed and have `ConfigOption`s defined as attributes.
     For examples, see mkdocs/contrib/search/__init__.py and mkdocs/config/defaults.py.
@@ -265,7 +265,7 @@ class Config(UserDict):
     @weak_property
     def user_configs(self) -> Sequence[Mapping[str, Any]]:
         warnings.warn(
-            "user_configs is never used in MkDocs and will be removed soon.", DeprecationWarning
+            "user_configs is never used in ProperDocs and will be removed soon.", DeprecationWarning
         )
         return self.__user_configs
 

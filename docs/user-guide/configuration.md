@@ -30,7 +30,7 @@ variable.
 
 Set the canonical URL of the site. This will add a `link` tag with the
 `canonical` URL to the `head` section of each HTML page. If the 'root' of the
-MkDocs site will be within a subdirectory of a domain, be sure to include that
+ProperDocs site will be within a subdirectory of a domain, be sure to include that
 subdirectory in the setting (`https://example.com/foo/`).
 
 This setting is also used for `mkdocs serve`: the server will be mounted onto a
@@ -62,7 +62,7 @@ those domains, otherwise the hostname from the `repo_url`.
 
 The path from the base `repo_url` to the docs directory when directly viewing a
 page, accounting for specifics of the repository host (e.g. GitHub, Bitbucket,
-etc), the branch, and the docs directory itself. MkDocs concatenates `repo_url`
+etc), the branch, and the docs directory itself. ProperDocs concatenates `repo_url`
 and `edit_uri`, and appends the input path of the page.
 
 When set, and if your theme supports it, provides a link directly to the page in
@@ -254,7 +254,7 @@ Navigation items may also include links to external sites. While titles are
 optional for internal links, they are required for external links. An external
 link may be a full URL or a relative URL. Any path which is not found in the
 files is assumed to be an external link. See the section about [Meta-Data] on
-how MkDocs determines the page title of a document.
+how ProperDocs determines the page title of a document.
 
 ```yaml
 nav:
@@ -266,7 +266,7 @@ nav:
 In the above example, the first two items point to local files while the third
 points to an external site.
 
-However, sometimes the MkDocs site is hosted in a subdirectory of a project's
+However, sometimes the ProperDocs site is hosted in a subdirectory of a project's
 site and you may want to link to other parts of the same site without including
 the full domain. In that case, you may use an appropriate relative URL.
 
@@ -280,12 +280,12 @@ nav:
 ```
 
 In the above example, two different styles of external links are used. First,
-note that the `site_url` indicates that the MkDocs site is hosted in the `/foo/`
+note that the `site_url` indicates that the ProperDocs site is hosted in the `/foo/`
 subdirectory of the domain. Therefore, the `Home` navigation item is a relative
 link that steps up one level to the server root and effectively points to
 `https://example.com/`. The `Bug Tracker` item uses an absolute path from the
 server root and effectively points to `https://example.com/bugs/`. Of course, the
-`User Guide` points to a local MkDocs page.
+`User Guide` points to a local ProperDocs page.
 
 **default**: By default `nav` will contain an alphanumerically sorted, nested
 list of all the Markdown files found within the `docs_dir` and its
@@ -368,7 +368,7 @@ NEW: **New in version 1.5.**
 >
 > If the [`nav`](#nav) config is not specified at all, pages specified in this config will now be excluded from the inferred navigation.
 
-If you want to include some docs into the site but intentionally exclude them from the nav, normally MkDocs warns about this.
+If you want to include some docs into the site but intentionally exclude them from the nav, normally ProperDocs warns about this.
 
 Adding such patterns of files (relative to [`docs_dir`](#docs_dir)) into the `not_in_nav` config will prevent such warnings.
 
@@ -391,13 +391,13 @@ NOTE: Adding a given file to [`exclude_docs`](#exclude_docs) takes precedence ov
 
 NEW: **New in version 1.5.**
 
-Configure the strictness of MkDocs' diagnostic messages when validating links to documents.
+Configure the strictness of ProperDocs' diagnostic messages when validating links to documents.
 
 This is a tree of configs, and for each one the value can be one of the three: `warn`, `info`, `ignore`. Which cause a logging message of the corresponding severity to be produced. The `warn` level is, of course, intended for use with `mkdocs build --strict` (where it becomes an error), which you can employ in continuous testing.
 
 The config `validation.links.absolute_links` additionally has a special value `relative_to_docs`, for [validation of absolute links](#validation-of-absolute-links).
 
->? EXAMPLE: **Defaults of this config as of MkDocs 1.6:**
+>? EXAMPLE: **Defaults of this config as of ProperDocs 1.6:**
 >
 > ```yaml
 > validation:
@@ -416,7 +416,7 @@ The config `validation.links.absolute_links` additionally has a special value `r
 
 The defaults of some of the behaviors already differ from MkDocs 1.4 and below - they were ignored before.
 
->? EXAMPLE: **Configure MkDocs 1.6 to behave like MkDocs 1.4 and below (reduce strictness):**
+>? EXAMPLE: **Configure ProperDocs 1.6 to behave like MkDocs 1.4 and below (reduce strictness):**
 >
 > ```yaml
 > validation:
@@ -430,9 +430,9 @@ The defaults of some of the behaviors already differ from MkDocs 1.4 and below -
 > ```yaml
 > validation:
 >   omitted_files: warn
->   absolute_links: warn  # Or 'relative_to_docs' - new in MkDocs 1.6
+>   absolute_links: warn  # Or 'relative_to_docs' - new in ProperDocs 1.6
 >   unrecognized_links: warn
->   anchors: warn  # New in MkDocs 1.6
+>   anchors: warn  # New in ProperDocs 1.6
 > ```
 
 Note how in the above examples we omitted the 'nav' and 'links' keys. Here `absolute_links:` means setting both `nav: absolute_links:` and `links: absolute_links:`.
@@ -463,9 +463,9 @@ Full list of values and examples of log messages that they can hide or make more
 
 NEW: **New in version 1.6.**
 
-> Historically, within Markdown, MkDocs only recognized **relative** links that lead to another physical `*.md` document (or media file). This is a good convention to follow because then the source pages are also freely browsable without MkDocs, for example on GitHub. Whereas absolute links were left unmodified (making them often not work as expected) or, more recently, warned against. If you dislike having to always use relative links, now you can opt into absolute links and have them work correctly.
+> Historically, within Markdown, ProperDocs only recognized **relative** links that lead to another physical `*.md` document (or media file). This is a good convention to follow because then the source pages are also freely browsable without ProperDocs, for example on GitHub. Whereas absolute links were left unmodified (making them often not work as expected) or, more recently, warned against. If you dislike having to always use relative links, now you can opt into absolute links and have them work correctly.
 
-If you set the setting `validation.links.absolute_links` to the new value `relative_to_docs`, all Markdown links starting with `/` will be understood as being relative to the `docs_dir` root. The links will then be validated for correctness according to all the other rules that were already working for relative links in prior versions of MkDocs. For the HTML output, these links will still be turned relative so that the site still works reliably.
+If you set the setting `validation.links.absolute_links` to the new value `relative_to_docs`, all Markdown links starting with `/` will be understood as being relative to the `docs_dir` root. The links will then be validated for correctness according to all the other rules that were already working for relative links in prior versions of ProperDocs. For the HTML output, these links will still be turned relative so that the site still works reliably.
 
 So, now any document (e.g. "dir1/foo.md") can link to the document "dir2/bar.md" as `[link](/dir2/bar.md)`, in addition to the previously only correct way `[link](../dir2/bar.md)`.
 
@@ -626,8 +626,8 @@ NOTE: `*.js` and `*.css` files, just like any other type of file, are always cop
 
 ### extra_templates
 
-Set a list of templates in your `docs_dir` to be built by MkDocs. To see more
-about writing templates for MkDocs read the documentation about [custom themes]
+Set a list of templates in your `docs_dir` to be built by ProperDocs. To see more
+about writing templates for ProperDocs read the documentation about [custom themes]
 and specifically the section about the [available variables] to
 templates. See the example in [extra_css] for usage.
 
@@ -736,10 +736,10 @@ See also: [site_url](#site_url).
 
 ### markdown_extensions
 
-MkDocs uses the [Python Markdown][pymkd] library to translate Markdown files
+ProperDocs uses the [Python Markdown][pymkd] library to translate Markdown files
 into HTML. Python Markdown supports a variety of [extensions][pymdk-extensions]
 that customize how pages are formatted. This setting lets you enable a list of
-extensions beyond the ones that MkDocs uses by default (`meta`, `toc`, `tables`,
+extensions beyond the ones that ProperDocs uses by default (`meta`, `toc`, `tables`,
 and `fenced_code`).
 
 For example, to enable the [SmartyPants typography extension][smarty], use:
@@ -789,7 +789,7 @@ markdown_extensions:
 
 > NOTE: **Dynamic config values.**
 >
-> To dynamically configure the extensions, you can get the config values from [environment variables](#environment-variables) or [obtain paths](#paths-relative-to-the-current-file-or-site) of the currently rendered Markdown file or the overall MkDocs site.
+> To dynamically configure the extensions, you can get the config values from [environment variables](#environment-variables) or [obtain paths](#paths-relative-to-the-current-file-or-site) of the currently rendered Markdown file or the overall ProperDocs site.
 
 In the above examples, each extension is a list item (starts with a `-`). As an
 alternative, key/value pairs can be used instead. However, in that case an empty
@@ -813,7 +813,7 @@ This alternative syntax is required if you intend to override some options via
 > which are available out-of-the-box. For a list of configuration options
 > available for a given extension, see the documentation for that extension.
 >
-> You may also install and use various third party extensions ([Python-Markdown wiki], [MkDocs project catalog][catalog]). Consult
+> You may also install and use various third party extensions ([Python-Markdown wiki], [ProperDocs project catalog][catalog]). Consult
 > the documentation provided by those extensions for installation instructions
 > and available configuration options.
 
@@ -871,7 +871,7 @@ You might have seen this feature in the [mkdocs-simple-hooks plugin](https://git
 +  - my_hooks.py
 ```
 
-> NEW: **New in MkDocs 1.6.**
+> NEW: **New in ProperDocs 1.6.**
 >
 > If a hook file has a file `foo.py` adjacent to it, it can use the normal Python syntax `import foo` to access its functions.
 >
@@ -882,7 +882,7 @@ You might have seen this feature in the [mkdocs-simple-hooks plugin](https://git
 A list of plugins (with optional configuration settings) to use when building
 the site. See the [Plugins] documentation for full details.
 
-**default**: `['search']` (the "search" plugin included with MkDocs).
+**default**: `['search']` (the "search" plugin included with ProperDocs).
 
 If the `plugins` config setting is defined in the `mkdocs.yml` config file, then
 any defaults (such as `search`) are ignored and you need to explicitly re-enable
@@ -913,9 +913,9 @@ plugins: []
 
 #### `enabled` option
 
-> NEW: **New in MkDocs 1.6.**
+> NEW: **New in ProperDocs 1.6.**
 >
-> Each plugin has its own options keys. However MkDocs also ensures that each plugin has the `enabled` boolean option. This can be used to conditionally enable a particular plugin, as in the following example:
+> Each plugin has its own options keys. However ProperDocs also ensures that each plugin has the `enabled` boolean option. This can be used to conditionally enable a particular plugin, as in the following example:
 >
 > ```yaml
 > plugins:
@@ -946,7 +946,7 @@ This alternative syntax is required if you intend to override some options via
 
 #### Search
 
-A search plugin is provided by default with MkDocs which uses [lunr.js] as a
+A search plugin is provided by default with ProperDocs which uses [lunr.js] as a
 search engine. The following config options are available to alter the behavior
 of the search plugin:
 
@@ -1012,7 +1012,7 @@ WARNING:
 While search does support using multiple languages together, it is best not
 to add additional languages unless you really need them. Each additional
 language adds significant bandwidth requirements and uses more browser
-resources. Generally, it is best to keep each instance of MkDocs to a single
+resources. Generally, it is best to keep each instance of ProperDocs to a single
 language.
 
 NOTE:
@@ -1180,8 +1180,8 @@ site_url: https://example.com/foo
 ```
 
 When running `mkdocs build`, the file at `foo/mkdocs.yml` would be passed in as
-the configuration file. MkDocs will then parse that file, retrieve and parse the
-parent file `base.yml` and deep merge the two. This would result in MkDocs
+the configuration file. ProperDocs will then parse that file, retrieve and parse the
+parent file `base.yml` and deep merge the two. This would result in ProperDocs
 receiving the following merged configuration:
 
 ```yaml
@@ -1251,7 +1251,7 @@ navigation would be defined in the primary configuration file for a project.
 
 WARNING:
 As a reminder, all path based configuration options must be relative to the
-primary configuration file and MkDocs does not alter the paths when merging.
+primary configuration file and ProperDocs does not alter the paths when merging.
 Therefore, defining paths in a parent file which is inherited by multiple
 different sites may not work as expected. It is generally best to define
 path based options in the primary configuration file only.

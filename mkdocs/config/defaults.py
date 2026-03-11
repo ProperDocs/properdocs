@@ -36,7 +36,7 @@ class _AbsoluteLinksValidation(_LogLevel):
 # depend on others. So, if config option A depends on B, then A should be
 # listed higher in the schema.
 class MkDocsConfig(base.Config):
-    """The configuration of MkDocs itself (the root object of mkdocs.yml)."""
+    """The configuration of ProperDocs itself (the root object of mkdocs.yml)."""
 
     config_file_path: str = c.Type(str)  # type: ignore[assignment]
     """The path to the mkdocs.yml config file. Can't be populated from the config."""
@@ -71,7 +71,7 @@ class MkDocsConfig(base.Config):
     """The name of the author to add to the HTML meta tags."""
 
     theme = c.Theme(default='mkdocs')
-    """The MkDocs theme for the documentation."""
+    """The ProperDocs theme for the documentation."""
 
     docs_dir = c.DocsDir(default='docs', exists=True)
     """The directory containing the documentation markdown."""
@@ -85,7 +85,7 @@ class MkDocsConfig(base.Config):
     google_analytics = c.Deprecated(
         message=(
             'The configuration option {} has been deprecated and '
-            'will be removed in a future release of MkDocs. See the '
+            'will be removed in a future release of ProperDocs. See the '
             'options available on your theme for an alternative.'
         ),
         option_type=c.Type(list, length=2),
@@ -138,7 +138,7 @@ class MkDocsConfig(base.Config):
     """PyMarkdown extension configs. Populated from `markdown_extensions`."""
 
     strict = c.Type(bool, default=False)
-    """Enabling strict mode causes MkDocs to stop the build when a problem is
+    """Enabling strict mode causes ProperDocs to stop the build when a problem is
     encountered rather than display an error."""
 
     remote_branch = c.Type(str, default='gh-pages')
@@ -151,7 +151,7 @@ class MkDocsConfig(base.Config):
     """extra is a mapping/dictionary of data that is passed to the template.
     This allows template authors to require extra configuration that not
     relevant to all themes and doesn't need to be explicitly supported by
-    MkDocs itself. A good example here would be including the current
+    ProperDocs itself. A good example here would be including the current
     project version."""
 
     plugins = c.Plugins(theme_key='theme', default=['search'])

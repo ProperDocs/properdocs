@@ -1,6 +1,6 @@
-# Indonesian translations for MkDocs.
+# Indonesian translations for ProperDocs.
 # Copyright (C) 2022 MkDocs
-# This file is distributed under the same license as the MkDocs project.
+# This file is distributed under the same license as the ProperDocs project.
 # Kira <kiraware@github.com>, 2021.
 #
 msgid ""
@@ -111,4 +111,3 @@ msgstr "Telusuri dokumen"
 #: mkdocs/themes/readthedocs/versions.html:1
 msgid "Versions"
 msgstr "Versi"
-

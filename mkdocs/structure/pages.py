@@ -89,7 +89,7 @@ class Page(StructureItem):
 
     @property
     def url(self) -> str:
-        """The URL of the page relative to the MkDocs `site_dir`."""
+        """The URL of the page relative to the ProperDocs `site_dir`."""
         url = self.file.url
         if url in ('.', './'):
             return ''
@@ -221,7 +221,8 @@ class Page(StructureItem):
 
     def _set_title(self) -> None:
         warnings.warn(
-            "_set_title is no longer used in MkDocs and will be removed soon.", DeprecationWarning
+            "_set_title is no longer used in ProperDocs and will be removed soon.",
+            DeprecationWarning,
         )
 
     @weak_property

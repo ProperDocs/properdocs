@@ -240,7 +240,9 @@ class ConfigTests(unittest.TestCase):
             }
         )
         errors, warnings = conf.validate()
-        exp_error = "The configuration option 'pages' was removed from MkDocs. Use 'nav' instead."
+        exp_error = (
+            "The configuration option 'pages' was removed from ProperDocs. Use 'nav' instead."
+        )
         self.assertEqual(errors, [('pages', ValidationError(exp_error))])
         self.assertEqual(warnings, [])
 

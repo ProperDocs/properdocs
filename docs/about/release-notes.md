@@ -4,7 +4,7 @@
 
 ## Upgrading
 
-To upgrade MkDocs to the latest version, use pip:
+To upgrade ProperDocs to the latest version, use pip:
 
 ```bash
 pip install -U mkdocs
@@ -19,7 +19,7 @@ mkdocs, version 1.5.0 from /path/to/mkdocs (Python 3.10)
 
 ## Maintenance team
 
-The current and past members of the MkDocs team.
+The current and past members of the ProperDocs team.
 
 * [@tomchristie](https://github.com/tomchristie/)
 * [@d0ugal](https://github.com/d0ugal/)

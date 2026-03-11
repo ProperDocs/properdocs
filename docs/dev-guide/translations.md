@@ -4,14 +4,14 @@ Theme localization guide.
 
 ---
 
-The [built-in themes] that are included with MkDocs provide support for
+The [built-in themes] that are included with ProperDocs provide support for
 translations. This is a guide for translators, which documents the process for
 contributing new translations and/or updating existing translations. For
 guidance on modifying the existing themes, see the [Contributing Guide][update
 themes]. To enable a specific translation see the documentation about the
 specific theme you are using in the [User Guide][built-in themes]. For
 translations of third-party themes, please see the documentation for those
-themes. For a third-party theme to make use of MkDocs' translation tools and
+themes. For a third-party theme to make use of ProperDocs' translation tools and
 methods, that theme must be properly [configured] to make use of those tools.
 
 NOTE:
@@ -54,7 +54,7 @@ translation by following the steps below.
 
 Here is a quick summary of what you'll need to do:
 
-1. [Fork and clone the MkDocs repository](#fork-and-clone-the-mkdocs-repository) and then [install MkDocs for development](../about/contributing.md#installing-for-development) for adding and testing translations.
+1. [Fork and clone the ProperDocs repository](#fork-and-clone-the-mkdocs-repository) and then [install ProperDocs for development](../about/contributing.md#installing-for-development) for adding and testing translations.
 2. [Initialize new localization catalogs](#initializing-the-localization-catalogs) for your language (if a translation for your locale already exists, follow the instructions for [updating theme localization files](#updating-the-translation-catalogs) instead).
 3. [Add a translation](#translating-the-mkdocs-themes) for every text placeholder in the localized catalogs.
 4. [Locally serve and test](#testing-theme-translations) the translated themes for your language.
@@ -70,13 +70,13 @@ use of a term which differs from the general language translation.
 
 [ISO-639-1]: https://en.wikipedia.org/wiki/ISO_639-1
 
-### Fork and clone the MkDocs repository
+### Fork and clone the ProperDocs repository
 
-In the following steps you'll work with a fork of the MkDocs repository. Follow
-the instructions for [forking and cloning the MkDocs
+In the following steps you'll work with a fork of the ProperDocs repository. Follow
+the instructions for [forking and cloning the ProperDocs
 repository](../about/contributing.md#installing-for-development).
 
-To test the translations you also need to [install MkDocs for
+To test the translations you also need to [install ProperDocs for
 development](../about/contributing.md#installing-for-development) from your fork.
 
 ### Initializing the localization catalogs
@@ -150,7 +150,7 @@ text placeholder in the localized catalog.
 
 [add a translation]: #translating-the-mkdocs-themes
 
-### Translating the MkDocs themes
+### Translating the ProperDocs themes
 
 Now that your localized `messages.po` files are ready, all you need to do is
 add a translation in each `msgstr` item for each `msgid` item in the file.

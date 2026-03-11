@@ -1,6 +1,6 @@
-# Persian translations for MkDocs.
+# Persian translations for ProperDocs.
 # Copyright (C) 2022 MkDocs
-# This file is distributed under the same license as the MkDocs project.
+# This file is distributed under the same license as the ProperDocs project.
 #
 msgid ""
 msgstr ""
@@ -100,4 +100,3 @@ msgstr "موردی یافت نشد"
 #: mkdocs/themes/mkdocs/toc.html:3
 msgid "Table of Contents"
 msgstr "فهرست مطالب"
-

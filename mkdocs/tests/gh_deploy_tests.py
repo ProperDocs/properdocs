@@ -144,7 +144,7 @@ class TestGitHubDeployLogs(unittest.TestCase):
     @mock.patch('subprocess.Popen')
     def test_mkdocs_newer(self, mock_popeno):
         mock_popeno().communicate.return_value = (
-            b'Deployed 12345678 with MkDocs version: 0.1.2\n',
+            b'Deployed 12345678 with ProperDocs version: 0.1.2\n',
             b'',
         )
 
@@ -152,14 +152,14 @@ class TestGitHubDeployLogs(unittest.TestCase):
             gh_deploy._check_version('gh-pages')
         self.assertEqual(
             '\n'.join(cm.output),
-            f'INFO:mkdocs.commands.gh_deploy:Previous deployment was done with MkDocs '
+            f'INFO:mkdocs.commands.gh_deploy:Previous deployment was done with ProperDocs '
             f'version 0.1.2; you are deploying with a newer version ({__version__})',
         )
 
     @mock.patch('subprocess.Popen')
     def test_mkdocs_older(self, mock_popeno):
         mock_popeno().communicate.return_value = (
-            b'Deployed 12345678 with MkDocs version: 10.1.2\n',
+            b'Deployed 12345678 with ProperDocs version: 10.1.2\n',
             b'',
         )
 
@@ -169,7 +169,7 @@ class TestGitHubDeployLogs(unittest.TestCase):
         self.assertEqual(
             '\n'.join(cm.output),
             f'ERROR:mkdocs.commands.gh_deploy:Deployment terminated: Previous deployment was made with '
-            f'MkDocs version 10.1.2; you are attempting to deploy with an older version ({__version__}).'
+            f'ProperDocs version 10.1.2; you are attempting to deploy with an older version ({__version__}).'
             f' Use --ignore-version to deploy anyway.',
         )
 

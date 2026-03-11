@@ -234,7 +234,7 @@ class DeprecatedTest(TestCase):
             d = c.Deprecated(removed=True, moved_to='foo')
 
         with self.expect_error(
-            d="The configuration option 'd' was removed from MkDocs. Use 'foo' instead.",
+            d="The configuration option 'd' was removed from ProperDocs. Use 'foo' instead.",
         ):
             self.get_config(Schema, {'d': 'value'})
 

@@ -1,21 +1,21 @@
-# MkDocs Plugins
+# ProperDocs Plugins
 
-A Guide to installing, using and creating MkDocs Plugins
+A Guide to installing, using and creating ProperDocs Plugins
 
 ---
 
 ## Installing Plugins
 
 Before a plugin can be used, it must be installed on the system. If you are
-using a plugin which comes with MkDocs, then it was installed when you installed
-MkDocs. However, to install third party plugins, you need to determine the
+using a plugin which comes with ProperDocs, then it was installed when you installed
+ProperDocs. However, to install third party plugins, you need to determine the
 appropriate package name and install it using `pip`:
 
 ```bash
 pip install mkdocs-foo-plugin
 ```
 
-WARNING: Installing an MkDocs plugin means installing a Python package and executing any code that the author has put in there. So, exercise the usual caution; there's no attempt at sandboxing.
+WARNING: Installing a ProperDocs plugin means installing a Python package and executing any code that the author has put in there. So, exercise the usual caution; there's no attempt at sandboxing.
 
 Once a plugin has been successfully installed, it is ready to use. It just needs
 to be [enabled](#using-plugins) in the configuration file. The [Catalog]
@@ -56,9 +56,9 @@ For a list of default plugins and how to override them, see the
 
 ## Developing Plugins
 
-Like MkDocs, plugins must be written in Python. It is generally expected that
+Like ProperDocs, plugins must be written in Python. It is generally expected that
 each plugin would be distributed as a separate Python module, although it is
-possible to define multiple plugins in the same module. At a minimum, a MkDocs
+possible to define multiple plugins in the same module. At a minimum, a ProperDocs
 Plugin must consist of a [BasePlugin] subclass and an [entry point] which
 points to it.
 
@@ -204,7 +204,7 @@ All `BasePlugin` subclasses contain the following method(s):
 #### load_config(options)
 
 Loads configuration from a dictionary of options. Returns a tuple of
-`(errors, warnings)`. This method is called by MkDocs during configuration
+`(errors, warnings)`. This method is called by ProperDocs during configuration
 validation and should not need to be called by the plugin.
 
 #### on_&lt;event_name&gt;()
@@ -221,7 +221,7 @@ returns `None`), then the original, unmodified object is used. The keyword
 arguments are simply provided to give context and/or supply data which may
 be used to determine how the positional argument should be modified. It is
 good practice to accept keyword arguments as `**kwargs`. In the event that
-additional keywords are provided to an event in a future version of MkDocs,
+additional keywords are provided to an event in a future version of ProperDocs,
 there will be no need to alter your plugin.
 
 For example, the following event would add an additional static_template to
@@ -441,7 +441,7 @@ Since MkDocs 1.4, plugins can choose to set a priority value for their events. E
 
 ### Handling Errors
 
-MkDocs defines four error types:
+ProperDocs defines four error types:
 
 #### ::: mkdocs.exceptions.MkDocsException
 
@@ -454,7 +454,7 @@ MkDocs defines four error types:
 Unexpected and uncaught exceptions will interrupt the build process and produce
 typical Python tracebacks, which are useful for debugging your code. However,
 users generally find tracebacks overwhelming and often miss the helpful error
-message. Therefore, MkDocs will catch any of the errors listed above, retrieve
+message. Therefore, ProperDocs will catch any of the errors listed above, retrieve
 the error message, and exit immediately with only the helpful message displayed
 to the user.
 
@@ -486,7 +486,7 @@ class MyPlugin(BasePlugin):
 
 ### Logging in plugins
 
-To ensure that your plugins' log messages adhere with MkDocs' formatting and `--verbose`/`--debug` flags, please write the logs to a logger under the `mkdocs.plugins.` namespace.
+To ensure that your plugins' log messages adhere with ProperDocs' formatting and `--verbose`/`--debug` flags, please write the logs to a logger under the `mkdocs.plugins.` namespace.
 
 > EXAMPLE:
 >
@@ -508,14 +508,14 @@ To ensure that your plugins' log messages adhere with MkDocs' formatting and `--
 <!-- -->
 > NEW: **New in version 1.5**
 >
-> MkDocs now provides a `get_plugin_logger()` convenience function that returns a logger like the above that is also prefixed with the plugin's name.
+> ProperDocs now provides a `get_plugin_logger()` convenience function that returns a logger like the above that is also prefixed with the plugin's name.
 >
 > #### ::: mkdocs.plugins.get_plugin_logger
 
 ### Entry Point
 
 Plugins need to be packaged as Python libraries (distributed on PyPI separate
-from MkDocs) and each must register as a Plugin via a setuptools `entry_points`.
+from ProperDocs) and each must register as a Plugin via a setuptools `entry_points`.
 Add the following to your `setup.py` script:
 
 ```python
@@ -543,7 +543,7 @@ entry_points={
 ```
 
 Note that registering a plugin does not activate it. The user still needs to
-tell MkDocs to use it via the config.
+tell ProperDocs to use it via the config.
 
 ### Publishing a Plugin
 

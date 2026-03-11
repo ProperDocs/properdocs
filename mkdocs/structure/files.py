@@ -180,14 +180,14 @@ class Files:
 
 class File:
     """
-    A MkDocs File object.
+    A ProperDocs File object.
 
     It represents how the contents of one file should be populated in the destination site.
 
     A file always has its `abs_dest_path` (obtained by joining `dest_dir` and `dest_path`),
     where the `dest_dir` is understood to be the *site* directory.
 
-    `content_bytes`/`content_string` (new in MkDocs 1.6) can always be used to obtain the file's
+    `content_bytes`/`content_string` (new in ProperDocs 1.6) can always be used to obtain the file's
     content. But it may be backed by one of the two sources:
 
     *   A physical source file at `abs_src_path` (by default obtained by joining `src_dir` and
@@ -197,7 +197,7 @@ class File:
 
         `src_dir` *should* be populated for real files and should be `None` for generated files.
 
-    *   Since MkDocs 1.6 a file may alternatively be stored in memory - `content_string`/`content_bytes`.
+    *   Since ProperDocs 1.6 a file may alternatively be stored in memory - `content_string`/`content_bytes`.
 
         Then `src_dir` and `abs_src_path` will remain `None`. `content_bytes`/`content_string` need
         to be written to, or populated through the `content` argument in the constructor.
@@ -612,7 +612,8 @@ def _sort_files(filenames: Iterable[str]) -> list[str]:
 
 def _filter_paths(basename: str, path: str, is_dir: bool, exclude: Iterable[str]) -> bool:
     warnings.warn(
-        "_filter_paths is not used since MkDocs 1.5 and will be removed soon.", DeprecationWarning
+        "_filter_paths is not used since ProperDocs 1.5 and will be removed soon.",
+        DeprecationWarning,
     )
     for item in exclude:
         # Items ending in '/' apply only to directories.

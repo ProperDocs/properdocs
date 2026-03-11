@@ -287,7 +287,7 @@ class PageTests(unittest.TestCase):
         self.assertTrue(pg.is_page)
         self.assertFalse(pg.is_section)
         self.assertTrue(pg.is_top_level)
-        self.assertTrue(pg.markdown.startswith('# Welcome to MkDocs\n'))
+        self.assertTrue(pg.markdown.startswith('# Welcome to ProperDocs\n'))
         self.assertEqual(pg.meta, {})
         self.assertEqual(pg.next_page, None)
         self.assertEqual(pg.parent, None)
@@ -311,14 +311,14 @@ class PageTests(unittest.TestCase):
         self.assertTrue(pg.is_page)
         self.assertFalse(pg.is_section)
         self.assertTrue(pg.is_top_level)
-        self.assertTrue(pg.markdown.startswith('# Welcome to MkDocs\n'))
+        self.assertTrue(pg.markdown.startswith('# Welcome to ProperDocs\n'))
         self.assertEqual(pg.meta, {})
         self.assertEqual(pg.next_page, None)
         self.assertEqual(pg.parent, None)
         self.assertEqual(pg.previous_page, None)
-        self.assertEqual(pg.title, 'Welcome to MkDocs')
+        self.assertEqual(pg.title, 'Welcome to ProperDocs')
         pg.render(cfg, Files([fl]))
-        self.assertEqual(pg.title, 'Welcome to MkDocs')
+        self.assertEqual(pg.title, 'Welcome to ProperDocs')
 
     def _test_extract_title(self, content, expected, extensions={}):
         md = markdown.Markdown(extensions=list(extensions.keys()), extension_configs=extensions)
@@ -329,7 +329,7 @@ class PageTests(unittest.TestCase):
 
     _SETEXT_CONTENT = dedent(
         '''
-        Welcome to MkDocs Setext
+        Welcome to ProperDocs Setext
         ========================
 
         This tests extracting a setext style title.
@@ -339,7 +339,7 @@ class PageTests(unittest.TestCase):
     def test_page_title_from_setext_markdown(self):
         self._test_extract_title(
             self._SETEXT_CONTENT,
-            expected='Welcome to MkDocs Setext',
+            expected='Welcome to ProperDocs Setext',
         )
 
     def test_page_title_from_markdown_with_email(self):
@@ -352,7 +352,7 @@ class PageTests(unittest.TestCase):
         self._test_extract_title(
             self._SETEXT_CONTENT,
             extensions={'toc': {'permalink': '&'}},
-            expected='Welcome to MkDocs Setext',
+            expected='Welcome to ProperDocs Setext',
         )
 
     def test_page_title_from_markdown_strip_footnoteref(self):
@@ -396,7 +396,7 @@ class PageTests(unittest.TestCase):
 
     _ATTRLIST_CONTENT = dedent(
         '''
-        # Welcome to MkDocs Attr { #welcome }
+        # Welcome to ProperDocs Attr { #welcome }
 
         This tests extracting the title, with enabled attr_list markdown_extension.
         '''
@@ -406,13 +406,13 @@ class PageTests(unittest.TestCase):
         self._test_extract_title(
             self._ATTRLIST_CONTENT,
             extensions={'attr_list': {}},
-            expected='Welcome to MkDocs Attr',
+            expected='Welcome to ProperDocs Attr',
         )
 
     def test_page_title_from_markdown_preserved_attr_list(self):
         self._test_extract_title(
             self._ATTRLIST_CONTENT,
-            expected='Welcome to MkDocs Attr { #welcome }',
+            expected='Welcome to ProperDocs Attr { #welcome }',
         )
 
     def test_page_title_from_meta(self):
@@ -431,7 +431,7 @@ class PageTests(unittest.TestCase):
         self.assertTrue(pg.is_page)
         self.assertFalse(pg.is_section)
         self.assertTrue(pg.is_top_level)
-        self.assertTrue(pg.markdown.startswith('# Welcome to MkDocs\n'))
+        self.assertTrue(pg.markdown.startswith('# Welcome to ProperDocs\n'))
         self.assertEqual(pg.meta, {'title': 'A Page Title'})
         self.assertEqual(pg.next_page, None)
         self.assertEqual(pg.parent, None)
@@ -726,13 +726,13 @@ class PageTests(unittest.TestCase):
         self.assertEqual(pg.toc, [])
         pg.render(cfg, Files([fl]))
         self.assertTrue(
-            pg.content.startswith('<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>\n')
+            pg.content.startswith('<h1 id="welcome-to-mkdocs">Welcome to ProperDocs</h1>\n')
         )
         self.assertEqual(
             str(pg.toc).strip(),
             dedent(
                 """
-                Welcome to MkDocs - #welcome-to-mkdocs
+                Welcome to ProperDocs - #welcome-to-mkdocs
                     Commands - #commands
                     Project layout - #project-layout
                 """

@@ -1,4 +1,4 @@
-# Getting Started with MkDocs
+# Getting Started with ProperDocs
 
 An introductory tutorial!
 
@@ -6,7 +6,7 @@ An introductory tutorial!
 
 ## Installation
 
-To install MkDocs, run the following command from the command line:
+To install ProperDocs, run the following command from the command line:
 
 ```bash
 pip install mkdocs
@@ -26,14 +26,14 @@ cd my-project
 
 Take a moment to review the initial project that has been created for you.
 
-![The initial MkDocs layout](img/initial-layout.png)
+![The initial ProperDocs layout](img/initial-layout.png)
 
 There's a single configuration file named `mkdocs.yml`, and a folder named
 `docs` that will contain your documentation source files (`docs` is
 the default value for the [docs_dir] configuration setting). Right now the `docs`
 folder just contains a single documentation page, named `index.md`.
 
-MkDocs comes with a built-in dev-server that lets you preview your documentation
+ProperDocs comes with a built-in dev-server that lets you preview your documentation
 as you work on it. Make sure you're in the same directory as the `mkdocs.yml`
 configuration file, and then start the server by running the `mkdocs serve`
 command:
@@ -50,7 +50,7 @@ INFO    -  [15:50:43] Serving on http://127.0.0.1:8000/
 Open up <http://127.0.0.1:8000/> in your browser, and you'll see the default
 home page being displayed:
 
-![The MkDocs live server](img/screenshot.png)
+![The ProperDocs live server](img/screenshot.png)
 
 The dev-server also supports auto-reloading, and will rebuild your documentation
 whenever anything in the configuration file, documentation directory, or theme
@@ -130,12 +130,12 @@ Save your changes, and you'll see the ReadTheDocs theme being used.
 
 ## Changing the Favicon Icon
 
-By default, MkDocs uses the [MkDocs favicon] icon. To use a different icon, create
+By default, ProperDocs uses the [ProperDocs favicon] icon. To use a different icon, create
 an `img` subdirectory in the `docs` directory and copy your custom `favicon.ico`
-file to that directory. MkDocs will automatically detect and use that file as your
+file to that directory. ProperDocs will automatically detect and use that file as your
 favicon icon.
 
-[MkDocs favicon]: img/favicon.ico
+[ProperDocs favicon]: img/favicon.ico
 
 ## Building the site
 
@@ -198,9 +198,9 @@ you're done. For specific instructions on a number of common hosts, see the
 
 ## Getting help
 
-See the [User Guide] for more complete documentation of all of MkDocs' features.
+See the [User Guide] for more complete documentation of all of ProperDocs' features.
 
-To get help with MkDocs, please use the [GitHub discussions] or [GitHub issues].
+To get help with ProperDocs, please use the [GitHub discussions] or [GitHub issues].
 
 [Installation Guide]: user-guide/installation.md
 [docs_dir]: user-guide/configuration.md#docs_dir

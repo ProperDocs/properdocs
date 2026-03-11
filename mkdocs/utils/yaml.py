@@ -132,7 +132,7 @@ def yaml_load(source: IO | str, loader: type[yaml.BaseLoader] | None = None) -> 
         result = yaml.load(source, Loader=loader)
     except yaml.YAMLError as e:
         raise exceptions.ConfigurationError(
-            f"MkDocs encountered an error parsing the configuration file: {e}"
+            f"ProperDocs encountered an error parsing the configuration file: {e}"
         )
     if result is None:
         return {}

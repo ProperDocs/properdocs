@@ -47,48 +47,48 @@ class ConfigBaseTests(unittest.TestCase):
         Allows users to specify a config other than the default `mkdocs.yml`.
         """
         with open(os.path.join(temp_dir, 'mkdocs.yml'), 'w') as config_file:
-            config_file.write("site_name: MkDocs Test\n")
+            config_file.write("site_name: ProperDocs Test\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
 
         cfg = base.load_config(config_file=config_file.name)
         self.assertTrue(isinstance(cfg, defaults.MkDocsConfig))
-        self.assertEqual(cfg.site_name, 'MkDocs Test')
+        self.assertEqual(cfg.site_name, 'ProperDocs Test')
 
     @tempdir()
     def test_load_default_file(self, temp_dir):
         """Test that `mkdocs.yml` will be loaded when '--config' is not set."""
         with open(os.path.join(temp_dir, 'mkdocs.yml'), 'w') as config_file:
-            config_file.write("site_name: MkDocs Test\n")
+            config_file.write("site_name: ProperDocs Test\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
         with change_dir(temp_dir):
             cfg = base.load_config(config_file=None)
             self.assertTrue(isinstance(cfg, defaults.MkDocsConfig))
-            self.assertEqual(cfg.site_name, 'MkDocs Test')
+            self.assertEqual(cfg.site_name, 'ProperDocs Test')
 
     @tempdir()
     def test_load_default_file_with_yaml(self, temp_dir):
         """Test that `mkdocs.yml` will be loaded when '--config' is not set."""
         with open(os.path.join(temp_dir, 'mkdocs.yaml'), 'w') as config_file:
-            config_file.write("site_name: MkDocs Test\n")
+            config_file.write("site_name: ProperDocs Test\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
         with change_dir(temp_dir):
             cfg = base.load_config(config_file=None)
             self.assertTrue(isinstance(cfg, defaults.MkDocsConfig))
-            self.assertEqual(cfg.site_name, 'MkDocs Test')
+            self.assertEqual(cfg.site_name, 'ProperDocs Test')
 
     @tempdir()
     def test_load_default_file_prefer_yml(self, temp_dir):
         """Test that `mkdocs.yml` will be loaded when '--config' is not set."""
         with open(os.path.join(temp_dir, 'mkdocs.yml'), 'w') as config_file1:
-            config_file1.write("site_name: MkDocs Test1\n")
+            config_file1.write("site_name: ProperDocs Test1\n")
         with open(os.path.join(temp_dir, 'mkdocs.yaml'), 'w') as config_file2:
-            config_file2.write("site_name: MkDocs Test2\n")
+            config_file2.write("site_name: ProperDocs Test2\n")
 
         os.mkdir(os.path.join(temp_dir, 'docs'))
         with change_dir(temp_dir):
             cfg = base.load_config(config_file=None)
             self.assertTrue(isinstance(cfg, defaults.MkDocsConfig))
-            self.assertEqual(cfg.site_name, 'MkDocs Test1')
+            self.assertEqual(cfg.site_name, 'ProperDocs Test1')
 
     def test_load_from_missing_file(self):
         with self.assertRaisesRegex(
@@ -101,13 +101,13 @@ class ConfigBaseTests(unittest.TestCase):
         """`load_config` can accept an open file descriptor."""
         config_fname = os.path.join(temp_path, 'mkdocs.yml')
         config_file = open(config_fname, 'w+')
-        config_file.write("site_name: MkDocs Test\n")
+        config_file.write("site_name: ProperDocs Test\n")
         config_file.flush()
         os.mkdir(os.path.join(temp_path, 'docs'))
 
         cfg = base.load_config(config_file=config_file)
         self.assertTrue(isinstance(cfg, defaults.MkDocsConfig))
-        self.assertEqual(cfg.site_name, 'MkDocs Test')
+        self.assertEqual(cfg.site_name, 'ProperDocs Test')
         # load_config will always close the file
         self.assertTrue(config_file.closed)
 
@@ -118,12 +118,12 @@ class ConfigBaseTests(unittest.TestCase):
         Ensure `load_config` reloads the closed file.
         """
         with open(os.path.join(temp_dir, 'mkdocs.yml'), 'w') as config_file:
-            config_file.write("site_name: MkDocs Test\n")
+            config_file.write("site_name: ProperDocs Test\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
 
         cfg = base.load_config(config_file=config_file)
         self.assertTrue(isinstance(cfg, defaults.MkDocsConfig))
-        self.assertEqual(cfg.site_name, 'MkDocs Test')
+        self.assertEqual(cfg.site_name, 'ProperDocs Test')
 
     @tempdir()
     def test_load_missing_required(self, temp_dir):
@@ -249,13 +249,13 @@ class ConfigBaseTests(unittest.TestCase):
         """
         config_fname = os.path.join(config_dir, 'mkdocs.yml')
         with open(config_fname, 'w') as config_file:
-            config_file.write("docs_dir: src\nsite_name: MkDocs Test\n")
+            config_file.write("docs_dir: src\nsite_name: ProperDocs Test\n")
         docs_dir = os.path.join(config_dir, 'src')
         os.mkdir(docs_dir)
 
         cfg = base.load_config(config_file=config_file)
         self.assertTrue(isinstance(cfg, defaults.MkDocsConfig))
-        self.assertEqual(cfg.site_name, 'MkDocs Test')
+        self.assertEqual(cfg.site_name, 'ProperDocs Test')
         self.assertEqual(cfg.docs_dir, docs_dir)
         self.assertEqual(cfg.config_file_path, config_fname)
         self.assertIsInstance(cfg.config_file_path, str)

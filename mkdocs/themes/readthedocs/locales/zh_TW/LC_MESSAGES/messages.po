@@ -1,6 +1,6 @@
-# Chinese (Traditional, Taiwan) translations for MkDocs.
+# Chinese (Traditional, Taiwan) translations for ProperDocs.
 # Copyright (C) 2022 MkDocs
-# This file is distributed under the same license as the MkDocs project.
+# This file is distributed under the same license as the ProperDocs project.
 #
 msgid ""
 msgstr ""
@@ -108,4 +108,3 @@ msgstr "搜尋文件"
 #: mkdocs/themes/readthedocs/versions.html:1
 msgid "Versions"
 msgstr "版本"
-

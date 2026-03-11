@@ -333,9 +333,9 @@ class BuildTests(PathAssertionMixin, unittest.TestCase):
         file = File('testing.md', cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
         page = Page('Foo', file, cfg)
         build._populate_page(page, cfg, Files([file]), dirty=True)
-        self.assertTrue(page.markdown.startswith('# Welcome to MkDocs'))
+        self.assertTrue(page.markdown.startswith('# Welcome to ProperDocs'))
         self.assertTrue(
-            page.content.startswith('<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>')
+            page.content.startswith('<h1 id="welcome-to-mkdocs">Welcome to ProperDocs</h1>')
         )
 
     @tempdir(files={'index.md': 'page content'})

@@ -1,5 +1,5 @@
 title: A Page Title
 
-# Welcome to MkDocs
+# Welcome to ProperDocs
 
 Some page content goes here.

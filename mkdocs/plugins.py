@@ -1,4 +1,4 @@
-"""Implements the plugin API for MkDocs."""
+"""Implements the plugin API for ProperDocs."""
 
 from __future__ import annotations
 
@@ -110,7 +110,7 @@ class BasePlugin(Generic[SomeConfig]):
         For initializing per-build variables (and whenever in doubt), use the `on_config` event.
 
         Args:
-            command: the command that MkDocs was invoked with, e.g. "serve" for `mkdocs serve`.
+            command: the command that ProperDocs was invoked with, e.g. "serve" for `mkdocs serve`.
             dirty: whether `--dirty` flag was passed.
         """
 
@@ -128,7 +128,7 @@ class BasePlugin(Generic[SomeConfig]):
 
         Note the `on_post_build` method is still preferred for cleanups, when possible, as it has
         a much higher chance of actually triggering. `on_shutdown` is "best effort" because it
-        relies on detecting a graceful shutdown of MkDocs.
+        relies on detecting a graceful shutdown of ProperDocs.
         """
 
     def on_serve(
@@ -240,8 +240,8 @@ class BasePlugin(Generic[SomeConfig]):
     def on_build_error(self, *, error: Exception) -> None:
         """
         The `build_error` event is called after an exception of any kind
-        is caught by MkDocs during the build process.
-        Use this event to clean things up before MkDocs terminates. Note that any other
+        is caught by ProperDocs during the build process.
+        Use this event to clean things up before ProperDocs terminates. Note that any other
         events which were scheduled to run after the error will have been skipped. See
         [Handling Errors](plugins.md#handling-errors) for more details.
 
@@ -326,7 +326,7 @@ class BasePlugin(Generic[SomeConfig]):
         """
         > DEPRECATED: Instead of this event, prefer one of these alternatives:
         >
-        > * Since MkDocs 1.6, instead set `content_bytes`/`content_string` of a `File` inside [`on_files`][].
+        > * Since ProperDocs 1.6, instead set `content_bytes`/`content_string` of a `File` inside [`on_files`][].
         > * Usually (although it's not an exact alternative), `on_page_markdown` can serve the same purpose.
 
         The `on_page_read_source` event can replace the default mechanism to read
@@ -682,7 +682,7 @@ def get_plugin_logger(name: str) -> PrefixedLogger:
         name: The name to use with `logging.getLogger`.
 
     Returns:
-        A logger configured to work well in MkDocs,
+        A logger configured to work well in ProperDocs,
             prefixing each message with the plugin package name.
 
     Example:

@@ -4,7 +4,7 @@ Selecting and configuring a theme.
 
 ---
 
-MkDocs includes two built-in themes ([mkdocs](#mkdocs) and
+ProperDocs includes two built-in themes ([mkdocs](#mkdocs) and
 [readthedocs](#readthedocs)), as documented below. However, many [third party
 themes] are available to choose from as well.
 
@@ -19,7 +19,7 @@ theme:
 ## mkdocs
 
 The default theme, which was built as a custom [Bootstrap] theme, supports almost
-every feature of MkDocs.
+every feature of ProperDocs.
 
 <div id="mkdocs-theme-images" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-inner">
@@ -176,7 +176,7 @@ theme supports the following options:
         set this to `True`. Default: `False`.
 
 *   **`include_homepage_in_sidebar`**: Lists the homepage in the sidebar menu. As
-    MkDocs requires that the homepage be listed in the `nav` configuration
+    ProperDocs requires that the homepage be listed in the `nav` configuration
     option, this setting allows the homepage to be included or excluded from
     the sidebar. Note that the site name/logo always links to the homepage.
     Default: `True`.
@@ -214,7 +214,7 @@ theme supports the following options:
 
 A list of third party themes can be found at the [community wiki] page and [the ranked catalog][catalog]. If you have created your own, please add them there.
 
-WARNING: Installing an MkDocs theme means installing a Python package and executing any code that the author has put in there. So, exercise the usual caution; there's no attempt at sandboxing.
+WARNING: Installing a ProperDocs theme means installing a Python package and executing any code that the author has put in there. So, exercise the usual caution; there's no attempt at sandboxing.
 
 [third party themes]: #third-party-themes
 [theme]: configuration.md#theme
@@ -224,6 +224,6 @@ WARNING: Installing an MkDocs theme means installing a Python package and execut
 [setup-GA4]: https://support.google.com/analytics/answer/9304153?hl=en&ref_topic=9303319
 [upgrade-GA4]: https://support.google.com/analytics/answer/9744165?hl=en&ref_topic=9303319
 [Read the Docs]: https://readthedocs.org/
-[community wiki]: https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes
+[community wiki]: https://github.com/mkdocs/mkdocs/wiki/ProperDocs-Themes
 [catalog]: https://github.com/mkdocs/catalog#-theming
 [localizing your theme]: localizing-your-theme.md

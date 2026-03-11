@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 
 class StructureItem(metaclass=abc.ABCMeta):
-    """An item in MkDocs structure - see concrete subclasses Section, Page or Link."""
+    """An item in ProperDocs structure - see concrete subclasses Section, Page or Link."""
 
     @abc.abstractmethod
     def __init__(self):

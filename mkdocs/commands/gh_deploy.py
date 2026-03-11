@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 log = logging.getLogger(__name__)
 
-default_message = """Deployed {sha} with MkDocs version: {version}"""
+default_message = """Deployed {sha} with ProperDocs version: {version}"""
 
 
 def _is_cwd_git_repo() -> bool:
@@ -85,12 +85,12 @@ def _check_version(branch: str) -> None:
         log.warning('Version check skipped: No version specified in previous deployment.')
     elif currentv > previousv:
         log.info(
-            f'Previous deployment was done with MkDocs version {previousv}; '
+            f'Previous deployment was done with ProperDocs version {previousv}; '
             f'you are deploying with a newer version ({currentv})'
         )
     elif currentv < previousv:
         log.error(
-            f'Deployment terminated: Previous deployment was made with MkDocs version {previousv}; '
+            f'Deployment terminated: Previous deployment was made with ProperDocs version {previousv}; '
             f'you are attempting to deploy with an older version ({currentv}). Use --ignore-version '
             'to deploy anyway.'
         )

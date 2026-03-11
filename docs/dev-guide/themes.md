@@ -6,7 +6,7 @@ A guide to creating and distributing custom themes.
 
 NOTE:
 If you are looking for existing third party themes, they are listed in the
-[community wiki] page and the [MkDocs project catalog][catalog]. If you want to
+[community wiki] page and the [ProperDocs project catalog][catalog]. If you want to
 share a theme you create, you should list it there.
 
 When creating a new theme, you can either follow the steps in this guide to
@@ -15,7 +15,7 @@ basic, yet complete, theme with all the boilerplate required. **You can find
 this base theme on [GitHub][basic theme]**. It contains detailed comments in
 the code to describe the different features and their usage.
 
-[community wiki]: https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes
+[community wiki]: https://github.com/mkdocs/mkdocs/wiki/ProperDocs-Themes
 [catalog]: https://github.com/mkdocs/catalog#-theming
 [basic theme]: https://github.com/mkdocs/mkdocs-basic-theme
 
@@ -109,9 +109,9 @@ respectively. If you wish to write your own theme, it is recommended to start
 with one of the [built-in themes] and modify it accordingly.
 
 NOTE:
-As MkDocs uses [Jinja] as its template engine, you have access to all the
+As ProperDocs uses [Jinja] as its template engine, you have access to all the
 power of Jinja, including [template inheritance]. You may notice that the
-themes included with MkDocs make extensive use of template inheritance and
+themes included with ProperDocs make extensive use of template inheritance and
 blocks, allowing users to easily override small bits and pieces of the
 templates from the theme [custom_dir]. Therefore, the built-in themes are
 implemented in a `base.html` file, which `main.html` extends. Although not
@@ -125,7 +125,7 @@ themes for consistency.
 
 ### Picking up CSS and JavaScript from the config
 
-MkDocs defines the top-level [extra_css](../user-guide/configuration.md#extra_css) and [extra_javascript](../user-guide/configuration.md#extra_javascript) configs. These are lists of files.
+ProperDocs defines the top-level [extra_css](../user-guide/configuration.md#extra_css) and [extra_javascript](../user-guide/configuration.md#extra_javascript) configs. These are lists of files.
 
 The theme must include the HTML that links the items from these configs, otherwise the configs will be non-functional. You can see the recommended way to render both of them in the [base example above](#basic-theme).
 
@@ -133,7 +133,7 @@ The theme must include the HTML that links the items from these configs, otherwi
 >
 > The items of the `config.extra_javascript` list used to be simple strings but now became objects that have these fields: `path`, `type`, `async`, `defer`.
 >
-> In that version, MkDocs also gained the [`script_tag` filter](#script_tag).
+> In that version, ProperDocs also gained the [`script_tag` filter](#script_tag).
 >
 > >? EXAMPLE: **Obsolete style:**
 > >
@@ -200,7 +200,7 @@ the `mkdocs_theme.yml` configuration file and any Python files.
 
 ### Dot Files
 
-Theme authors can explicitly force MkDocs to ignore files by starting a file or
+Theme authors can explicitly force ProperDocs to ignore files by starting a file or
 directory name with a dot. Any of the following files would be ignored:
 
 ```text
@@ -231,7 +231,7 @@ The following variables are available globally on any template.
 
 #### config
 
-The `config` variable is an instance of MkDocs' config object generated from the
+The `config` variable is an instance of ProperDocs' config object generated from the
 `mkdocs.yml` config file. While you can use any config option, some commonly
 used options include:
 
@@ -310,14 +310,14 @@ navigation as a nested list.
 
 #### base_url
 
-The `base_url` provides a relative path to the root of the MkDocs project. While
+The `base_url` provides a relative path to the root of the ProperDocs project. While
 this can be used directly by prepending it to a local relative URL, it is best
 to use the [url](#url) template filter, which is smarter about how it applies
 `base_url`.
 
 #### mkdocs_version
 
-Contains the current MkDocs version.
+Contains the current ProperDocs version.
 
 #### build_date_utc
 
@@ -519,7 +519,7 @@ of those attributes as defined below:
 
 A `section` navigation object defines a named section in the navigation and
 contains a list of child navigation objects. Note that sections do not contain
-URLs and are not links of any kind. However, by default, MkDocs sorts index
+URLs and are not links of any kind. However, by default, ProperDocs sorts index
 pages to the top and the first child might be used as the URL for a section if a
 theme chooses to do so.
 
@@ -570,7 +570,7 @@ The following attributes are available on `section` objects:
 #### Link
 
 A `link` navigation object contains a link which does not point to an internal
-MkDocs page.
+ProperDocs page.
 
 ::: mkdocs.structure.nav.Link
     options:
@@ -657,7 +657,7 @@ And then displayed with this HTML in the custom theme.
 ## Template Filters
 
 In addition to [Jinja's default filters], the following custom filters are
-available to use in MkDocs templates:
+available to use in ProperDocs templates:
 
 ### url
 
@@ -690,7 +690,7 @@ See how to use it in the [base example above](#basic-theme)
 
 ## Search and themes
 
-As of MkDocs version *0.17* client side search support has been added to MkDocs
+As of ProperDocs version *0.17* client side search support has been added to ProperDocs
 via the `search` plugin. A theme needs to provide a few things for the plugin to
 work with the theme.
 
@@ -782,7 +782,7 @@ objects.
 
 If present, the `config` object contains the key/value pairs of config options
 defined for the plugin in the user's `mkdocs.yml` config file under
-`plugings.search`. The `config` object was new in MkDocs version *1.0*.
+`plugings.search`. The `config` object was new in ProperDocs version *1.0*.
 
 The `docs` object contains a list of document objects. Each document object is
 made up of a `location` (URL), a `title`, and `text` which can be used to create
@@ -792,7 +792,7 @@ If present, the `index` object contains a pre-built index which offers
 performance improvements for larger sites. Note that the pre-built index is only
 created if the user explicitly enables the [prebuild_index] config option.
 Themes should expect the index to not be present, but can choose to use the
-index when it is available. The `index` object was new in MkDocs version *1.0*.
+index when it is available. The `index` object was new in ProperDocs version *1.0*.
 
 [Jinja2 template]: https://jinja.palletsprojects.com/
 [built-in themes]: https://github.com/mkdocs/mkdocs/tree/master/mkdocs/themes
@@ -804,11 +804,11 @@ index when it is available. The `index` object was new in MkDocs version *1.0*.
 
 ## Packaging Themes
 
-MkDocs makes use of [Python packaging] to distribute themes. This comes with a
+ProperDocs makes use of [Python packaging] to distribute themes. This comes with a
 few requirements.
 
-To see an example of a package containing one theme, see the [MkDocs Bootstrap
-theme] and to see a package that contains many themes, see the [MkDocs
+To see an example of a package containing one theme, see the [ProperDocs Bootstrap
+theme] and to see a package that contains many themes, see the [ProperDocs
 Bootswatch theme].
 
 NOTE:
@@ -821,8 +821,8 @@ your theme, your users can more easily install it, they can rely on a default
 [custom_dir] to make tweaks to your theme to better suit their needs.
 
 [Python packaging]: https://packaging.python.org/en/latest/
-[MkDocs Bootstrap theme]: https://mkdocs.github.io/mkdocs-bootstrap/
-[MkDocs Bootswatch theme]: https://mkdocs.github.io/mkdocs-bootswatch/
+[ProperDocs Bootstrap theme]: https://mkdocs.github.io/mkdocs-bootstrap/
+[ProperDocs Bootswatch theme]: https://mkdocs.github.io/mkdocs-bootswatch/
 
 ### Package Layout
 
@@ -881,11 +881,11 @@ setup(
 Fill in the URL, license, description, author and author email address.
 
 The name should follow the convention `mkdocs-themename` (like
-`mkdocs-bootstrap` and `mkdocs-bootswatch`), starting with MkDocs, using
+`mkdocs-bootstrap` and `mkdocs-bootswatch`), starting with ProperDocs, using
 hyphens to separate words and including the name of your theme.
 
 Most of the rest of the file can be left unedited. The last section we need to
-change is the entry_points. This is how MkDocs finds the theme(s) you are
+change is the entry_points. This is how ProperDocs finds the theme(s) you are
 including in the package. The name on the left is the one that users will use
 in their mkdocs.yml and the one on the right is the directory containing your
 theme files.
@@ -931,7 +931,7 @@ theme:
   show_sidebar: false
 ```
 
-In addition to arbitrary options defined by the theme, MkDocs defines a few
+In addition to arbitrary options defined by the theme, ProperDocs defines a few
 special options which alters its behavior:
 
 > BLOCK:
@@ -999,7 +999,7 @@ With the above changes, your theme should now be ready to install. This can be
 done with pip, using `pip install .` if you are still in the same directory as
 the setup.py.
 
-Most Python packages, including MkDocs, are distributed on PyPI. To do this,
+Most Python packages, including ProperDocs, are distributed on PyPI. To do this,
 you should run the following command.
 
 ```bash
@@ -1027,7 +1027,7 @@ will experience consistent behavior regardless of the theme they may choose.
 The method for managing translations is up to the developers of a theme.
 However, if a theme developer chooses to use the same mechanisms used by the
 built-in themes, the sections below outline how to enable and make use of the
-same commands utilized by MkDocs.
+same commands utilized by ProperDocs.
 
 [localization/translation]: ../user-guide/localizing-your-theme.md
 
@@ -1042,7 +1042,7 @@ available for use.
 
 The translation commands should be called from the root of your theme's working tree.
 
-For an overview of the workflow used by MkDocs to translate the built-in
+For an overview of the workflow used by ProperDocs to translate the built-in
 themes, see the appropriate [section] of the Contributing Guide and the
 [Translation Guide].
 
@@ -1054,7 +1054,7 @@ themes, see the appropriate [section] of the Contributing Guide and the
 
 > NOTE: If your theme inherits from an existing theme which already provides
 > translation catalogs, your theme's translations will be merged with the
-> parent theme's translations during a MkDocs build.
+> parent theme's translations during a ProperDocs build.
 >
 > This means that you only need to concentrate on the added translations.
 > Yet, you will still benefit from the translations of the parent theme. At
@@ -1073,8 +1073,8 @@ Edit the templates by wrapping text in your HTML sources with
 
  <body>
 
--  <h1>This is an example theme for MkDocs.</h1>
-+  <h1>{% trans %}This is an example theme for MkDocs.{% endtrans %}</h1>
+-  <h1>This is an example theme for ProperDocs.</h1>
++  <h1>{% trans %}This is an example theme for ProperDocs.{% endtrans %}</h1>
 
    <p>
      It is designed to be read by looking at the theme HTML which is heavily
@@ -1088,21 +1088,21 @@ running.
 While the Portable Object Template (`pot`) file created by the
 `extract_messages` command and the Portable Object (`po`) files created by the
 `init_catalog` and `update_catalog` commands are useful for creating and
-editing translations, they are not used by MkDocs directly and do not need to
-be included in a packaged release of a theme. When MkDocs builds a site with
+editing translations, they are not used by ProperDocs directly and do not need to
+be included in a packaged release of a theme. When ProperDocs builds a site with
 translations, it only makes use of the binary `mo` files(s) for the specified
 locale. Therefore, when [packaging a theme], make sure to include it in the
 "wheels", using a `MANIFEST.in` file or otherwise.
 
 Then, before building your Python package, you will want to ensure that the
 binary `mo` file for each locale is up-to-date by running the `compile_catalog`
-command for each locale. MkDocs expects the binary `mo` files to be located at
+command for each locale. ProperDocs expects the binary `mo` files to be located at
 `locales/<locale>/LC_MESSAGES/messages.mo`, which the `compile_catalog`
 command automatically does for you. See [Testing theme translations] for
 details.
 
 NOTE:
-As outlined in our [Translation Guide], the MkDocs project has chosen to
+As outlined in our [Translation Guide], the ProperDocs project has chosen to
 include the `pot` and `po` files in our code repository, but not the
 `mo` files. This requires us to always run `compile_catalog` before
 packaging a new release regardless of whether any changes were made to a

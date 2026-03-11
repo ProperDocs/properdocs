@@ -1,17 +1,17 @@
 """
-# MkDocs Integration tests.
+# ProperDocs Integration tests.
 
-This is a simple integration test that builds the MkDocs
+This is a simple integration test that builds the ProperDocs
 documentation against all of the builtin themes.
 
-From the root of the MkDocs git repo, use:
+From the root of the ProperDocs git repo, use:
 
     python -m mkdocs.tests.integration --help
 
 
 TODOs
     - Build with different configuration options.
-    - Build documentation other than just MkDocs as it is relatively simple.
+    - Build documentation other than just ProperDocs as it is relatively simple.
 """
 
 

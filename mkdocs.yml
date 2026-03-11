@@ -1,7 +1,7 @@
-site_name: MkDocs
+site_name: ProperDocs
 site_url: https://www.mkdocs.org/
 site_description: Project documentation with Markdown.
-site_author: MkDocs Team
+site_author: ProperDocs Team
 
 repo_url: https://github.com/mkdocs/mkdocs/
 edit_uri: blob/master/docs/
@@ -49,7 +49,7 @@ markdown_extensions:
       repo: mkdocs
   - mkdocs-click
 
-copyright: Copyright &copy; 2014 <a href="https://twitter.com/starletdreaming">Tom Christie</a>, Maintained by the <a href="/about/release-notes/#maintenance-team">MkDocs Team</a>.
+copyright: Copyright &copy; 2014 <a href="https://twitter.com/starletdreaming">Tom Christie</a>, Maintained by the <a href="/about/release-notes/#maintenance-team">ProperDocs Team</a>.
 
 hooks:
   - docs/hooks.py

@@ -1,6 +1,6 @@
-# Japanese translations for MkDocs.
+# Japanese translations for ProperDocs.
 # Copyright (C) 2022 MkDocs
-# This file is distributed under the same license as the MkDocs project.
+# This file is distributed under the same license as the ProperDocs project.
 #
 msgid ""
 msgstr ""
@@ -108,4 +108,3 @@ msgstr "ドキュメントを検索"
 #: mkdocs/themes/readthedocs/versions.html:1
 msgid "Versions"
 msgstr "バージョン"
-

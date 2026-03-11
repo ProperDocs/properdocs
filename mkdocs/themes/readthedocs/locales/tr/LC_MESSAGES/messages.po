@@ -1,6 +1,6 @@
-# Turkish translations for MkDocs.
+# Turkish translations for ProperDocs.
 # Copyright (C) 2022 MkDocs
-# This file is distributed under the same license as the MkDocs project.
+# This file is distributed under the same license as the ProperDocs project.
 #
 msgid ""
 msgstr ""
@@ -110,4 +110,3 @@ msgstr "Belgelerde ara"
 #: mkdocs/themes/readthedocs/versions.html:1
 msgid "Versions"
 msgstr "Sürümler"
-

@@ -4,7 +4,7 @@ import logging
 import os
 
 config_text = 'site_name: My Docs\n'
-index_text = """# Welcome to MkDocs
+index_text = """# Welcome to ProperDocs
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 

@@ -1,6 +1,6 @@
-# Persian translations for MkDocs.
+# Persian translations for ProperDocs.
 # Copyright (C) 2022 MkDocs
-# This file is distributed under the same license as the MkDocs project.
+# This file is distributed under the same license as the ProperDocs project.
 #
 msgid ""
 msgstr ""
@@ -110,4 +110,3 @@ msgstr "جستجوی مستندات"
 #: mkdocs/themes/readthedocs/versions.html:1
 msgid "Versions"
 msgstr "نسخه‌ها"
-

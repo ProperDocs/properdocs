@@ -36,11 +36,11 @@ documentation.
 
 WARNING:
 If you configure a language locale which is not yet supported by the theme
-that you are using, MkDocs will fall back to the theme's default locale.
+that you are using, ProperDocs will fall back to the theme's default locale.
 
 ## Usage
 
-To specify the locale that MkDocs should use, set the [locale]
+To specify the locale that ProperDocs should use, set the [locale]
 parameter of the [theme] configuration option to the appropriate code.
 
 For example, to build the `mkdocs` theme in French you would use the following

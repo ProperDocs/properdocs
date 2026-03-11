@@ -109,11 +109,11 @@ pass_state = click.make_pass_decorator(State, ensure=True)
 
 clean_help = "Remove old files from the site_dir before building (the default)."
 config_help = (
-    "Provide a specific MkDocs config. This can be a file name, or '-' to read from stdin."
+    "Provide a specific ProperDocs config. This can be a file name, or '-' to read from stdin."
 )
 dev_addr_help = "IP address and port to serve documentation locally (default: localhost:8000)"
 serve_open_help = "Open the website in a Web browser after the initial build finishes."
-strict_help = "Enable strict mode. This will cause MkDocs to abort the build on any warnings."
+strict_help = "Enable strict mode. This will cause ProperDocs to abort the build on any warnings."
 theme_help = "The theme to use when building your documentation."
 theme_choices = sorted(utils.get_theme_names())
 site_dir_help = "The directory to output the result of the documentation build."
@@ -126,7 +126,7 @@ serve_clean_help = (
 )
 commit_message_help = (
     "A commit message to use when committing to the "
-    "GitHub Pages remote branch. Commit {sha} and MkDocs {version} are available as expansions"
+    "GitHub Pages remote branch. Commit {sha} and ProperDocs {version} are available as expansions"
 )
 remote_branch_help = (
     "The remote branch to commit to for GitHub Pages. This "
@@ -138,7 +138,7 @@ remote_name_help = (
 force_help = "Force the push to the repository."
 no_history_help = "Replace the whole Git history with one new commit."
 ignore_version_help = (
-    "Ignore check that build is not being deployed with an older version of MkDocs."
+    "Ignore check that build is not being deployed with an older version of ProperDocs."
 )
 watch_theme_help = (
     "Include the theme in list of files to watch for live reloading. "
@@ -147,7 +147,7 @@ watch_theme_help = (
 shell_help = "Use the shell when invoking Git."
 watch_help = "A directory or file to watch for live reloading. Can be supplied multiple times."
 projects_file_help = (
-    "URL or local path of the registry file that declares all known MkDocs-related projects."
+    "URL or local path of the registry file that declares all known ProperDocs-related projects."
 )
 
 
@@ -247,7 +247,7 @@ PKG_DIR = os.path.dirname(os.path.abspath(__file__))
 @common_options
 @color_option
 def cli():
-    """MkDocs - Project documentation with Markdown."""
+    """ProperDocs - Project documentation with Markdown."""
 
 
 @cli.command(name="serve")
@@ -278,7 +278,7 @@ def serve_command(**kwargs):
 @click.option('-d', '--site-dir', type=click.Path(), help=site_dir_help)
 @common_options
 def build_command(clean, **kwargs):
-    """Build the MkDocs documentation."""
+    """Build the ProperDocs documentation."""
     from mkdocs.commands import build
 
     _enable_warnings()
@@ -360,7 +360,7 @@ def get_deps_command(config_file, projects_file):
 @click.argument("project_directory")
 @common_options
 def new_command(project_directory):
-    """Create a new MkDocs project."""
+    """Create a new ProperDocs project."""
     from mkdocs.commands import new
 
     new.new(project_directory)

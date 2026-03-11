@@ -1,6 +1,6 @@
-# Polish translations for MkDocs.
+# Polish translations for ProperDocs.
 # Copyright (C) 2024 MkDocs
-# This file is distributed under the same license as the MkDocs project.
+# This file is distributed under the same license as the ProperDocs project.
 #
 msgid ""
 msgstr ""
@@ -111,4 +111,3 @@ msgstr "Przeszukaj dokumentację"
 #: mkdocs/themes/readthedocs/versions.html:1
 msgid "Versions"
 msgstr "Wersje"
-

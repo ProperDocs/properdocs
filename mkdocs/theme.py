@@ -46,7 +46,7 @@ class Theme(MutableMapping[str, Any]):
         _vars: dict[str, Any] = {'name': name, 'locale': 'en'}
         self.__vars = _vars
 
-        # MkDocs provided static templates are always included
+        # ProperDocs provided static templates are always included
         package_dir = os.path.abspath(os.path.dirname(__file__))
         mkdocs_templates = os.path.join(package_dir, 'templates')
         self.static_templates = set(os.listdir(mkdocs_templates))
@@ -60,7 +60,7 @@ class Theme(MutableMapping[str, Any]):
         if name:
             self._load_theme_config(name)
 
-        # Include templates provided directly by MkDocs (outside any theme)
+        # Include templates provided directly by ProperDocs (outside any theme)
         self.dirs.append(mkdocs_templates)
 
         # Handle remaining user configs. Override theme configs (if set)

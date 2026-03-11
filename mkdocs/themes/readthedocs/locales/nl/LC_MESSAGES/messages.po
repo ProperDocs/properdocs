@@ -1,6 +1,6 @@
-# Dutch translations for MkDocs.
+# Dutch translations for ProperDocs.
 # Copyright (C) 2024 MkDocs
-# This file is distributed under the same license as the MkDocs project.
+# This file is distributed under the same license as the ProperDocs project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
 #
 msgid ""
@@ -111,4 +111,3 @@ msgstr "Doorzoek documentatie"
 #: mkdocs/themes/readthedocs/versions.html:1
 msgid "Versions"
 msgstr "Versies"
-

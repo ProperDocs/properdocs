@@ -5,7 +5,7 @@ from click import ClickException, echo
 
 class MkDocsException(ClickException):
     """
-    The base class which all MkDocs exceptions inherit from. This should
+    The base class which all ProperDocs exceptions inherit from. This should
     not be raised directly. One of the subclasses should be raised instead.
     """
 
@@ -29,7 +29,7 @@ class ConfigurationError(MkDocsException):
 
 class BuildError(MkDocsException):
     """
-    This error may be raised by MkDocs during the build process. Plugins should
+    This error may be raised by ProperDocs during the build process. Plugins should
     not raise this error.
     """
 
