@@ -29,7 +29,7 @@ If you need help with MkDocs, do not hesitate to get in contact with us!
 
 -   For questions and high-level discussions, use **[Discussions]** on GitHub.
     -   For small questions, a good alternative is the **[Chat room]** on
-        Gitter/Matrix.
+        Discord.
 -   To report a bug or make a feature request, open an **[Issue]** on GitHub.
 
 Please note that we may only provide
@@ -66,14 +66,14 @@ discussion forums is expected to follow the [PyPA Code of Conduct].
 [GHAction-link]: https://github.com/mkdocs/mkdocs/actions/workflows/ci.yml
 <!-- Links -->
 [mkdocs]: https://www.mkdocs.org
-[Issue]: https://github.com/mkdocs/mkdocs/issues
-[Discussions]: https://github.com/mkdocs/mkdocs/discussions
-[Chat room]: https://gitter.im/mkdocs/community
+[Issue]: https://github.com/mkdocs-community/mkdocs/issues
+[Discussions]: https://github.com/orgs/mkdocs-community/discussions
+[Chat room]: https://discord.gg/CwYAgEPHZd
 [release-notes]: https://www.mkdocs.org/about/release-notes/
 [Contributing Guide]: https://www.mkdocs.org/about/contributing/
 [PyPA Code of Conduct]: https://www.pypa.io/en/latest/code-of-conduct/
-[catalog]: https://github.com/mkdocs/catalog
+[catalog]: https://github.com/mkdocs-community/catalog
 
 ## License
 
-[BSD-2-Clause](https://github.com/mkdocs/mkdocs/blob/master/LICENSE)
+[BSD-2-Clause](https://github.com/mkdocs-community/mkdocs/blob/master/LICENSE)
