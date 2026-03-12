@@ -1135,7 +1135,7 @@ class ThemeTest(TestCase):
                 r"Unrecognised theme name: 'mkdocs2'. The available installed themes are: .+"
             )
         ):
-            self.get_config(Schema, {'theme': "mkdocs2", 'plugins': "search"})
+            self.get_config(Schema, {'theme': "mkdocs2", 'plugins': ["search"]})
 
     def test_theme_default(self) -> None:
         class Schema(Config):
