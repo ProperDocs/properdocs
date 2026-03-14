@@ -254,8 +254,8 @@ def cli():
 @cli.command(name="serve")
 @click.option('-a', '--dev-addr', help=dev_addr_help, metavar='<IP:PORT>')
 @click.option('-o', '--open', 'open_in_browser', help=serve_open_help, is_flag=True)
-@click.option('--no-livereload', 'livereload', flag_value=False, help=no_reload_help)
-@click.option('--livereload', 'livereload', flag_value=True, default=True, hidden=True)
+@click.option('--no-livereload', is_flag=True, help=no_reload_help)
+@click.option('--livereload', is_flag=True, hidden=True)
 @click.option('--dirtyreload', 'build_type', flag_value='dirty', hidden=True)
 @click.option('--dirty', 'build_type', flag_value='dirty', help=serve_dirty_help)
 @click.option('-c', '--clean', 'build_type', flag_value='clean', help=serve_clean_help)
@@ -268,6 +268,11 @@ def cli():
 def serve_command(**kwargs):
     """Run the builtin development server."""
     from properdocs.commands import serve
+
+    if kwargs.pop('no_livereload', False):
+        kwargs['livereload'] = False
+    else:
+        kwargs['livereload'] = True
 
     _enable_warnings()
     serve.serve(**kwargs)
