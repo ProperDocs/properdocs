@@ -262,10 +262,21 @@ def get_theme_dir(name: str) -> str:
 @functools.lru_cache(maxsize=None)
 def get_themes() -> dict[str, EntryPoint]:
     """Return a dict of all installed themes as {name: EntryPoint}."""
-    themes: dict[str, EntryPoint] = {}
-    eps: dict[EntryPoint, None] = dict.fromkeys(entry_points(group='properdocs.themes'))
-    builtins = {ep.name for ep in eps if ep.dist is not None and ep.dist.name == 'properdocs'}
+    # Ordered set of preferred entry points.
+    eps: dict[EntryPoint, None] = {}
+    builtins: set[str] = set()
 
+    for ep in entry_points(group='mkdocs.themes'):
+        if ep.dist is not None and ep.dist.name != 'mkdocs':
+            eps[ep] = None
+    # These will get preference because they are later in the sequence:
+    for ep in entry_points(group='properdocs.themes'):
+        if ep.dist is not None:
+            eps[ep] = None
+            if ep.dist.name == 'properdocs':
+                builtins.add(ep.name)
+
+    themes: dict[str, EntryPoint] = {}
     for theme in eps:
         assert theme.dist is not None
 

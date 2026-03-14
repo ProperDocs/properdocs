@@ -45,17 +45,18 @@ log = logging.getLogger('properdocs.plugins')
 
 def get_plugins() -> dict[str, EntryPoint]:
     """Return a dict of all installed Plugins as {name: EntryPoint}."""
-    plugins = entry_points(group='properdocs.plugins')
+    pluginmaps = {'properdocs': {}, 'mkdocs': {}}
 
-    # Allow third-party plugins to override core plugins
-    pluginmap = {}
-    for plugin in plugins:
-        if plugin.name in pluginmap and plugin.value.startswith("properdocs.contrib."):
-            continue
+    for prefix in pluginmaps:
+        for plugin in entry_points(group=f'{prefix}.plugins'):
+            if getattr(plugin, 'value', '').startswith('mkdocs.'):
+                continue
+            # Allow third-party plugins to override core plugins
+            if plugin.name in pluginmaps[prefix] and plugin.value.startswith(f"{prefix}.contrib."):
+                continue
+            pluginmaps[prefix][plugin.name] = plugin
 
-        pluginmap[plugin.name] = plugin
-
-    return pluginmap
+    return pluginmaps['mkdocs'] | pluginmaps['properdocs']
 
 
 SomeConfig = TypeVar('SomeConfig', bound=Config)

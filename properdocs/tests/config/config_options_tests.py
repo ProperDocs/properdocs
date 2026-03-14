@@ -1939,6 +1939,7 @@ class ThemePlugin2(BasePlugin[_FakePluginConfig]):
 class FakeEntryPoint:
     def __init__(self, name, cls):
         self.name = name
+        self.value = 'properdocs'
         self.cls = cls
 
     def load(self):

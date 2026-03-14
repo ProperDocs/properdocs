@@ -315,7 +315,7 @@ this can be used directly by prepending it to a local relative URL, it is best
 to use the [url](#url) template filter, which is smarter about how it applies
 `base_url`.
 
-#### mkdocs_version
+#### properdocs_version
 
 Contains the current ProperDocs version.
 

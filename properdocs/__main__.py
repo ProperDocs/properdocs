@@ -12,6 +12,7 @@ import warnings
 
 import click
 
+from properdocs import replacement  # noqa: F401
 from properdocs import __version__, config, utils
 
 if sys.platform.startswith("win"):

@@ -10,6 +10,9 @@ class ProperDocsException(ClickException):
     """
 
 
+MkDocsException = ProperDocsException  # Legacy alias
+
+
 class Abort(ProperDocsException, SystemExit):
     """Abort the build."""
 

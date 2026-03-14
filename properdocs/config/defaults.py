@@ -213,6 +213,9 @@ class ProperDocsConfig(base.Config):
         self.load_dict(yaml_load(config_file, loader))
 
 
+MkDocsConfig = ProperDocsConfig  # Legacy alias
+
+
 def get_schema() -> base.PlainConfigSchema:
     """Soft-deprecated, do not use."""
     return ProperDocsConfig._schema
