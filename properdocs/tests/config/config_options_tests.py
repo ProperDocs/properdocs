@@ -9,7 +9,7 @@ import re
 import sys
 import textwrap
 import unittest
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Any, Optional, TypeVar, Union
 from unittest import mock
 
 if TYPE_CHECKING:
@@ -584,7 +584,7 @@ class ListOfItemsTest(TestCase):
             option = c.ListOfItems(c.Type(int))
 
         conf = self.get_config(Schema, {'option': [1, 2, 3]})
-        assert_type(conf.option, List[int])
+        assert_type(conf.option, list[int])
         self.assertEqual(conf.option, [1, 2, 3])
 
         with self.expect_error(
@@ -609,7 +609,7 @@ class ListOfItemsTest(TestCase):
             option = c.ListOfItems(c.Type(int), default=[])
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, List[int])
+        assert_type(conf.option, list[int])
         self.assertEqual(conf.option, [])
 
         with self.expect_error(option="Required configuration not provided."):
@@ -633,7 +633,7 @@ class ListOfItemsTest(TestCase):
             option = c.Optional(c.ListOfItems(c.Type(str)))
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, Optional[List[str]])
+        assert_type(conf.option, Optional[list[str]])
         self.assertEqual(conf.option, None)
 
         conf = self.get_config(Schema, {'option': None})
@@ -647,7 +647,7 @@ class ListOfItemsTest(TestCase):
             option = c.ListOfItems(c.Optional(c.Type(int)), default=[])
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, List[Optional[int]])
+        assert_type(conf.option, list[Optional[int]])
         self.assertEqual(conf.option, [])
 
         conf = self.get_config(Schema, {'option': [4, None]})
@@ -691,7 +691,7 @@ class ExtraScriptsTest(TestCase):
             option = c.ListOfItems(c.ExtraScript(), default=[])
 
         conf = self.get_config(Schema, {'option': ['foo.js', {'path': 'bar.js', 'async': True}]})
-        assert_type(conf.option, List[Union[c.ExtraScriptValue, str]])
+        assert_type(conf.option, list[Union[c.ExtraScriptValue, str]])
         self.assertEqual(len(conf.option), 2)
         self.assertIsInstance(conf.option[1], c.ExtraScriptValue)
         self.assertEqual(
@@ -709,7 +709,7 @@ class ExtraScriptsTest(TestCase):
         conf = self.get_config(
             Schema, {'option': ['foo.mjs', {'path': 'bar.js', 'type': 'module'}]}
         )
-        assert_type(conf.option, List[Union[c.ExtraScriptValue, str]])
+        assert_type(conf.option, list[Union[c.ExtraScriptValue, str]])
         self.assertEqual(len(conf.option), 2)
         self.assertIsInstance(conf.option[0], c.ExtraScriptValue)
         self.assertEqual(
@@ -750,7 +750,7 @@ class DictOfItemsTest(TestCase):
             option = c.DictOfItems(c.Type(int))
 
         conf = self.get_config(Schema, {'option': {"a": 1, "b": 2}})
-        assert_type(conf.option, Dict[str, int])
+        assert_type(conf.option, dict[str, int])
         self.assertEqual(conf.option, {"a": 1, "b": 2})
 
         with self.expect_error(
@@ -775,7 +775,7 @@ class DictOfItemsTest(TestCase):
             option = c.DictOfItems(c.Type(int), default={})
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, Dict[str, int])
+        assert_type(conf.option, dict[str, int])
         self.assertEqual(conf.option, {})
 
         with self.expect_error(option="Required configuration not provided."):
@@ -799,7 +799,7 @@ class DictOfItemsTest(TestCase):
             option = c.Optional(c.DictOfItems(c.Type(str)))
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, Optional[Dict[str, str]])
+        assert_type(conf.option, Optional[dict[str, str]])
         self.assertEqual(conf.option, None)
 
         conf = self.get_config(Schema, {'option': None})
@@ -813,7 +813,7 @@ class DictOfItemsTest(TestCase):
             option = c.DictOfItems(c.Optional(c.Type(int)), default={})
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, Dict[str, Optional[int]])
+        assert_type(conf.option, dict[str, Optional[int]])
         self.assertEqual(conf.option, {})
 
         conf = self.get_config(Schema, {'option': {"a": 1, "b": None}})
@@ -1014,7 +1014,7 @@ class ListOfPathsTest(TestCase):
             option = c.ListOfPaths()
 
         conf = self.get_config(Schema, {'option': []})
-        assert_type(conf.option, List[str])
+        assert_type(conf.option, list[str])
         self.assertEqual(conf.option, [])
 
     def test_none(self) -> None:
@@ -1040,7 +1040,7 @@ class ListOfPathsTest(TestCase):
             option = c.ListOfPaths()
 
         conf = self.get_config(Schema, {'option': paths})
-        assert_type(conf.option, List[str])
+        assert_type(conf.option, list[str])
 
     @tempdir()
     def test_paths_localized_to_config(self, base_path) -> None:
@@ -1459,7 +1459,7 @@ class SubConfigTest(TestCase):
                 ]
             },
         )
-        assert_type(conf.the_items, List[Sub])
+        assert_type(conf.the_items, list[Sub])
         self.assertEqual(conf.the_items, [{'value': 'a'}, {'value': 'b'}])
         assert_type(conf.the_items[1].value, str)
         self.assertEqual(conf.the_items[1].value, 'b')
@@ -1478,7 +1478,7 @@ class SubConfigTest(TestCase):
         self.assertEqual(conf.sub, None)
 
         conf = self.get_config(Schema, {'sub': [{'opt': 1}, {}]})
-        assert_type(conf.sub, Optional[List[Sub]])
+        assert_type(conf.sub, Optional[list[Sub]])
         self.assertEqual(conf.sub, [{'opt': 1}, {'opt': None}])
         assert conf.sub is not None
         assert_type(conf.sub[0].opt, Optional[int])
@@ -1510,7 +1510,7 @@ class SubConfigTest(TestCase):
         conf = self.get_config(Schema, {'sub': []})
 
         conf = self.get_config(Schema, {'sub': [{'opt': 1}, {'opt': 2}]})
-        assert_type(conf.sub, List[Sub])
+        assert_type(conf.sub, list[Sub])
         self.assertEqual(conf.sub, [{'opt': 1}, {'opt': 2}])
         assert_type(conf.sub[0].opt, int)
         self.assertEqual(conf.sub[0].opt, 1)
@@ -1539,7 +1539,7 @@ class SubConfigTest(TestCase):
             sub = c.ListOfItems(c.SubConfig(Sub), default=[])
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.sub, List[Sub])
+        assert_type(conf.sub, list[Sub])
         self.assertEqual(conf.sub, [])
 
         with self.expect_error(sub="Required configuration not provided."):
@@ -1660,14 +1660,14 @@ class MarkdownExtensionsTest(TestCase):
     def test_simple_list(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions()
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         config = {
             'markdown_extensions': ['foo', 'bar'],
         }
         conf = self.get_config(Schema, config)
-        assert_type(conf.markdown_extensions, List[str])
-        assert_type(conf.mdx_configs, Dict[str, dict])
+        assert_type(conf.markdown_extensions, list[str])
+        assert_type(conf.mdx_configs, dict[str, dict])
         self.assertEqual(conf.markdown_extensions, ['foo', 'bar'])
         self.assertEqual(conf.mdx_configs, {})
 
@@ -1675,7 +1675,7 @@ class MarkdownExtensionsTest(TestCase):
     def test_list_dicts(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions()
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         config = {
             'markdown_extensions': [
@@ -1698,7 +1698,7 @@ class MarkdownExtensionsTest(TestCase):
     def test_mixed_list(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions()
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         config = {
             'markdown_extensions': [
@@ -1719,7 +1719,7 @@ class MarkdownExtensionsTest(TestCase):
     def test_dict_of_dicts(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions()
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         config = {
             'markdown_extensions': {
@@ -1742,7 +1742,7 @@ class MarkdownExtensionsTest(TestCase):
     def test_builtins(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions(builtins=['meta', 'toc'])
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         config = {
             'markdown_extensions': ['foo', 'bar'],
@@ -1754,7 +1754,7 @@ class MarkdownExtensionsTest(TestCase):
     def test_duplicates(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions(builtins=['meta', 'toc'])
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         config = {
             'markdown_extensions': ['meta', 'toc'],
@@ -1766,7 +1766,7 @@ class MarkdownExtensionsTest(TestCase):
     def test_builtins_config(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions(builtins=['meta', 'toc'])
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         config = {
             'markdown_extensions': [
@@ -1781,7 +1781,7 @@ class MarkdownExtensionsTest(TestCase):
     def test_configkey(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions(configkey='bar')
-            bar = c.Private[Dict[str, dict]]()
+            bar = c.Private[dict[str, dict]]()
 
         config = {
             'markdown_extensions': [
@@ -1800,7 +1800,7 @@ class MarkdownExtensionsTest(TestCase):
     def test_missing_default(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions()
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         conf = self.get_config(Schema, {})
         self.assertEqual(conf.markdown_extensions, [])
@@ -1809,7 +1809,7 @@ class MarkdownExtensionsTest(TestCase):
     def test_none(self) -> None:
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions(default=[])
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         config = {
             'markdown_extensions': None,
@@ -1884,7 +1884,7 @@ class MarkdownExtensionsTest(TestCase):
         # config instances that didn't specify extensions.
         class Schema(Config):
             markdown_extensions = c.MarkdownExtensions()
-            mdx_configs = c.Private[Dict[str, dict]]()
+            mdx_configs = c.Private[dict[str, dict]]()
 
         conf = self.get_config(
             Schema,
@@ -2277,7 +2277,11 @@ class PluginsTest(TestCase):
         with self.expect_error(plugins="Invalid Plugins configuration"):
             self.get_config(Schema, cfg)
 
-        cfg = {
+    def test_plugin_config_multivalue_dict_empty(self) -> None:
+        class Schema(Config):
+            plugins = c.Plugins()
+
+        cfg: dict[str, list[dict[str, Any]]] = {
             'plugins': [
                 {},
             ],
@@ -2407,7 +2411,7 @@ class SchemaTest(TestCase):
         self.assertEqual(conf.foo, 1)
         assert_type(conf.bar, Optional[str])
         self.assertEqual(conf.bar, None)
-        assert_type(conf.baz, List[str])
+        assert_type(conf.baz, list[str])
         self.assertEqual(conf.baz, ['b'])
 
         with self.expect_error(baz="Required configuration not provided."):

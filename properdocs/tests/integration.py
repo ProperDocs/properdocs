@@ -14,7 +14,6 @@ TODOs
     - Build documentation other than just ProperDocs as it is relatively simple.
 """
 
-
 import logging
 import os
 import subprocess

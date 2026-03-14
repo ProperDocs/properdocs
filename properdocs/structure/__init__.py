@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import abc
-from typing import TYPE_CHECKING, Iterable
+from collections.abc import Iterable
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from properdocs.structure.nav import Section
@@ -11,8 +12,7 @@ class StructureItem(metaclass=abc.ABCMeta):
     """An item in ProperDocs structure - see concrete subclasses Section, Page or Link."""
 
     @abc.abstractmethod
-    def __init__(self):
-        ...
+    def __init__(self): ...
 
     parent: Section | None = None
     """The immediate parent of the item in the site navigation. `None` if it's at the top level."""

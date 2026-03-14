@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Iterator, TypeVar
+from collections.abc import Iterator
+from typing import TYPE_CHECKING, TypeVar
 from urllib.parse import urlsplit
 
 from properdocs.exceptions import BuildError

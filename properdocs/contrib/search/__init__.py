@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 import os
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 
 from properdocs import utils
 from properdocs.config import base
@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 base_path = os.path.dirname(os.path.abspath(__file__))
 
 
-class LangOption(c.OptionallyRequired[List[str]]):
+class LangOption(c.OptionallyRequired[list[str]]):
     """Validate Language(s) provided in config are known languages."""
 
     def get_lunr_supported_lang(self, lang):

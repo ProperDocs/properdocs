@@ -2,9 +2,8 @@ import os
 import unittest
 
 from properdocs import exceptions
-from properdocs.config import base
+from properdocs.config import base, defaults
 from properdocs.config import config_options as c
-from properdocs.config import defaults
 from properdocs.config.base import ValidationError
 from properdocs.tests.base import change_dir, tempdir
 

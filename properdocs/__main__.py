@@ -12,8 +12,12 @@ import warnings
 
 import click
 
-from properdocs import replacement  # noqa: F401
-from properdocs import __version__, config, utils
+from properdocs import (
+    __version__,
+    config,
+    replacement,  # noqa: F401
+    utils,
+)
 
 if sys.platform.startswith("win"):
     try:
@@ -122,16 +126,13 @@ use_directory_urls_help = "Use directory URLs when building pages (the default).
 reload_help = "Enable the live reloading in the development server (this is the default)"
 no_reload_help = "Disable the live reloading in the development server."
 serve_dirty_help = "Only re-build files that have changed."
-serve_clean_help = (
-    "Build the site without any effects of `properdocs serve` - pure `properdocs build`, then serve."
-)
+serve_clean_help = "Build the site without any effects of `properdocs serve` - pure `properdocs build`, then serve."
 commit_message_help = (
     "A commit message to use when committing to the "
     "GitHub Pages remote branch. Commit {sha} and ProperDocs {version} are available as expansions"
 )
 remote_branch_help = (
-    "The remote branch to commit to for GitHub Pages. This "
-    "overrides the value specified in config"
+    "The remote branch to commit to for GitHub Pages. This overrides the value specified in config"
 )
 remote_name_help = (
     "The remote name to commit to for GitHub Pages. This overrides the value specified in config"
@@ -243,7 +244,7 @@ PKG_DIR = os.path.dirname(os.path.abspath(__file__))
     __version__,
     '-V',
     '--version',
-    message=f'%(prog)s, version %(version)s from { PKG_DIR } (Python { PYTHON_VERSION })',
+    message=f'%(prog)s, version %(version)s from {PKG_DIR} (Python {PYTHON_VERSION})',
 )
 @common_options
 @color_option

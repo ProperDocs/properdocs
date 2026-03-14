@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Sequence, TypedDict
+from collections.abc import Sequence
+from typing import TYPE_CHECKING, TypedDict
 
 if TYPE_CHECKING:
     import datetime

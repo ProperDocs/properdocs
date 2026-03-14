@@ -5,9 +5,11 @@ For the sake of simplicity we use the Python-Markdown `toc` extension to
 generate a list of dicts for each toc item, and then store it as AnchorLinks to
 maintain compatibility with older versions of MkDocs.
 """
+
 from __future__ import annotations
 
-from typing import Iterable, Iterator, TypedDict
+from collections.abc import Iterable, Iterator
+from typing import TypedDict
 
 
 class _TocToken(TypedDict):

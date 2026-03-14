@@ -4,21 +4,20 @@ import enum
 import logging
 import posixpath
 import warnings
-from typing import TYPE_CHECKING, Any, Callable, Iterator, MutableMapping, Sequence
+from collections.abc import Iterator, MutableMapping, Sequence
+from typing import TYPE_CHECKING, Any, Callable
 from urllib.parse import unquote as urlunquote
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 import markdown
-import markdown.extensions.toc
 import markdown.htmlparser  # type: ignore
-import markdown.postprocessors
 import markdown.treeprocessors
 from markdown.util import AMP_SUBSTITUTE
 
 from properdocs import utils
 from properdocs.structure import StructureItem
 from properdocs.structure.toc import get_toc
-from properdocs.utils import _removesuffix, get_build_date, get_markdown_title, meta, weak_property
+from properdocs.utils import get_build_date, get_markdown_title, meta, weak_property
 from properdocs.utils.rendering import get_heading_text
 
 if TYPE_CHECKING:
@@ -408,7 +407,7 @@ class _RelativePathTreeprocessor(markdown.treeprocessors.Treeprocessor):
             and not path.endswith('.md')
             and (use_directory_urls or not path.endswith('/'))
         ):
-            suffixes.append(lambda p: _removesuffix(p, '.html') + '.md')
+            suffixes.append(lambda p: p.removesuffix('.html') + '.md')
 
         for pref in prefixes:
             for suf in suffixes:
@@ -534,7 +533,9 @@ class _RawHTMLPreprocessor(markdown.preprocessors.Preprocessor):
 
     def _register(self, md: markdown.Markdown) -> None:
         md.preprocessors.register(
-            self, "properdocs_raw_html", priority=21  # Right before 'html_block'.
+            self,
+            "properdocs_raw_html",
+            priority=21,  # Right before 'html_block'.
         )
 
 
@@ -563,7 +564,11 @@ class _ExtractTitleTreeprocessor(markdown.treeprocessors.Treeprocessor):
 
     def _register(self, md: markdown.Markdown) -> None:
         self.md = md
-        md.treeprocessors.register(self, "properdocs_extract_title", priority=1)  # Close to the end.
+        md.treeprocessors.register(
+            self,
+            "properdocs_extract_title",
+            priority=1,  # Close to the end.
+        )
 
 
 class _AbsoluteLinksValidationValue(enum.IntEnum):

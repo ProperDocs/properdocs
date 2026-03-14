@@ -4,7 +4,6 @@
 
 [![PyPI Version][pypi-v-image]][pypi-v-link]
 [![Build Status][GHAction-image]][GHAction-link]
-[![Coverage Status][codecov-image]][codecov-link]
 
 ProperDocs is a **fast**, **simple** and **downright gorgeous** static site
 generator that's geared towards building project documentation. Documentation
@@ -58,8 +57,6 @@ Everyone interacting in the ProperDocs project's codebases, issue trackers, and
 discussion forums is expected to follow the [PyPA Code of Conduct].
 
 <!-- Badges -->
-[codecov-image]: https://codecov.io/github/properdocs/properdocs/coverage.svg?branch=master
-[codecov-link]: https://codecov.io/github/properdocs/properdocs?branch=master
 [pypi-v-image]: https://img.shields.io/pypi/v/properdocs.svg
 [pypi-v-link]: https://pypi.org/project/properdocs/
 [GHAction-image]: https://github.com/properdocs/properdocs/actions/workflows/ci.yml/badge.svg

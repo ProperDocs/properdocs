@@ -7,9 +7,10 @@ import os
 import posixpath
 import shutil
 import warnings
+from collections.abc import Iterable, Iterator, Mapping, Sequence
 from functools import cached_property
 from pathlib import PurePath, PurePosixPath
-from typing import TYPE_CHECKING, Callable, Iterable, Iterator, Mapping, Sequence, overload
+from typing import TYPE_CHECKING, Callable, overload
 from urllib.parse import quote as urlquote
 
 import pathspec

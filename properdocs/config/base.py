@@ -6,20 +6,9 @@ import os
 import sys
 import warnings
 from collections import UserDict
+from collections.abc import Iterator, Mapping, Sequence
 from contextlib import contextmanager
-from typing import (
-    IO,
-    TYPE_CHECKING,
-    Any,
-    Generic,
-    Iterator,
-    List,
-    Mapping,
-    Sequence,
-    Tuple,
-    TypeVar,
-    overload,
-)
+from typing import IO, TYPE_CHECKING, Any, Generic, TypeVar, overload
 
 from properdocs import exceptions, utils
 from properdocs.utils import weak_property
@@ -86,12 +75,10 @@ class BaseConfigOption(Generic[T]):
         self._name = name
 
     @overload
-    def __get__(self, obj: Config, type=None) -> T:
-        ...
+    def __get__(self, obj: Config, type=None) -> T: ...
 
     @overload
-    def __get__(self, obj, type=None) -> BaseConfigOption:
-        ...
+    def __get__(self, obj, type=None) -> BaseConfigOption: ...
 
     def __get__(self, obj, type=None):
         if not isinstance(obj, Config):
@@ -113,11 +100,11 @@ class ValidationError(Exception):
         return type(self) is type(other) and str(self) == str(other)
 
 
-PlainConfigSchemaItem = Tuple[str, BaseConfigOption]
+PlainConfigSchemaItem = tuple[str, BaseConfigOption]
 PlainConfigSchema = Sequence[PlainConfigSchemaItem]
 
-ConfigErrors = List[Tuple[str, Exception]]
-ConfigWarnings = List[Tuple[str, str]]
+ConfigErrors = list[tuple[str, Exception]]
+ConfigWarnings = list[tuple[str, str]]
 
 
 class Config(UserDict):
@@ -270,7 +257,7 @@ class Config(UserDict):
         return self.__user_configs
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_schema(cls: type) -> PlainConfigSchema:
     """Extract ConfigOptions defined in a class (used just as a container) and put them into a schema tuple."""
     if issubclass(cls, Config):

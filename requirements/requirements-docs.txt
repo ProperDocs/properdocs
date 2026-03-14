@@ -71,7 +71,7 @@ mergedeep==1.3.4
     #   hatch.envs.docs
     #   properdocs
     #   mkdocs-get-deps
-properdocs==1.5.3
+#properdocs==1.5.3
     # via
     #   hatch.envs.docs
     #   mkdocs-autorefs

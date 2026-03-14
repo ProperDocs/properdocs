@@ -3,7 +3,8 @@ from __future__ import annotations
 import logging
 import os
 import warnings
-from typing import Any, Collection, MutableMapping
+from collections.abc import Collection, MutableMapping
+from typing import Any
 
 import jinja2
 import yaml

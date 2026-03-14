@@ -4,7 +4,8 @@ from __future__ import annotations
 
 import logging
 import sys
-from typing import TYPE_CHECKING, Any, Callable, Generic, Literal, MutableMapping, TypeVar, overload
+from collections.abc import MutableMapping
+from typing import TYPE_CHECKING, Any, Callable, Generic, Literal, TypeVar, overload
 
 if sys.version_info >= (3, 10):
     from importlib.metadata import EntryPoint, entry_points
@@ -45,7 +46,7 @@ log = logging.getLogger('properdocs.plugins')
 
 def get_plugins() -> dict[str, EntryPoint]:
     """Return a dict of all installed Plugins as {name: EntryPoint}."""
-    pluginmaps = {'properdocs': {}, 'mkdocs': {}}
+    pluginmaps: dict[str, dict[str, EntryPoint]] = {'properdocs': {}, 'mkdocs': {}}
 
     for prefix in pluginmaps:
         for plugin in entry_points(group=f'{prefix}.plugins'):
@@ -548,12 +549,10 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
                 self._register_event(event_name[3:], method, plugin_name=key)
 
     @overload
-    def run_event(self, name: str, **kwargs) -> Any:
-        ...
+    def run_event(self, name: str, **kwargs) -> Any: ...
 
     @overload
-    def run_event(self, name: str, item: T, **kwargs) -> T:
-        ...
+    def run_event(self, name: str, item: T, **kwargs) -> T: ...
 
     def run_event(self, name: str, item=None, **kwargs):
         """

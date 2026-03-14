@@ -4,6 +4,7 @@ Standalone file utils.
 Nothing in this module should have an knowledge of config or the layout
 and structure of the site and pages in the site.
 """
+
 from __future__ import annotations
 
 import functools
@@ -15,9 +16,10 @@ import shutil
 import sys
 import warnings
 from collections import defaultdict
+from collections.abc import Collection, Iterable, MutableSequence
 from datetime import datetime, timezone
 from pathlib import PurePath
-from typing import TYPE_CHECKING, Collection, Iterable, MutableSequence, TypeVar
+from typing import TYPE_CHECKING, TypeVar
 from urllib.parse import urlsplit
 
 if sys.version_info >= (3, 10):
@@ -83,14 +85,7 @@ def get_build_date() -> str:
     return get_build_datetime().strftime('%Y-%m-%d')
 
 
-if sys.version_info >= (3, 9):
-    _removesuffix = str.removesuffix
-else:
-
-    def _removesuffix(s: str, suffix: str) -> str:
-        if suffix and s.endswith(suffix):
-            return s[: -len(suffix)]
-        return s
+_removesuffix = str.removesuffix
 
 
 def reduce_list(data_set: Iterable[T]) -> list[T]:
@@ -166,7 +161,7 @@ def is_error_template(path: str) -> bool:
     return bool(_ERROR_TEMPLATE_RE.match(path))
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def _norm_parts(path: str) -> list[str]:
     if not path.startswith('/'):
         path = '/' + path
@@ -216,7 +211,7 @@ def normalize_url(path: str, page: Page | None = None, base: str = '') -> str:
     return posixpath.join(base, path)
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def _get_norm_url(path: str) -> tuple[str, int]:
     if not path:
         path = '.'
@@ -259,7 +254,7 @@ def get_theme_dir(name: str) -> str:
     return os.path.dirname(os.path.abspath(theme.load().__file__))
 
 
-@functools.lru_cache(maxsize=None)
+@functools.cache
 def get_themes() -> dict[str, EntryPoint]:
     """Return a dict of all installed themes as {name: EntryPoint}."""
     # Ordered set of preferred entry points.

@@ -318,19 +318,19 @@ class BuildTests(unittest.TestCase):
             server.watch(site_dir)
 
             headers, output = do_request(server, "GET /normal.html")
-            self.assertRegex(output, fr"^<html><body>hello{SCRIPT_REGEX}</body></html>$")
+            self.assertRegex(output, rf"^<html><body>hello{SCRIPT_REGEX}</body></html>$")
             self.assertEqual(headers.get("content-type"), "text/html")
             self.assertEqual(headers.get("content-length"), str(len(output)))
 
             _, output = do_request(server, "GET /no_body.html")
-            self.assertRegex(output, fr"^<p>hi{SCRIPT_REGEX}$")
+            self.assertRegex(output, rf"^<p>hi{SCRIPT_REGEX}$")
 
             headers, output = do_request(server, "GET /empty.html")
-            self.assertRegex(output, fr"^{SCRIPT_REGEX}$")
+            self.assertRegex(output, rf"^{SCRIPT_REGEX}$")
             self.assertEqual(headers.get("content-length"), str(len(output)))
 
             _, output = do_request(server, "GET /multi_body.html")
-            self.assertRegex(output, fr"^<body>foo</body><body>bar{SCRIPT_REGEX}</body>$")
+            self.assertRegex(output, rf"^<body>foo</body><body>bar{SCRIPT_REGEX}</body>$")
 
     @tempdir({"index.html": "<body>aaa</body>", "foo/index.html": "<body>bbb</body>"})
     def test_serves_directory_index(self, site_dir):

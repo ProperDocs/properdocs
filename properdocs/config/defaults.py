@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import logging
-from typing import IO, Dict, Mapping
+from collections.abc import Mapping
+from typing import IO
 
 from properdocs.config import base
 from properdocs.config import config_options as c
@@ -134,7 +135,7 @@ class ProperDocsConfig(base.Config):
     )
     """PyMarkdown extension names."""
 
-    mdx_configs = c.Private[Dict[str, dict]]()
+    mdx_configs = c.Private[dict[str, dict]]()
     """PyMarkdown extension configs. Populated from `markdown_extensions`."""
 
     strict = c.Type(bool, default=False)
