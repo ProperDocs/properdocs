@@ -20,7 +20,6 @@ classifiers = [
     "Programming Language :: Python",
     # Begin Python versions
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -32,7 +31,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dynamic = ["version"]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 dependencies = [
     "click >=7.0",
     "Jinja2 >=2.11.1",
@@ -114,7 +113,7 @@ _coverage = [
 ]
 with-coverage = "test"
 [[tool.hatch.envs.test.matrix]]
-python = ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+python = ["3.10", "3.11", "3.12", "3.13", "3.14"]
 [tool.hatch.envs.test.overrides]
 matrix.type.scripts = [
     { key = "with-coverage", value = "_coverage", if = ["default"] },
@@ -127,7 +126,7 @@ detached = false
 [tool.hatch.envs.integration.scripts]
 test = "python -m properdocs.tests.integration"
 [[tool.hatch.envs.integration.matrix]]
-python = ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+python = ["3.10", "3.11", "3.12", "3.13", "3.14"]
 type = ["default", "no-babel"]
 [tool.hatch.envs.integration.overrides]
 matrix.type.features = [

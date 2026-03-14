@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import copy
-from typing import TYPE_CHECKING, Callable
+from collections.abc import Callable
+from typing import TYPE_CHECKING
 
 import markdown
 import markdown.treeprocessors

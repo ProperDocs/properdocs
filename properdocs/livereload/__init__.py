@@ -21,8 +21,8 @@ import urllib.parse
 import webbrowser
 import wsgiref.simple_server
 import wsgiref.util
-from collections.abc import Iterable
-from typing import Any, BinaryIO, Callable
+from collections.abc import Callable, Iterable
+from typing import Any, BinaryIO
 
 import watchdog.events
 import watchdog.observers.polling

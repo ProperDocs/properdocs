@@ -13,19 +13,15 @@ import os
 import posixpath
 import re
 import shutil
-import sys
 import warnings
+from bisect import insort  # noqa: F401 - legacy re-export
 from collections import defaultdict
-from collections.abc import Collection, Iterable, MutableSequence
+from collections.abc import Collection, Iterable
 from datetime import datetime, timezone
+from importlib.metadata import EntryPoint, entry_points
 from pathlib import PurePath
 from typing import TYPE_CHECKING, TypeVar
 from urllib.parse import urlsplit
-
-if sys.version_info >= (3, 10):
-    from importlib.metadata import EntryPoint, entry_points
-else:
-    from importlib_metadata import EntryPoint, entry_points
 
 from properdocs import exceptions
 from properdocs.utils.yaml import get_yaml_loader, yaml_load  # noqa: F401 - legacy re-export
@@ -91,18 +87,6 @@ _removesuffix = str.removesuffix
 def reduce_list(data_set: Iterable[T]) -> list[T]:
     """Reduce duplicate items in a list and preserve order."""
     return list(dict.fromkeys(data_set))
-
-
-if sys.version_info >= (3, 10):
-    from bisect import insort
-else:
-
-    def insort(a: MutableSequence[T], x: T, *, key=lambda v: v) -> None:
-        kx = key(x)
-        i = len(a)
-        while i > 0 and kx < key(a[i - 1]):
-            i -= 1
-        a.insert(i, x)
 
 
 def copy_file(source_path: str, output_path: str) -> None:

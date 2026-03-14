@@ -1,6 +1,6 @@
 import datetime
 import urllib.request
-from typing import Callable
+from collections.abc import Callable
 
 import mkdocs_get_deps.cache
 
