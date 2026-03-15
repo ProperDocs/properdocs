@@ -37,7 +37,7 @@ These are the changes compared to MkDocs 1.6.1:
 
 *   Drop support for Python 3.8, officially support Python 3.14 (#17)
 
-And other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/2862536793b3c67d9d83c33e0dd6d50a791928f8...1.6.5).
+And other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/2862536793b3c67d9d83c33e0dd6d50a791928f8...v1.6.5).
 
 ---
 
