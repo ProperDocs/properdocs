@@ -23,7 +23,7 @@ This is the first version of ProperDocs 🎉
 
 These are the changes compared to MkDocs 1.6.1:
 
-* The name is changed from "ProperDocs" to "MkDocs". The installation name and the executable are `properdocs` (#12)
+* The name is changed from "MkDocs" to "ProperDocs". The installation name and the executable are `properdocs` (#12)
 
 * Support running all `mkdocs.themes` and `mkdocs.plugins` entrypoints *in addition to* all `properdocs.themes` and `properdocs.plugins` entrypoints (#15)
 
