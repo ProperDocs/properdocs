@@ -163,7 +163,7 @@ dependencies = [
 spelling = 'codespell properdocs docs *.* -S LC_MESSAGES -S "*.min.js" -S "lunr*.js" -S fontawesome-webfont.svg -S tinyseg.js -S "*.map"'
 markdown = "npm exec --yes -- markdownlint-cli README.md CONTRIBUTING.md docs/ --ignore docs/CNAME"
 js = "npm exec --yes -- jshint properdocs/"
-check = ["markdown", "js", "css", "spelling"]
+check = ["markdown", "js", "spelling"]
 
 [tool.hatch.env.collectors.mkdocs.docs]
 path = "properdocs.yml"

@@ -18,7 +18,7 @@ user guide.
 
 - Build static HTML files from Markdown files.
 - Use Plugins and Markdown Extensions to enhance ProperDocs.
-- Use the built-in themes, third party themes or create your own.
+- Use third party themes or create your own.
 - Publish your documentation anywhere that static files can be served.
 - Much more!
 
@@ -27,8 +27,7 @@ user guide.
 If you need help with ProperDocs, do not hesitate to get in contact with us!
 
 -   For questions and high-level discussions, use **[Discussions]** on GitHub.
-    -   For small questions, a good alternative is the **[Chat room]** on
-        Gitter/Matrix.
+    - For small questions, a good alternative is the **[Discord server]**.
 -   To report a bug or make a feature request, open an **[Issue]** on GitHub.
 
 Please note that we may only provide
@@ -65,7 +64,7 @@ discussion forums is expected to follow the [PyPA Code of Conduct].
 [properdocs]: https://properdocs.org
 [Issue]: https://github.com/properdocs/properdocs/issues
 [Discussions]: https://github.com/properdocs/properdocs/discussions
-[Chat room]: https://gitter.im/mkdocs/community
+[Discord server]: https://discord.gg/CwYAgEPHZd
 [release-notes]: https://properdocs.org/about/release-notes/
 [Contributing Guide]: https://properdocs.org/about/contributing/
 [PyPA Code of Conduct]: https://www.pypa.io/en/latest/code-of-conduct/
