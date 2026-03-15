@@ -109,6 +109,7 @@ platformdirs==4.0.0
     #   properdocs
     #   mkdocs-get-deps
     #   mkdocstrings
+properdocs-theme-mkdocs
 pymdown-extensions==10.4
     # via
     #   hatch.envs.docs
