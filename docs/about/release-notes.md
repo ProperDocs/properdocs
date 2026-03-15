@@ -23,19 +23,19 @@ This is the first version of ProperDocs 🎉
 
 These are the changes compared to MkDocs 1.6.1:
 
-* The name is changed from "MkDocs" to "ProperDocs". The installation name and the executable are `properdocs` (#12)
+*   The name is changed from "MkDocs" to "ProperDocs". The installation name and the executable are `properdocs` (#12)
 
-* Support running all `mkdocs.themes` and `mkdocs.plugins` entrypoints *in addition to* all `properdocs.themes` and `properdocs.plugins` entrypoints (#15)
+*   Support running all `mkdocs.themes` and `mkdocs.plugins` entrypoints *in addition to* all `properdocs.themes` and `properdocs.plugins` entrypoints (#15)
 
-* Pick up configuration from `properdocs.yml` configuration files, with a fallback to `mkdocs.yml` (#27)
+*   Pick up configuration from `properdocs.yml` configuration files, with a fallback to `mkdocs.yml` (#27)
 
-* Remove all built-in themes - there is no longer any theme installed by default (#24)
+*   Remove all built-in themes - there is no longer any theme installed by default (#24)
 
-* Fix livereload not being enabled by default for `mkdocs serve` - since `click>8.2.1` (#14)
+*   Fix livereload not being enabled by default for `mkdocs serve` - since `click>8.2.1` (#14)
 
-* Allow plugins to declare their support of ProperDocs and show a warning message in case they're being run from MkDocs (#21)
+*   Allow plugins to declare their support of ProperDocs and show a warning message in case they're being run from MkDocs (#21)
 
-* Drop support for Python 3.8, officially support Python 3.14 (#17)
+*   Drop support for Python 3.8, officially support Python 3.14 (#17)
 
 And other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/2862536793b3c67d9d83c33e0dd6d50a791928f8...1.6.5).
 
