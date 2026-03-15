@@ -27,7 +27,7 @@ user guide.
 If you need help with ProperDocs, do not hesitate to get in contact with us!
 
 -   For questions and high-level discussions, use **[Discussions]** on GitHub.
-    -   For small questions, a good alternative is the **[Discord server]**.
+    - For small questions, a good alternative is the **[Discord server]**.
 -   To report a bug or make a feature request, open an **[Issue]** on GitHub.
 
 Please note that we may only provide
