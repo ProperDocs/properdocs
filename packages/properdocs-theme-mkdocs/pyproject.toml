@@ -5,6 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "properdocs-theme-mkdocs"
 description = "'mkdocs' theme for ProperDocs, originally made for MkDocs"
+readme = "README.md"
 license = "BSD-2-Clause"
 authors = [
     {name = "Tom Christie", email = "tom@tomchristie.com"},
