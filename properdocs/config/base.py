@@ -286,7 +286,7 @@ def _open_config_file(config_file: str | IO | None) -> Iterator[IO]:
     """
     # Default to the standard config filename.
     if config_file is None:
-        paths_to_try = ['properdocs.yml', 'properdocs.yaml']
+        paths_to_try = ['properdocs.yml', 'properdocs.yaml', 'mkdocs.yml', 'mkdocs.yaml']
     # If it is a string, we can assume it is a path and attempt to open it.
     elif isinstance(config_file, str):
         paths_to_try = [config_file]
@@ -300,10 +300,15 @@ def _open_config_file(config_file: str | IO | None) -> Iterator[IO]:
     if paths_to_try:
         # config_file is not a file descriptor, so open it as a path.
         for path in paths_to_try:
-            path = os.path.abspath(path)
-            log.debug(f"Loading configuration file: {path}")
+            abspath = os.path.abspath(path)
+            log.debug(f"Loading configuration file: {abspath}")
             try:
-                result_config_file = open(path, 'rb')
+                result_config_file = open(abspath, 'rb')
+                if len(paths_to_try) > 1 and path in ('mkdocs.yml', 'mkdocs.yaml'):
+                    log.info(
+                        f"The configuration file '{path}' should be renamed to 'properdocs.yml', OR it should be passed explicitly on the command line: `-f {path}`.\n"
+                        "Support for using this legacy file name as a fallback will eventually be removed from ProperDocs."
+                    )
                 break
             except FileNotFoundError:
                 continue
