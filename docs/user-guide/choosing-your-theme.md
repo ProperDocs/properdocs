@@ -126,7 +126,7 @@ supports the following options:
     The following locales are supported by this theme:
 
     * `en`: English (default)
-    * (see the list of existing directories `properdocs/themes/mkdocs/locales/*/`)
+    * (see the list of existing directories `packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales/*/`)
 
     See the guide on [localizing your theme] for more information.
 
@@ -203,7 +203,7 @@ theme supports the following options:
     The following locales are supported by this theme:
 
     * `en`: English (default)
-    * (see the list of existing directories `properdocs/themes/readthedocs/locales/*/`)
+    * (see the list of existing directories `packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/locales/*/`)
 
     See the guide on [localizing your theme] for more information.
 

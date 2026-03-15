@@ -219,7 +219,7 @@ any additional CSS files included in the `custom_dir`.
 [custom_dir]: ./configuration.md#custom_dir
 [name]: ./configuration.md#name
 [mkdocs]: ./choosing-your-theme.md#mkdocs
-[browse source]: https://github.com/properdocs/properdocs/tree/master/properdocs/themes/mkdocs
+[browse source]: https://github.com/properdocs/properdocs/tree/master/packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs
 [Template Variables]: ../dev-guide/themes.md#template-variables
 [Jinja documentation]: https://jinja.palletsprojects.com/en/latest/templates/#template-inheritance
 [super block]: https://jinja.palletsprojects.com/en/latest/templates/#super-blocks

@@ -352,7 +352,10 @@ class Choice(Generic[T], OptionallyRequired[T]):
         if not length or isinstance(choices, str):
             raise ValueError(f'Expected iterable of choices, got {choices}')
         if default is not None and default not in choices:
-            raise ValueError(f'{default!r} is not one of {choices!r}')
+            if choices:
+                raise ValueError(f'{default!r} is not one of {choices!r}')
+            else:
+                raise ValueError('There are no themes installed.')
 
         self.choices = choices
 

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import dataclasses
 import os
 import unittest
 
@@ -11,6 +12,14 @@ from properdocs.config.base import ValidationError
 from properdocs.exceptions import ConfigurationError
 from properdocs.localization import parse_locale
 from properdocs.tests.base import dedent, tempdir
+
+
+@dataclasses.dataclass
+class ThemeDir:
+    theme: str
+
+    def __eq__(self, other):
+        return os.path.basename(other) == f'properdocs_theme_{self.theme}'
 
 
 class ConfigTests(unittest.TestCase):
@@ -97,11 +106,10 @@ class ConfigTests(unittest.TestCase):
 
         properdocs_dir = os.path.abspath(os.path.dirname(properdocs.__file__))
         properdocs_templates_dir = os.path.join(properdocs_dir, 'templates')
-        theme_dir = os.path.abspath(os.path.join(properdocs_dir, 'themes'))
 
         results = (
             {
-                'dirs': [os.path.join(theme_dir, 'mkdocs'), properdocs_templates_dir],
+                'dirs': [ThemeDir('mkdocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml'],
                 'vars': {
                     'name': 'mkdocs',
@@ -121,7 +129,7 @@ class ConfigTests(unittest.TestCase):
                 },
             },
             {
-                'dirs': [os.path.join(theme_dir, 'readthedocs'), properdocs_templates_dir],
+                'dirs': [ThemeDir('readthedocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml'],
                 'vars': {
                     'name': 'readthedocs',
@@ -142,7 +150,7 @@ class ConfigTests(unittest.TestCase):
                 },
             },
             {
-                'dirs': [os.path.join(theme_dir, 'readthedocs'), properdocs_templates_dir],
+                'dirs': [ThemeDir('readthedocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml'],
                 'vars': {
                     'name': 'readthedocs',
@@ -168,7 +176,7 @@ class ConfigTests(unittest.TestCase):
                 'vars': {'name': None, 'locale': parse_locale('en')},
             },
             {
-                'dirs': [custom, os.path.join(theme_dir, 'readthedocs'), properdocs_templates_dir],
+                'dirs': [custom, ThemeDir('readthedocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml'],
                 'vars': {
                     'name': 'readthedocs',
@@ -189,7 +197,7 @@ class ConfigTests(unittest.TestCase):
                 },
             },
             {
-                'dirs': [os.path.join(theme_dir, 'mkdocs'), properdocs_templates_dir],
+                'dirs': [ThemeDir('mkdocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml', 'foo.html'],
                 'vars': {
                     'name': 'mkdocs',
@@ -219,9 +227,9 @@ class ConfigTests(unittest.TestCase):
                 errors, warnings = conf.validate()
                 self.assertEqual(errors, [])
                 self.assertEqual(warnings, [])
-                self.assertEqual(conf['theme'].dirs, result['dirs'])
-                self.assertEqual(conf['theme'].static_templates, set(result['static_templates']))
-                self.assertEqual(dict(conf['theme']), result['vars'])
+                self.assertEqual(result['dirs'], conf['theme'].dirs)
+                self.assertEqual(set(result['static_templates']), conf['theme'].static_templates)
+                self.assertEqual(result['vars'], dict(conf['theme']))
 
     def test_empty_nav(self):
         conf = defaults.ProperDocsConfig(

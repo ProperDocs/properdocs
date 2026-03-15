@@ -63,10 +63,6 @@ History = "https://github.com/properdocs/properdocs/releases"
 [project.scripts]
 properdocs = "properdocs.__main__:cli"
 
-[project.entry-points."properdocs.themes"]
-mkdocs = "properdocs.themes.mkdocs"
-readthedocs = "properdocs.themes.readthedocs"
-
 [project.entry-points."properdocs.plugins"]
 search = "properdocs.contrib.search:SearchPlugin"
 
@@ -78,12 +74,7 @@ artifacts = ["/properdocs/**/*.mo"]
 [tool.hatch.build.targets.sdist]
 include = ["/properdocs"]
 [tool.hatch.build.targets.wheel]
-exclude = ["/properdocs/tests", "*.po", "*.pot", "babel.cfg"]
-[tool.hatch.build.hooks.custom]
-dependencies = [
-    "babel",
-    "setuptools; python_version >= '3.12'",
-]
+exclude = ["/properdocs/tests"]
 
 [tool.hatch.env]
 requires = [
@@ -102,7 +93,9 @@ all = [
 
 [tool.hatch.envs.test]
 features = ["i18n"]
-dependencies = [
+extra-dependencies = [
+    "properdocs-theme-mkdocs @ {root:uri}/packages/properdocs-theme-mkdocs",
+    "properdocs-theme-readthedocs @ {root:uri}/packages/properdocs-theme-readthedocs",
     "coverage",
 ]
 [tool.hatch.envs.test.scripts]
@@ -124,6 +117,7 @@ matrix.type.scripts = [
 path = "mkdocs.yml"
 [tool.hatch.envs.integration]
 detached = false
+template = "test"
 [tool.hatch.envs.integration.scripts]
 test = "python -m properdocs.tests.integration"
 [[tool.hatch.envs.integration.matrix]]

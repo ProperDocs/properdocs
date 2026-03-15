@@ -104,14 +104,14 @@ In particular, the way to know that the `pt` language should be disambiguated as
 So, if we pick `es` (Spanish) as our example language code, to add a translation for it to both built-in themes, run these commands:
 
 ```bash
-pybabel init --input-file properdocs/themes/mkdocs/messages.pot --output-dir properdocs/themes/mkdocs/locales -l es
-pybabel init --input-file properdocs/themes/readthedocs/messages.pot --output-dir properdocs/themes/readthedocs/locales -l es
+pybabel init --input-file packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/messages.pot --output-dir packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales -l es
+pybabel init --input-file packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/messages.pot --output-dir packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/locales -l es
 ```
 
 The above command will create a file structure as follows:
 
 ```text
-properdocs/themes/mkdocs/locales
+packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales
 ├── es
 │   └── LC_MESSAGES
 │       └── messages.po
@@ -141,8 +141,8 @@ for.
 To update the `fr` translation catalog of both built-in themes, use the following commands:
 
 ```bash
-pybabel update --ignore-obsolete --input-file properdocs/themes/mkdocs/messages.pot --output-dir properdocs/themes/mkdocs/locales -l fr
-pybabel update --ignore-obsolete --input-file properdocs/themes/readthedocs/messages.pot --output-dir properdocs/themes/readthedocs/locales -l fr
+pybabel update --ignore-obsolete --input-file packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/messages.pot --output-dir packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales -l fr
+pybabel update --ignore-obsolete --input-file packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/messages.pot --output-dir packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/locales -l fr
 ```
 
 You can now move on to the next step and [add a translation] for every updated
@@ -174,14 +174,14 @@ files of your theme into `messages.mo` files. The following commands will compil
 the `es` translation for both built-in themes:
 
 ```bash
-pybabel compile --statistics --directory properdocs/themes/mkdocs/locales -l es
-pybabel compile --statistics --directory properdocs/themes/readthedocs/locales -l es
+pybabel compile --statistics --directory packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales -l es
+pybabel compile --statistics --directory packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/locales -l es
 ```
 
 The above command results in the following file structure:
 
 ```text
-properdocs/themes/mkdocs/locales
+packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales
 ├── es
 │   └── LC_MESSAGES
 │       ├── messages.mo

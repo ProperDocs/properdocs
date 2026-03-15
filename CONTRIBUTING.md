@@ -159,8 +159,12 @@ updated by running the `extract_messages` command. To update the
 `pot` file for both built-in themes, run these commands:
 
 ```bash
-pybabel extract --project=ProperDocs --copyright-holder=ProperDocs --msgid-bugs-address='https://github.com/properdocs/properdocs/issues' --no-wrap --version="$(hatch version)" --mapping-file properdocs/themes/babel.cfg --output-file properdocs/themes/mkdocs/messages.pot properdocs/themes/mkdocs
-pybabel extract --project=ProperDocs --copyright-holder=ProperDocs --msgid-bugs-address='https://github.com/properdocs/properdocs/issues' --no-wrap --version="$(hatch version)" --mapping-file properdocs/themes/babel.cfg --output-file properdocs/themes/readthedocs/messages.pot properdocs/themes/readthedocs
+(cd packages/properdocs-theme-mkdocs/ && \
+pybabel extract --copyright-holder=ProperDocs --msgid-bugs-address='https://github.com/properdocs/properdocs/issues' --no-wrap --version="$(hatch version)" --mapping-file babel.cfg --output-file properdocs_theme_mkdocs/messages.pot properdocs_theme_mkdocs
+)
+(cd packages/properdocs-theme-readthedocs/ && \
+pybabel extract --copyright-holder=ProperDocs --msgid-bugs-address='https://github.com/properdocs/properdocs/issues' --no-wrap --version="$(hatch version)" --mapping-file babel.cfg --output-file properdocs_theme_readthedocs/messages.pot properdocs_theme_readthedocs
+)
 ```
 
 The updated `pot` file should be included in a PR with the updated template.

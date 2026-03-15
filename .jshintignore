@@ -1,9 +1,9 @@
 properdocs/themes/**/js/jquery-**.min.js
-properdocs/themes/mkdocs/js/highlight.pack.js
-properdocs/themes/mkdocs/js/bootstrap.bundle.min.js
-properdocs/themes/mkdocs/js/modernizr-**.min.js
-properdocs/themes/readthedocs/js/theme.js
-properdocs/themes/readthedocs/js/html5shiv.min.js
+packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/js/highlight.pack.js
+packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/js/bootstrap.bundle.min.js
+packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/js/modernizr-**.min.js
+packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/js/theme.js
+packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/js/html5shiv.min.js
 properdocs/contrib/search/templates/search/lunr.js
 properdocs/contrib/search/lunr-language/lunr.**.js
 properdocs/contrib/search/lunr-language/tinyseg.js

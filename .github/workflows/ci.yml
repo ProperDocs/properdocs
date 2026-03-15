@@ -118,7 +118,7 @@ jobs:
       - name: Check packaged files
         shell: bash -e -x {0}
         run: |
-          expected_wheel=(-eproperdocs/{templates/sitemap.xml,config/base.py,py.typed,contrib/search/lunr-language/lunr.nl.js,themes/{mkdocs,readthedocs}/{base.html,locales/{de,es}/LC_MESSAGES/messages.mo}})
-          expected_sdist=("${expected_wheel[@]}" -e{pyproject.toml,hatch_build.py})
+          expected_wheel=(-eproperdocs/{templates/sitemap.xml,config/base.py,py.typed,contrib/search/lunr-language/lunr.nl.js})
+          expected_sdist=("${expected_wheel[@]}" -epyproject.toml)
           test "$(tar -ztf dist/properdocs-*.tar.gz | grep -F "${expected_sdist[@]}" | tee /dev/stderr | wc -l)" -eq "${#expected_sdist[@]}"
           test "$(unzip -l dist/properdocs-*any.whl | grep -F "${expected_wheel[@]}" | tee /dev/stderr | wc -l)" -eq "${#expected_wheel[@]}"
