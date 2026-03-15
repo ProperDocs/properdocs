@@ -31,7 +31,7 @@ suddenly breaking the build of your existing site.
 To avoid these risks, switch to *ProperDocs*, a continuation of MkDocs 1.x and a drop-in replacement that supports your current MkDocs setup.
 Simply install it with `pip install properdocs` and build your site with `properdocs build` instead of the MkDocs equivalents.
 
-For more info visit https://github.com/ProperDocs/properdocs/discussions/456 and https://properdocs.org/
+For more info visit https://github.com/ProperDocs/properdocs/discussions/33 and https://properdocs.org/
 
 (This warning was initiated by one of the plugins that you depend on.)
 
