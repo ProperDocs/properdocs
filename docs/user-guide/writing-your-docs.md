@@ -10,12 +10,12 @@ Your documentation source should be written as regular Markdown files (see
 [Writing with Markdown](#writing-with-markdown) below), and placed in the
 [documentation directory](configuration.md#docs_dir). By default, this directory
 will be named `docs` and will exist at the top level of your project, alongside
-the `mkdocs.yml` configuration file.
+the `properdocs.yml` configuration file.
 
 The simplest project you can create will look something like this:
 
 ```text
-mkdocs.yml
+properdocs.yml
 docs/
     index.md
 ```
@@ -33,7 +33,7 @@ You can also create multi-page documentation, by creating several Markdown
 files:
 
 ```text
-mkdocs.yml
+properdocs.yml
 docs/
     index.md
     about.md
@@ -96,7 +96,7 @@ ignored.
 
 ### Configure Pages and Navigation
 
-The [nav](configuration.md#nav) configuration setting in your `mkdocs.yml` file
+The [nav](configuration.md#nav) configuration setting in your `properdocs.yml` file
 defines which pages are included in the global site navigation menu as well as
 the structure of that menu. If not provided, the navigation will be
 automatically created by discovering all the Markdown files in the
@@ -238,7 +238,7 @@ lowercase and any disallowed characters, including white-space, are converted to
 dashes. Consecutive dashes are then reduced to a single dash.
 
 There are a few configuration settings provided by the toc extension which you
-can set in your `mkdocs.yml` configuration file to alter the default behavior:
+can set in your `properdocs.yml` configuration file to alter the default behavior:
 
 *   **`permalink`**
 
@@ -311,7 +311,7 @@ CNAME file] and a PNG formatted screenshot image then your file layout might
 look as follows:
 
 ```text
-mkdocs.yml
+properdocs.yml
 docs/
     CNAME
     index.md

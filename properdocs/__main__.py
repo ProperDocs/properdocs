@@ -343,7 +343,7 @@ def gh_deploy_command(
     show_default=True,
 )
 def get_deps_command(config_file, projects_file):
-    """Show required PyPI packages inferred from plugins in mkdocs.yml."""
+    """Show required PyPI packages inferred from plugins in properdocs.yml."""
     from properdocs.commands.get_deps import get_deps, get_projects_file
     from properdocs.config.base import _open_config_file
 

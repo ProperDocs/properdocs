@@ -102,7 +102,7 @@ See `color_mode`, `user_color_mode_toggle` in [**documentation**](../user-guide/
 
 > WARNING: **Possible breaking change.**
 >
-> jQuery is no longer included into the "mkdocs" theme. If you were relying on it in your scripts, you will need to separately add it first (into mkdocs.yml) as an extra script:
+> jQuery is no longer included into the "mkdocs" theme. If you were relying on it in your scripts, you will need to separately add it first (into `properdocs.yml`) as an extra script:
 >
 > ```yaml
 > extra_javascript:
@@ -328,11 +328,11 @@ pip install $(mkdocs get-deps)
 
 The idea is that right after running this command, you can directly follow it up with `mkdocs build` and it will almost always "just work", without needing to think which dependencies to install.
 
-The way it works is by scanning `mkdocs.yml` for `themes:`, `plugins:`, `markdown_extensions:` items and doing a reverse lookup based on a large list of known projects (catalog, see below).
+The way it works is by scanning `properdocs.yml` for `themes:`, `plugins:`, `markdown_extensions:` items and doing a reverse lookup based on a large list of known projects (catalog, see below).
 
 Of course, you're welcome to use a "virtualenv" with such a command. Also note that for environments that require stability (for example CI) directly installing deps in this way is not a very reliable approach as it precludes dependency pinning.
 
-The command allows overriding which config file is used (instead of `mkdocs.yml` in the current directory) as well as which catalog of projects is used (instead of downloading it from the default location). See [`mkdocs get-deps --help`](../user-guide/cli.md#properdocs-get-deps).
+The command allows overriding which config file is used (instead of `properdocs.yml` in the current directory) as well as which catalog of projects is used (instead of downloading it from the default location). See [`mkdocs get-deps --help`](../user-guide/cli.md#properdocs-get-deps).
 
 Context: #3205
 
@@ -356,7 +356,7 @@ Now, in addition to validating relative links, MkDocs will print `INFO` messages
 INFO - Doc file 'example.md' contains an absolute link '/foo/bar/', it was left as is. Did you mean 'foo/bar.md'?
 ```
 
-If you don't want any changes, not even the `INFO` messages, and wish to revert to the silence from MkDocs 1.4, add the following configs to `mkdocs.yml` (**not** recommended):
+If you don't want any changes, not even the `INFO` messages, and wish to revert to the silence from MkDocs 1.4, add the following configs to `properdocs.yml` (**not** recommended):
 
 ```yaml
 validation:

@@ -76,7 +76,7 @@ class BuildTests(unittest.TestCase):
             self.assertEqual(headers["_status"], "200 OK")
             self.assertEqual(headers.get("content-length"), str(len(output)))
 
-    @tempdir({"docs/foo.docs": "docs1", "mkdocs.yml": "yml1"})
+    @tempdir({"docs/foo.docs": "docs1", "properdocs.yml": "yml1"})
     @tempdir({"foo.site": "original"})
     def test_basic_rebuild(self, site_dir, origin_dir):
         docs_dir = Path(origin_dir, "docs")
@@ -86,12 +86,13 @@ class BuildTests(unittest.TestCase):
         def rebuild():
             started_building.set()
             Path(site_dir, "foo.site").write_text(
-                Path(docs_dir, "foo.docs").read_text() + Path(origin_dir, "mkdocs.yml").read_text()
+                Path(docs_dir, "foo.docs").read_text()
+                + Path(origin_dir, "properdocs.yml").read_text()
             )
 
         with testing_server(site_dir, rebuild) as server:
             server.watch(docs_dir, rebuild)
-            server.watch(Path(origin_dir, "mkdocs.yml"), rebuild)
+            server.watch(Path(origin_dir, "properdocs.yml"), rebuild)
             time.sleep(0.01)
 
             _, output = do_request(server, "GET /foo.site")
@@ -104,7 +105,7 @@ class BuildTests(unittest.TestCase):
             _, output = do_request(server, "GET /foo.site")
             self.assertEqual(output, "docs2yml1")
 
-            Path(origin_dir, "mkdocs.yml").write_text("yml2")
+            Path(origin_dir, "properdocs.yml").write_text("yml2")
             self.assertTrue(started_building.wait(timeout=10))
             started_building.clear()
 
@@ -511,13 +512,13 @@ class BuildTests(unittest.TestCase):
             self.assertEqual(headers["_status"], "302 Found")
             self.assertEqual(headers.get("location"), "/mount/%E6%B8%AC%E8%A9%A6/")
 
-    @tempdir({"mkdocs.yml": "original", "mkdocs2.yml": "original"}, prefix="tmp_dir")
+    @tempdir({"properdocs.yml": "original", "mkdocs2.yml": "original"}, prefix="tmp_dir")
     @tempdir(prefix="origin_dir")
     @tempdir({"subdir/foo.md": "original"}, prefix="dest_docs_dir")
     def test_watches_direct_symlinks(self, dest_docs_dir, origin_dir, tmp_dir):
         try:
             Path(origin_dir, "docs").symlink_to(dest_docs_dir, target_is_directory=True)
-            Path(origin_dir, "mkdocs.yml").symlink_to(Path(tmp_dir, "mkdocs.yml"))
+            Path(origin_dir, "properdocs.yml").symlink_to(Path(tmp_dir, "properdocs.yml"))
         except NotImplementedError:  # PyPy on Windows
             self.skipTest("Creating symlinks not supported")
 
@@ -532,13 +533,13 @@ class BuildTests(unittest.TestCase):
 
         with testing_server(tmp_dir, started_building.set) as server:
             server.watch(Path(origin_dir, "docs"))
-            server.watch(Path(origin_dir, "mkdocs.yml"))
+            server.watch(Path(origin_dir, "properdocs.yml"))
             time.sleep(0.01)
 
             Path(origin_dir, "unrelated.md").write_text("foo")
             self.assertFalse(started_building.wait(timeout=0.5))
 
-            Path(tmp_dir, "mkdocs.yml").write_text("edited")
+            Path(tmp_dir, "properdocs.yml").write_text("edited")
             self.assertTrue(wait_for_build())
 
             Path(dest_docs_dir, "subdir", "foo.md").write_text("edited")

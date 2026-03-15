@@ -25,7 +25,7 @@ It is particularly helpful if an issue report touches on all of these aspects:
 
 1.  What are you trying to achieve?
 
-2.  What is your `mkdocs.yml` configuration (+ other relevant files)? Preferably reduced to the minimal reproducible example.
+2.  What is your `properdocs.yml` configuration (+ other relevant files)? Preferably reduced to the minimal reproducible example.
 
 3.  What did you expect to happen when applying this setup?
 
@@ -119,7 +119,7 @@ Documentation files are also checked by markdownlint, so you should run this as 
 hatch run lint:check
 ```
 
-If you add a new plugin to mkdocs.yml, you don't need to add it to any "requirements" file, because that is managed automatically.
+If you add a new plugin to properdocs.yml, you don't need to add it to any "requirements" file, because that is managed automatically.
 
 > INFO: If you don't want to use Hatch, for documentation you can install requirements into a virtualenv, in one of these ways (with `.venv` being the virtualenv directory):
 >

@@ -34,7 +34,7 @@ def load_config(config_file_path: str | None = None, **cfg) -> ProperDocsConfig:
     if 'plugins' not in cfg:
         cfg['plugins'] = []
     conf = ProperDocsConfig(
-        config_file_path=config_file_path or os.path.join(path_base, 'mkdocs.yml')
+        config_file_path=config_file_path or os.path.join(path_base, 'properdocs.yml')
     )
     conf.load_dict(cfg)
 

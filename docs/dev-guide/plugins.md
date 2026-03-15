@@ -130,7 +130,7 @@ class MyPlugin(properdocs.plugins.BasePlugin):
 >
 > ```yaml
 > my_plugin:
->   definition_file: configs/test.ini  # relative to mkdocs.yml
+>   definition_file: configs/test.ini  # relative to properdocs.yml
 >   validation:
 >     enabled: !ENV [CI, false]
 >     verbose: true

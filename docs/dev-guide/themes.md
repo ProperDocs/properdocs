@@ -23,13 +23,13 @@ the code to describe the different features and their usage.
 
 The bare minimum required for a custom theme is a `main.html` [Jinja2
 template] file which is placed in a directory that is *not* a child of the
-[docs_dir]. Within `mkdocs.yml`, set the [`theme.custom_dir`][custom_dir]
+[docs_dir]. Within `properdocs.yml`, set the [`theme.custom_dir`][custom_dir]
 option to the path of the directory containing `main.html`. The path should be
 relative to the configuration file. For example, given this example project
 layout:
 
 ```text
-mkdocs.yml
+properdocs.yml
 docs/
     index.md
     about.md
@@ -38,7 +38,7 @@ custom_theme/
     ...
 ```
 
-... you would include the following settings in `mkdocs.yml` to use the custom theme
+... you would include the following settings in `properdocs.yml` to use the custom theme
 directory:
 
 ```yaml
@@ -64,7 +64,7 @@ theme:
 > A theme's [configuration] defined in a `mkdocs_theme.yml` file is not loaded
 > from `theme.custom_dir`. When an entire theme exists in `theme.custom_dir`
 > and `theme.name` is set to `null`, then the entire theme configuration must
-> be defined in the [theme] configuration option in the `mkdocs.yml` file.
+> be defined in the [theme] configuration option in the `properdocs.yml` file.
 >
 > However, when a theme is [packaged] up for distribution, and loaded using
 > the `theme.name` configuration option, then a `mkdocs_theme.yml` file
@@ -101,7 +101,7 @@ The simplest `main.html` file is the following:
 </html>
 ```
 
-The body content from each page specified in `mkdocs.yml` is inserted using the
+The body content from each page specified in `properdocs.yml` is inserted using the
 `{{ page.content }}` tag. Style-sheets and scripts can be brought into this
 theme as with a normal HTML file. Navbars and tables of contents can also be
 generated and included automatically, through the `nav` and `toc` objects,
@@ -232,7 +232,7 @@ The following variables are available globally on any template.
 #### config
 
 The `config` variable is an instance of ProperDocs' config object generated from the
-`mkdocs.yml` config file. While you can use any config option, some commonly
+`properdocs.yml` config file. While you can use any config option, some commonly
 used options include:
 
 * [config.site_name](../user-guide/configuration.md#site_name)
@@ -781,7 +781,7 @@ objects.
 ```
 
 If present, the `config` object contains the key/value pairs of config options
-defined for the plugin in the user's `mkdocs.yml` config file under
+defined for the plugin in the user's `properdocs.yml` config file under
 `plugings.search`. The `config` object was new in ProperDocs version *1.0*.
 
 The `docs` object contains a list of document objects. Each document object is
@@ -887,7 +887,7 @@ hyphens to separate words and including the name of your theme.
 Most of the rest of the file can be left unedited. The last section we need to
 change is the entry_points. This is how ProperDocs finds the theme(s) you are
 including in the package. The name on the left is the one that users will use
-in their mkdocs.yml and the one on the right is the directory containing your
+in their properdocs.yml and the one on the right is the directory containing your
 theme files.
 
 The directory you created at the start of this section with the main.html file
@@ -922,7 +922,7 @@ Then in a template, that config option could be referenced:
 {% endif %}
 ```
 
-And the user could override the default in their project's `mkdocs.yml` config
+And the user could override the default in their project's `properdocs.yml` config
 file:
 
 ```yaml
@@ -940,7 +940,7 @@ special options which alters its behavior:
 >
 > This option mirrors the [theme] config option of the same name. If this
 > value is not defined in the `mkdocs_theme.yml` file and the user does not
-> set it in `mkdocs.yml` then it will default to `en` (English). The value
+> set it in `properdocs.yml` then it will default to `en` (English). The value
 > is expected to match the language used in the text provided by the theme
 > (such a "next" and "previous" links) and should be used as the value of
 > the `<html>` tag's `lang` attribute. See [Supporting theme localization/

@@ -24,7 +24,7 @@ import click
 log = logging.getLogger('properdocs')
 
 DIR = os.path.dirname(__file__)
-MKDOCS_CONFIG = os.path.abspath(os.path.join(DIR, '../../mkdocs.yml'))
+MKDOCS_CONFIG = os.path.abspath(os.path.join(DIR, '../../properdocs.yml'))
 MKDOCS_THEMES = ['mkdocs', 'readthedocs']
 TEST_PROJECTS = os.path.abspath(os.path.join(DIR, 'integration'))
 

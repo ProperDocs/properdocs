@@ -11,7 +11,7 @@ For full documentation visit [properdocs.org](https://properdocs.org).
 
 ## Project layout
 
-    mkdocs.yml    # The configuration file.
+    properdocs.yml # The configuration file.
     docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+        index.md   # The documentation homepage.
+        ...        # Other markdown pages, images and other files.

@@ -7,7 +7,7 @@ Guide to all available configuration settings.
 ## Introduction
 
 Project settings are configured by default using a YAML configuration file in
-the project directory named `mkdocs.yml`. You can specify another path for it
+the project directory named `properdocs.yml`. You can specify another path for it
 by using the `-f`/`--config-file` option (see `properdocs build --help`).
 
 At a minimum, this configuration file must contain the `site_name`. All other settings are optional.
@@ -823,7 +823,7 @@ This alternative syntax is required if you intend to override some options via
 
 NEW: **New in version 1.4.**
 
-A list of paths to Python scripts (relative to `mkdocs.yml`) that are loaded and used as [plugin](#plugins) instances.
+A list of paths to Python scripts (relative to `properdocs.yml`) that are loaded and used as [plugin](#plugins) instances.
 
 For example:
 
@@ -884,7 +884,7 @@ the site. See the [Plugins] documentation for full details.
 
 **default**: `['search']` (the "search" plugin included with ProperDocs).
 
-If the `plugins` config setting is defined in the `mkdocs.yml` config file, then
+If the `plugins` config setting is defined in the `properdocs.yml` config file, then
 any defaults (such as `search`) are ignored and you need to explicitly re-enable
 the defaults if you would like to continue using them:
 
@@ -1115,7 +1115,7 @@ Examples of the possible values are:
 ```yaml
 - !relative  # Relative to the directory of the current Markdown file
 - !relative $docs_dir  # Path of the docs_dir
-- !relative $config_dir  # Path of the directory that contains the main mkdocs.yml
+- !relative $config_dir  # Path of the directory that contains the main properdocs.yml
 - !relative $config_dir/some/child/dir  # Some subdirectory of the root config directory
 ```
 
@@ -1131,12 +1131,12 @@ markdown_extensions:
 
 This allows the [pymdownx.snippets] extension to include files relative to the current Markdown file, which without this tag it would have no way of knowing.
 
-> NOTE: Even for the default case, any extension's base path is technically the *current working directory* although the assumption is that it's the *directory of mkdocs.yml*. So even if you don't want the paths to be relative, to improve the default behavior, always prefer to use this idiom:
+> NOTE: Even for the default case, any extension's base path is technically the *current working directory* although the assumption is that it's the *directory of properdocs.yml*. So even if you don't want the paths to be relative, to improve the default behavior, always prefer to use this idiom:
 >
 > ```yaml
 > markdown_extensions:
 >   - pymdownx.snippets:
->       base_path: !relative $config_dir  # Relative to the root directory with mkdocs.yml
+>       base_path: !relative $config_dir  # Relative to the root directory with properdocs.yml
 > ```
 
 ## Configuration Inheritance
@@ -1171,7 +1171,7 @@ markdown_extensions:
 ```
 
 Then, for the "foo" site, the primary configuration file would be defined at
-`foo/mkdocs.yml`:
+`foo/properdocs.yml`:
 
 ```yml
 INHERIT: ../base.yml
@@ -1179,7 +1179,7 @@ site_name: Foo Project
 site_url: https://example.com/foo
 ```
 
-When running `properdocs build`, the file at `foo/mkdocs.yml` would be passed in as
+When running `properdocs build`, the file at `foo/properdocs.yml` would be passed in as
 the configuration file. ProperDocs will then parse that file, retrieve and parse the
 parent file `base.yml` and deep merge the two. This would result in ProperDocs
 receiving the following merged configuration:
@@ -1259,7 +1259,7 @@ path based options in the primary configuration file only.
 The inheritance can also be used as a quick way to override keys on the command line - by using stdin as the config file. For example:
 
 ```bash
-echo '{INHERIT: mkdocs.yml, site_name: "Renamed site"}' | properdocs build -f -
+echo '{INHERIT: properdocs.yml, site_name: "Renamed site"}' | properdocs build -f -
 ```
 
 [Theme Developer Guide]: ../dev-guide/themes.md

@@ -44,7 +44,7 @@ To specify the locale that ProperDocs should use, set the [locale]
 parameter of the [theme] configuration option to the appropriate code.
 
 For example, to build the `mkdocs` theme in French you would use the following
-in your `mkdocs.yml` configuration file:
+in your `properdocs.yml` configuration file:
 
 ```yaml
 theme:

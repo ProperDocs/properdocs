@@ -191,7 +191,7 @@ packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales
 Note that the compiled `messages.mo` file was generated based on the
 `messages.po` file that you just edited.
 
-Then modify the `mkdocs.yml` file at the root of the project to test the new
+Then modify the `properdocs.yml` file at the root of the project to test the new
 and/or updated locale:
 
 ```yaml
@@ -208,7 +208,7 @@ Finally, run `properdocs serve` to check out your new localized version of the t
 > actual text translation `messages.po` files (the rest is ignored by git).
 >
 > After you have finished testing your work, be sure to undo the change to
-> the `locale` setting in the `mkdocs.yml` file before submitting your
+> the `locale` setting in the `properdocs.yml` file before submitting your
 > changes.
 
 ## Updating theme documentation

@@ -915,7 +915,7 @@ class BuildTests(PathAssertionMixin, unittest.TestCase):
                           base_path: {base_path}
                 '''
                 config = base.load_config(
-                    io.StringIO(cfg), config_file_path=os.path.join(config_dir, 'mkdocs.yml')
+                    io.StringIO(cfg), config_file_path=os.path.join(config_dir, 'properdocs.yml')
                 )
 
                 with self._assert_build_logs(''):
