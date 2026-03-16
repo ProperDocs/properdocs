@@ -814,7 +814,10 @@ class Theme(BaseConfigOption[theme.Theme]):
         if theme_config['name'] is not None and theme_config['name'] not in themes:
             message = f"Unrecognised theme name: '{theme_config['name']}'."
             if theme_config['name'] in ('mkdocs', 'readthedocs'):
-                message += f"\nAdditional dependency is needed:\n    pip install properdocs-theme-{theme_config['name']}"
+                message += (
+                    f"\nAn additional dependency is needed:"
+                    f"\n    pip install properdocs-theme-{theme_config['name']}"
+                )
             elif themes:
                 message += f" The available installed themes are: {', '.join(themes)}"
             else:
@@ -840,6 +843,21 @@ class Theme(BaseConfigOption[theme.Theme]):
             raise ValidationError("'locale' must be a string.")
 
         return theme.Theme(**theme_config)
+
+
+class ProperDocsTheme(Theme):
+    def run_validation(self, value: object) -> theme.Theme:
+        if value is None:
+            value = 'mkdocs'
+            if self.config_file_path:
+                config_file_name = repr(os.path.basename(self.config_file_path))
+            else:
+                config_file_name = "the configuration file"
+            log.warning(
+                f"Please select a theme explicitly in {config_file_name}."
+                " Defaulted to 'theme: mkdocs', but this may change in the future."
+            )
+        return super().run_validation(value)
 
 
 class Nav(OptionallyRequired):

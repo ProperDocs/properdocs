@@ -20,6 +20,7 @@ DOCS_DIR = os.path.join(
 
 def load_config(**cfg) -> ProperDocsConfig:
     cfg.setdefault('site_name', 'Example')
+    cfg.setdefault('theme', 'mkdocs')
     cfg.setdefault(
         'docs_dir',
         os.path.join(

@@ -29,12 +29,26 @@ class ConfigTests(unittest.TestCase):
 
     def test_missing_site_name(self):
         conf = defaults.ProperDocsConfig()
-        conf.load_dict({})
+        conf.load_dict({'theme': 'mkdocs'})
         errors, warnings = conf.validate()
         self.assertEqual(
             errors, [('site_name', ValidationError("Required configuration not provided."))]
         )
         self.assertEqual(warnings, [])
+
+    def test_missing_theme(self):
+        conf = defaults.ProperDocsConfig(config_file_path='a.yml')
+        conf.load_dict({'site_name': 'Example'})
+        with self.assertLogs('properdocs') as cm:
+            errors, warnings = conf.validate()
+        self.assertEqual(errors, [])
+        self.assertEqual(warnings, [])
+        self.assertEqual(
+            cm.output,
+            [
+                "WARNING:properdocs.config.config_options:Please select a theme explicitly in 'a.yml'. Defaulted to 'theme: mkdocs', but this may change in the future."
+            ],
+        )
 
     def test_nonexistant_config(self):
         with self.assertRaises(ConfigurationError):
@@ -69,6 +83,7 @@ class ConfigTests(unittest.TestCase):
         file_contents = dedent(
             """
             site_name: Example
+            theme: mkdocs
             nav:
             - 'Introduction': 'index.md'
             """
@@ -235,7 +250,7 @@ class ConfigTests(unittest.TestCase):
         conf = defaults.ProperDocsConfig(
             config_file_path=os.path.join(os.path.abspath('.'), 'properdocs.yml')
         )
-        conf.load_dict({'site_name': 'Example'})
+        conf.load_dict({'site_name': 'Example', 'theme': 'mkdocs'})
         conf.validate()
         self.assertEqual(conf['nav'], None)
 
@@ -244,6 +259,7 @@ class ConfigTests(unittest.TestCase):
         conf.load_dict(
             {
                 'site_name': 'Example',
+                'theme': 'mkdocs',
                 'pages': ['index.md', 'about.md'],
             }
         )

@@ -909,6 +909,7 @@ class BuildTests(PathAssertionMixin, unittest.TestCase):
             with self.subTest(base_path=base_path):
                 cfg = f'''
                     site_name: test
+                    theme: mkdocs
                     use_directory_urls: false
                     markdown_extensions:
                       - properdocs.tests.build_tests:

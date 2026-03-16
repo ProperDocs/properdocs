@@ -46,7 +46,7 @@ class ConfigBaseTests(unittest.TestCase):
         Allows users to specify a config other than the default `properdocs.yml`.
         """
         with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file:
-            config_file.write("site_name: ProperDocs Test\n")
+            config_file.write("site_name: ProperDocs Test\ntheme: mkdocs\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
 
         cfg = base.load_config(config_file=config_file.name)
@@ -57,7 +57,7 @@ class ConfigBaseTests(unittest.TestCase):
     def test_load_default_file(self, temp_dir):
         """Test that `properdocs.yml` will be loaded when '--config' is not set."""
         with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file:
-            config_file.write("site_name: ProperDocs Test\n")
+            config_file.write("site_name: ProperDocs Test\ntheme: mkdocs\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
         with change_dir(temp_dir):
             cfg = base.load_config(config_file=None)
@@ -68,7 +68,7 @@ class ConfigBaseTests(unittest.TestCase):
     def test_load_default_file_with_yaml(self, temp_dir):
         """Test that `properdocs.yml` will be loaded when '--config' is not set."""
         with open(os.path.join(temp_dir, 'properdocs.yaml'), 'w') as config_file:
-            config_file.write("site_name: ProperDocs Test\n")
+            config_file.write("site_name: ProperDocs Test\ntheme: mkdocs\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
         with change_dir(temp_dir):
             cfg = base.load_config(config_file=None)
@@ -79,9 +79,9 @@ class ConfigBaseTests(unittest.TestCase):
     def test_load_default_file_prefer_yml(self, temp_dir):
         """Test that `properdocs.yml` will be loaded when '--config' is not set."""
         with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file1:
-            config_file1.write("site_name: ProperDocs Test1\n")
+            config_file1.write("site_name: ProperDocs Test1\ntheme: mkdocs\n")
         with open(os.path.join(temp_dir, 'properdocs.yaml'), 'w') as config_file2:
-            config_file2.write("site_name: ProperDocs Test2\n")
+            config_file2.write("site_name: ProperDocs Test2\ntheme: mkdocs\n")
 
         os.mkdir(os.path.join(temp_dir, 'docs'))
         with change_dir(temp_dir):
@@ -104,7 +104,15 @@ class ConfigBaseTests(unittest.TestCase):
         config_file.flush()
         os.mkdir(os.path.join(temp_path, 'docs'))
 
-        cfg = base.load_config(config_file=config_file)
+        with self.assertLogs('properdocs') as cm:
+            cfg = base.load_config(config_file=config_file)
+        self.assertEqual(
+            cm.output,
+            [
+                "WARNING:properdocs.config.config_options:Please select a theme explicitly in 'properdocs.yml'. Defaulted to 'theme: mkdocs', but this may change in the future."
+            ],
+        )
+
         self.assertTrue(isinstance(cfg, defaults.ProperDocsConfig))
         self.assertEqual(cfg.site_name, 'ProperDocs Test')
         # load_config will always close the file
@@ -117,7 +125,7 @@ class ConfigBaseTests(unittest.TestCase):
         Ensure `load_config` reloads the closed file.
         """
         with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file:
-            config_file.write("site_name: ProperDocs Test\n")
+            config_file.write("site_name: ProperDocs Test\ntheme: mkdocs\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
 
         cfg = base.load_config(config_file=config_file)
@@ -248,7 +256,7 @@ class ConfigBaseTests(unittest.TestCase):
         """
         config_fname = os.path.join(config_dir, 'properdocs.yml')
         with open(config_fname, 'w') as config_file:
-            config_file.write("docs_dir: src\nsite_name: ProperDocs Test\n")
+            config_file.write("docs_dir: src\nsite_name: ProperDocs Test\ntheme: mkdocs\n")
         docs_dir = os.path.join(config_dir, 'src')
         os.mkdir(docs_dir)
 
