@@ -78,7 +78,7 @@ exclude = ["/properdocs/tests"]
 
 [tool.hatch.env]
 requires = [
-    "hatch-mkdocs",
+    "hatch-properdocs",
     "hatch-pip-compile >=1.7.0",
 ]
 
@@ -113,7 +113,7 @@ matrix.type.scripts = [
     { key = "with-coverage", value = "_coverage", if = ["default"] },
 ]
 
-[tool.hatch.env.collectors.mkdocs.integration]
+[tool.hatch.env.collectors.properdocs.integration]
 path = "properdocs.yml"
 [tool.hatch.envs.integration]
 detached = false
@@ -165,7 +165,7 @@ markdown = "npm exec --yes -- markdownlint-cli README.md CONTRIBUTING.md docs/ -
 js = "npm exec --yes -- jshint properdocs/"
 check = ["markdown", "js", "spelling"]
 
-[tool.hatch.env.collectors.mkdocs.docs]
+[tool.hatch.env.collectors.properdocs.docs]
 path = "properdocs.yml"
 [tool.hatch.envs.docs]
 type = "pip-compile"
