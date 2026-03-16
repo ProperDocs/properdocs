@@ -14,7 +14,7 @@ configuration file. Start by reading the [introductory tutorial], then check the
 [User Guide]: user-guide/README.md
 
 <div class="text-center">
-<a href="getting-started/" class="btn btn-primary" role="button">Getting Started</a>
+<a href="getting-started/" class="md-button md-button--primary" role="button">Getting Started</a>
 <a href="user-guide/" class="btn btn-primary" role="button">User Guide</a>
 </div>
 
