@@ -96,10 +96,16 @@ class ColorFormatter(logging.Formatter):
 class State:
     """Maintain logging level."""
 
-    def __init__(self, log_name='properdocs', level=logging.INFO):
-        self.logger = logging.getLogger(log_name)
-        self.logger.setLevel(level)
+    def __init__(self):
+        self.logger = logging.getLogger('properdocs')
+        self.logger.setLevel(logging.INFO)
         self.logger.propagate = False
+
+        # Also support legacy logger name in case plugins refer to it directly.
+        mkdocs_logger = logging.getLogger('mkdocs')
+        mkdocs_logger.parent = self.logger
+        mkdocs_logger.setLevel(logging.NOTSET)
+        mkdocs_logger.propagate = True
 
         self.stream = logging.StreamHandler()
         self.stream.setFormatter(ColorFormatter())
