@@ -14,8 +14,20 @@ You can determine your currently installed version using `properdocs --version`:
 
 ```console
 $ properdocs --version
-properdocs, version 1.6.5 from /path/to/properdocs (Python 3.13)
+properdocs, version 1.6.6 from /path/to/properdocs (Python 3.13)
 ```
+
+## Version 1.6.6 (2026-03-16)
+
+*   Add a warning in case there isn't any theme specified in the config (#39)
+
+    The theme still defaults to 'mkdocs' but is *not* included in the package. That's why it made sense to warn about this now, and plan to remove this default at a later point.
+
+*   Support also the 'mkdocs' logger name, in case plugins refer to it directly (#38)
+
+    This was an omission in the backwards support of MkDocs plugins, causing logged messages of some plugins to be skipped.
+
+See [commit log](https://github.com/properdocs/properdocs/compare/v1.6.5...v1.6.6).
 
 ## Version 1.6.5 (2026-03-15)
 
