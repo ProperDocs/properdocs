@@ -26,6 +26,7 @@ nav:
     - Release Notes: about/release-notes.md
     - Contributing: about/contributing.md
     - License: about/license.md
+    - Who We Are: about/who-we-are.md
 
 extra_css:
   - css/extra.css
