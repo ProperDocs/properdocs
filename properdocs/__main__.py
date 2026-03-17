@@ -12,12 +12,7 @@ import warnings
 
 import click
 
-from properdocs import (
-    __version__,
-    config,
-    replacement,  # noqa: F401
-    utils,
-)
+from properdocs import __version__, config, replacement, utils
 
 if sys.platform.startswith("win"):
     try:
@@ -26,6 +21,9 @@ if sys.platform.startswith("win"):
         pass
     else:
         colorama.init()
+
+replacement.setup()
+
 
 log = logging.getLogger(__name__)
 

@@ -1,7 +1,8 @@
-"""After this file is imported, all mkdocs.* imports get redirected to properdocs.* imports."""
+"""After calling setup(), all mkdocs.* imports get redirected to properdocs.* imports."""
 
 import importlib.abc
 import importlib.util
+import os
 import sys
 
 
@@ -37,6 +38,11 @@ class _AliasFinder:
         return None
 
 
-sys.meta_path.insert(0, _AliasFinder())
-# Plus, handle the topmost module directly and without waiting for it to be requested.
-sys.modules['mkdocs'] = sys.modules['properdocs']
+def setup():
+    sys.meta_path.insert(0, _AliasFinder())
+    # Plus, handle the topmost module directly and without waiting for it to be requested.
+    sys.modules['mkdocs'] = sys.modules['properdocs']
+
+    # Prevent warnings from the theme that already uses this environment variable.
+    # That warning does not apply to ProperDocs.
+    os.environ['NO_MKDOCS_2_WARNING'] = 'true'
