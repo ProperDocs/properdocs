@@ -315,7 +315,10 @@ class Page(StructureItem):
                     continue
                 context = ""
                 if to_file == self.file:
-                    problem = "there is no such anchor on this page"
+                    if original_link.endswith('#' + anchor):
+                        problem = "there is no such anchor on this page"
+                    else:
+                        problem = f"there is no anchor '#{anchor}' on this page"
                     if anchor.startswith('fnref:'):
                         context = " This seems to be a footnote that is never referenced."
                 else:
@@ -416,6 +419,16 @@ class _RelativePathTreeprocessor(markdown.treeprocessors.Treeprocessor):
                     yield guess
                     tried.add(guess)
 
+    def register_anchor(self, *, file: File, anchor: str, url: str) -> None:
+        if not anchor:
+            return
+        # Detect https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment/Text_fragments#syntax
+        if (index := anchor.find(':~:')) > -1:
+            if index == 0:
+                return  # This is entirely just a directive, no anchor.
+            anchor = anchor[:index]
+        self.links_to_anchors.setdefault(file, {}).setdefault(anchor, url)
+
     def path_to_url(self, url: str) -> str:
         scheme, netloc, path, query, anchor = urlsplit(url)
 
@@ -433,9 +446,8 @@ class _RelativePathTreeprocessor(markdown.treeprocessors.Treeprocessor):
         elif AMP_SUBSTITUTE in url:  # AMP_SUBSTITUTE is used internally by Markdown only for email.
             return url
         elif not path:  # Self-link containing only query or anchor.
-            if anchor:
-                # Register that the page links to itself with an anchor.
-                self.links_to_anchors.setdefault(self.file, {}).setdefault(anchor, url)
+            # Register that the page links to itself with an anchor.
+            self.register_anchor(file=self.file, anchor=anchor, url=url)
             return url
 
         path = urlunquote(path)
@@ -498,9 +510,8 @@ class _RelativePathTreeprocessor(markdown.treeprocessors.Treeprocessor):
         assert target_uri is not None
         assert target_file is not None
 
-        if anchor:
-            # Register that this page links to the target file with an anchor.
-            self.links_to_anchors.setdefault(target_file, {}).setdefault(anchor, url)
+        # Register that this page links to the target file with an anchor.
+        self.register_anchor(file=target_file, anchor=anchor, url=url)
 
         if target_file.inclusion.is_excluded():
             if self.file.inclusion.is_excluded():
