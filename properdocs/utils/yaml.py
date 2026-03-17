@@ -4,9 +4,9 @@ import functools
 import logging
 import os
 import os.path
+from collections.abc import Mapping
 from typing import IO, TYPE_CHECKING, Any
 
-import mergedeep  # type: ignore
 import yaml
 import yaml_env_tag  # type: ignore
 
@@ -152,5 +152,14 @@ def yaml_load(
         log.debug(f"Loading inherited configuration file: {abspath}")
         with open(abspath, 'rb') as fd:
             parent = yaml_load(fd, loader)
-        result = mergedeep.merge(parent, result)
+        result = deep_merge_dicts(parent, result)
     return result
+
+
+def deep_merge_dicts(dst: dict[str, Any], src: Mapping[str, Any]) -> dict[str, Any]:
+    for key, src_value in src.items():
+        if isinstance(dst.get(key), Mapping) and isinstance(src_value, Mapping):
+            deep_merge_dicts(dst[key], src_value)
+        else:
+            dst[key] = src_value
+    return dst
