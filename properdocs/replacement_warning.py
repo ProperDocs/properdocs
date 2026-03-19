@@ -44,13 +44,9 @@ def setup():
         return
 
     if is_running_from_mkdocs():
-        # Allow to silence this warning with NO_MKDOCS_2_WARNING=true
-        if os.environ.get('NO_MKDOCS_2_WARNING', '').lower() != 'true':
+        # Allow to silence this warning with DISABLE_MKDOCS_2_WARNING=true
+        if os.environ.get('DISABLE_MKDOCS_2_WARNING', '').lower() != 'true':
             print(colorize_message(_warning_message), file=sys.stderr)  # noqa: T201
-
-    # Prevent warnings from the theme that already uses this environment variable.
-    # That warning does not apply to ProperDocs.
-    os.environ['NO_MKDOCS_2_WARNING'] = 'true'
 
     _warning_message = ''  # Disable all activations other than the first one.
 
