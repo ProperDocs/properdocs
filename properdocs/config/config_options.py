@@ -17,7 +17,6 @@ from urllib.parse import quote as urlquote
 from urllib.parse import urlsplit, urlunsplit
 
 import markdown
-import pathspec
 import pathspec.gitignore
 
 from properdocs import plugins, theme, utils
@@ -497,8 +496,8 @@ class URL(OptionallyRequired[str]):
             return value
         try:
             parsed_url = urlsplit(value)
-        except (AttributeError, TypeError):
-            raise ValidationError("Unable to parse the URL.")
+        except Exception:
+            raise ValidationError("The URL is invalid")
 
         if parsed_url.scheme and parsed_url.netloc:
             if self.is_dir and not parsed_url.path.endswith('/'):

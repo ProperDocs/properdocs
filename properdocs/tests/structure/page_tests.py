@@ -1221,6 +1221,19 @@ class RelativePathExtensionTests(unittest.TestCase):
                 '<a href="\\image.png">absolute local path</a>',
             )
 
+    @unittest.skipUnless(sys.version_info >= (3, 11), "new error kind in Python 3.11")
+    def test_invalid_link_ipv6(self):
+        for use_directory_urls in True, False:
+            self.assertEqual(
+                self.get_rendered_result(
+                    use_directory_urls=use_directory_urls,
+                    content='[invalid link](http://[a]/)',
+                    files=['index.md'],
+                    logs="INFO:Doc file 'index.md' contains an invalid link 'http://[a]/', it was left as is.",
+                ),
+                '<a href="http://[a]">absolute local path</a>',
+            )
+
     def test_email_link(self):
         self.assertEqual(
             self.get_rendered_result(content='<mail@example.com>', files=['index.md']),
