@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import io
 import logging
 import shutil
+import sys
 import tempfile
 from os.path import isdir, isfile, join
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, BinaryIO, Callable
 from urllib.parse import urlsplit
 
 from properdocs.commands.build import build
@@ -18,7 +20,7 @@ log = logging.getLogger(__name__)
 
 
 def serve(
-    config_file: str | None = None,
+    config_file: str | BinaryIO | None = None,
     livereload: bool = True,
     build_type: str | None = None,
     watch_theme: bool = False,
@@ -37,9 +39,22 @@ def serve(
     # Create a temporary build directory, and set some options to serve it
     site_dir = tempfile.mkdtemp(prefix='properdocs_')
 
+    get_config_file: Callable[[], str | BinaryIO | None]
+    if config_file is None or isinstance(config_file, str):
+        get_config_file = lambda: config_file
+    elif sys.stdin and config_file is sys.stdin.buffer:
+        # Stdin must be read only once, can't be reopened later.
+        config_file_content = sys.stdin.buffer.read()
+        get_config_file = lambda: io.BytesIO(config_file_content)
+    else:
+        # If closed file descriptor, reopen it through the file path instead.
+        get_config_file = lambda: (
+            config_file.name if getattr(config_file, 'closed', False) else config_file
+        )
+
     def get_config():
         config = load_config(
-            config_file=config_file,
+            config_file=get_config_file(),
             site_dir=site_dir,
             **kwargs,
         )

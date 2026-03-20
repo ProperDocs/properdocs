@@ -119,20 +119,6 @@ class ConfigBaseTests(unittest.TestCase):
         self.assertTrue(config_file.closed)
 
     @tempdir()
-    def test_load_from_closed_file(self, temp_dir):
-        """
-        The `serve` command with auto-reload may pass in a closed file descriptor.
-        Ensure `load_config` reloads the closed file.
-        """
-        with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file:
-            config_file.write("site_name: ProperDocs Test\ntheme: mkdocs\n")
-        os.mkdir(os.path.join(temp_dir, 'docs'))
-
-        cfg = base.load_config(config_file=config_file)
-        self.assertTrue(isinstance(cfg, defaults.ProperDocsConfig))
-        self.assertEqual(cfg.site_name, 'ProperDocs Test')
-
-    @tempdir()
     def test_load_missing_required(self, temp_dir):
         """`site_name` is a required setting."""
         with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file:
@@ -260,7 +246,7 @@ class ConfigBaseTests(unittest.TestCase):
         docs_dir = os.path.join(config_dir, 'src')
         os.mkdir(docs_dir)
 
-        cfg = base.load_config(config_file=config_file)
+        cfg = base.load_config(config_file=config_fname)
         self.assertTrue(isinstance(cfg, defaults.ProperDocsConfig))
         self.assertEqual(cfg.site_name, 'ProperDocs Test')
         self.assertEqual(cfg.docs_dir, docs_dir)
