@@ -1,8 +1,8 @@
-## ProperDocs
+# ProperDocs
 
 ProperDocs is a static site generator intended for project documentation. Source files are written in Markdown and converted to static HTML during the build process.
 
-Project configuration is defined in a YAML configuration file (in `properdocs.yml`). This file specifies documentation structure, theme configuration, and optional plugin settings.
+Project configuration is defined in a YAML configuration file (`properdocs.yml`). This file specifies the documentation structure, theme configuration, and optional plugin settings.
 
 ProperDocs supports extension through plugins, themes and Markdown extensions.
 
@@ -18,11 +18,10 @@ Current functionality includes:
 * YAML-based configuration
 * Plugin system for extending functionality
 * Support for Markdown extensions
-* Built-in themes
 * Support for third-party themes
 * Static output suitable for deployment on standard web servers
 
-Additional functionality may be available through plugins.
+Additional functionality is available through plugins.
 
 ---
 
@@ -31,7 +30,7 @@ Additional functionality may be available through plugins.
 If you encounter problems while using ProperDocs, the following resources are available:
 
 -   For questions and high-level discussions, use **[Discussions]** on GitHub.
--   For small questions, a good alternative is the **[Chat room]** on Gitter/Matrix.
+-   For small questions, a good alternative is the **[Chat room]** on Discord.
 -   To report a bug or make a feature request, open an **[Issue]** on GitHub.
 
 Support is generally limited to **core ProperDocs functionality**. Issues related to third-party themes, plugins or extensions should normally be reported to the maintainers of those projects.
@@ -58,29 +57,26 @@ For development setup, coding guidelines and contribution workflow, see the **Co
 
 ## Code of Conduct
 
-All participants in the ProperDocs project are expected to follow the **PyPA Code of Conduct**.
+All participants in the ProperDocs project are expected to follow the **[PSF Code of Conduct]**.
 
 ---
 
 ## License
 
-ProperDocs is distributed under the **BSD-2-Clause license**.
+ProperDocs is distributed under the [**BSD-2-Clause license**](LICENSE).
 
 <!-- Badges -->
 [pypi-v-image]: https://img.shields.io/pypi/v/properdocs.svg
 [pypi-v-link]: https://pypi.org/project/properdocs/
 [GHAction-image]: https://github.com/properdocs/properdocs/actions/workflows/ci.yml/badge.svg
 [GHAction-link]: https://github.com/properdocs/properdocs/actions/workflows/ci.yml
+
 <!-- Links -->
 [properdocs]: https://properdocs.org
 [Issue]: https://github.com/properdocs/properdocs/issues
 [Discussions]: https://github.com/properdocs/properdocs/discussions
-[Chat room]: https://gitter.im/mkdocs/community
+[Chat room]: https://discord.gg/properdocs
 [release-notes]: https://properdocs.org/about/release-notes/
 [Contributing Guide]: https://properdocs.org/about/contributing/
-[PyPA Code of Conduct]: https://www.pypa.io/en/latest/code-of-conduct/
+[PSF Code of Conduct]: https://www.python.org/psf/conduct/
 [catalog]: https://github.com/properdocs/catalog
-
-## License
-
-[BSD-2-Clause](https://github.com/properdocs/properdocs/blob/master/LICENSE)
