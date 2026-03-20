@@ -776,7 +776,7 @@ class BuildTests(PathAssertionMixin, unittest.TestCase):
         }
     )
     @tempdir()
-    def test_anchor_warning_and_query(self, site_dir, docs_dir):
+    def test_anchor_and_query_warning(self, site_dir, docs_dir):
         cfg = load_config(docs_dir=docs_dir, site_dir=site_dir, validation={'anchors': 'info'})
 
         expected_logs = '''
@@ -802,6 +802,23 @@ class BuildTests(PathAssertionMixin, unittest.TestCase):
 
         expected_logs = '''
             INFO:Doc file 'test/foo.md' contains a link '#fnref:2', but there is no such anchor on this page. This seems to be a footnote that is never referenced.
+        '''
+        with self._assert_build_logs(expected_logs):
+            build.build(cfg)
+
+    @tempdir(
+        files={
+            'test/foo.md': '# page1 heading\n\n[bar](bar.md#page1-heading:~:text=a)\n\n[just text](#:~:text=text)',
+            'test/bar.md': '# page2 heading\n\n[aaa](#a:~:text=a)\n\n[bbb](#page2-heading:~:text=a)',
+        }
+    )
+    @tempdir()
+    def test_anchor_with_directive_warnings(self, site_dir, docs_dir):
+        cfg = load_config(docs_dir=docs_dir, site_dir=site_dir, validation={'anchors': 'warn'})
+
+        expected_logs = '''
+            WARNING:Doc file 'test/bar.md' contains a link '#a:~:text=a', but there is no anchor '#a' on this page.
+            WARNING:Doc file 'test/foo.md' contains a link 'bar.md#page1-heading:~:text=a', but the doc 'test/bar.md' does not contain an anchor '#page1-heading'.
         '''
         with self._assert_build_logs(expected_logs):
             build.build(cfg)
