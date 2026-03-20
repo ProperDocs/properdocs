@@ -1,4 +1,4 @@
-# MkDocs Installation
+# ProperDocs Installation
 
 A detailed guide.
 
@@ -6,7 +6,7 @@ A detailed guide.
 
 ## Requirements
 
-MkDocs requires a recent version of [Python] and the Python package
+ProperDocs requires a recent version of [Python] and the Python package
 manager, [pip], to be installed on your system.
 
 You can check if you already have these installed from the command line:
@@ -19,7 +19,7 @@ pip 20.0.2 from /usr/local/lib/python3.8/site-packages/pip (python 3.8)
 ```
 
 If you already have those packages installed, you may skip down to [Installing
-MkDocs](#installing-mkdocs).
+ProperDocs](#installing-properdocs).
 
 ### Installing Python
 
@@ -50,29 +50,29 @@ Then run the following command to install it:
 python get-pip.py
 ```
 
-## Installing MkDocs
+## Installing ProperDocs
 
-Install the `mkdocs` package using pip:
+Install the `properdocs` package using pip:
 
 ```bash
-pip install mkdocs
+pip install properdocs
 ```
 
-You should now have the `mkdocs` command installed on your system. Run `mkdocs
+You should now have the `properdocs` command installed on your system. Run `properdocs
 --version` to check that everything worked okay.
 
 ```console
-$ mkdocs --version
-mkdocs, version 1.2.0 from /usr/local/lib/python3.8/site-packages/mkdocs (Python 3.8)
+$ properdocs --version
+properdocs, version 1.2.0 from /usr/local/lib/python3.8/site-packages/properdocs (Python 3.8)
 ```
 
 > NOTE:
-> If you would like manpages installed for MkDocs, the [click-man] tool can
+> If you would like manpages installed for ProperDocs, the [click-man] tool can
 > generate and install them for you. Simply run the following two commands:
 >
 > ```bash
 > pip install click-man
-> click-man --target path/to/man/pages mkdocs
+> click-man --target path/to/man/pages properdocs
 > ```
 >
 > See the [click-man documentation] for an explanation of why manpages are
@@ -86,8 +86,8 @@ mkdocs, version 1.2.0 from /usr/local/lib/python3.8/site-packages/mkdocs (Python
 > like this:
 >
 > ```bash
-> python -m pip install mkdocs
-> python -m mkdocs
+> python -m pip install properdocs
+> python -m properdocs
 > ```
 >
 > For a more permanent solution, you may need to edit your `PATH` environment

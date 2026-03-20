@@ -4,11 +4,9 @@ Selecting and configuring a theme.
 
 ---
 
-MkDocs includes two built-in themes ([mkdocs](#mkdocs) and
-[readthedocs](#readthedocs)), as documented below. However, many [third party
-themes] are available to choose from as well.
+ProperDocs includes two official themes ([mkdocs](#mkdocs) and [readthedocs](#readthedocs)), as documented below. Many [third party themes] are available to choose from as well.
 
-To choose a theme, set the [theme] configuration option in your `mkdocs.yml`
+To choose a theme, set the [theme] configuration option in your `properdocs.yml`
 config file.
 
 ```yaml
@@ -18,20 +16,53 @@ theme:
 
 ## mkdocs
 
-The default theme, which was built as a custom [Bootstrap] theme, supports almost
-every feature of MkDocs.
+The `mkdocs` theme is the default official theme, built as a custom [Bootstrap] theme, and supports almost every feature of ProperDocs.
 
-![mkdocs](../img/mkdocs.png)
+Which can be installed with pip:
+
+```bash
+pip install properdocs-theme-mkdocs
+```
+
+<div id="mkdocs-theme-images" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../../img/mkdocs_theme_light_mode.png" class="d-block w-100" alt="MkDocs theme in light mode">
+    </div>
+    <div class="carousel-item">
+      <img src="../../img/mkdocs_theme_dark_mode.png" class="d-block w-100" alt="MkDocs theme in dark mode">
+    </div>
+  </div>
+</div>
 
 In addition to the default [theme configuration options][theme], the `mkdocs` theme
 supports the following options:
 
+*   **`color_mode`**: Set the default color mode for the theme to one of `light`,
+    `dark`, or `auto`. The `auto` mode will switch to `light` or `dark` based on
+    the system configuration of the user's device. Default: `light`.
+
+*   **`user_color_mode_toggle`**: Enable a toggle menu in the navigation bar
+    which allows users to select their preferred `color_mode` (light, dark, auto)
+    from within the browser and save their preference for future page loads. The
+    default selection of the toggle menu on first page load is the value set to
+    `color_mode`. Default: `false`.
+
+    ![color mode toggle menu](../img/color_mode_toggle_menu.png)
+
+*   **`nav_style`**: Adjust the visual style of the top navigation bar. Set to
+    one of `primary`, `dark` or `light`. Default: `primary`. This option is
+    independent of the `color_mode` option and must be defined separately.
+
 *   **`highlightjs`**: Enables highlighting of source code in code blocks using
     the [highlight.js] JavaScript library. Default: `True`.
 
-*   **`hljs_style`**: The highlight.js library provides 79 different [styles]
+*   **`hljs_style`**: The highlight.js library provides many different [styles]
     (color variations) for highlighting source code in code blocks. Set this to
-    the name of the desired style. Default: `github`.
+    the name of the desired style when in `light` mode. Default: `github`.
+
+*   **`hljs_style_dark`**: Set this to the name of the desired highlight.js
+    style when in `dark` mode. Default: `github_dark`.
 
 *   **`hljs_languages`**: By default, highlight.js only supports 23 common
     languages. List additional languages here to include support for them.
@@ -91,16 +122,6 @@ supports the following options:
 *   **`navigation_depth`**: The maximum depth of the navigation tree in the
     sidebar. Default: `2`.
 
-*   **`nav_style`**: This adjusts the visual style for the top navigation bar; by
-    default, this is set to `primary` (the default), but it can also be set to
-    `dark` or `light`.
-
-    ```yaml
-    theme:
-      name: mkdocs
-      nav_style: dark
-    ```
-
 *   **`locale`**{ #mkdocs-locale }: The locale (language/location) used to
     build the theme. If your locale is not yet supported, it will fall back
     to the default.
@@ -108,15 +129,19 @@ supports the following options:
     The following locales are supported by this theme:
 
     * `en`: English (default)
-    * (see the list of existing directories `mkdocs/themes/mkdocs/locales/*/`)
+    * (see the list of existing directories `packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales/*/`)
 
     See the guide on [localizing your theme] for more information.
 
 ## readthedocs
 
-A clone of the default theme used by the [Read the Docs] service, which offers
-the same restricted feature set as its parent theme. Like its parent theme, only
-two levels of navigation are supported.
+A clone of the default theme used by the [Read the Docs] service, which offers the same restricted feature set as its parent theme. Like its parent theme, only two levels of navigation are supported.  
+
+Which can be installed with pip:
+
+```bash
+pip install properdocs-theme-readthedocs
+```
 
 ![ReadTheDocs](../img/readthedocs.png)
 
@@ -158,7 +183,7 @@ theme supports the following options:
         set this to `True`. Default: `False`.
 
 *   **`include_homepage_in_sidebar`**: Lists the homepage in the sidebar menu. As
-    MkDocs requires that the homepage be listed in the `nav` configuration
+    ProperDocs requires that the homepage be listed in the `nav` configuration
     option, this setting allows the homepage to be included or excluded from
     the sidebar. Note that the site name/logo always links to the homepage.
     Default: `True`.
@@ -185,7 +210,7 @@ theme supports the following options:
     The following locales are supported by this theme:
 
     * `en`: English (default)
-    * (see the list of existing directories `mkdocs/themes/readthedocs/locales/*/`)
+    * (see the list of existing directories `packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/locales/*/`)
 
     See the guide on [localizing your theme] for more information.
 
@@ -196,7 +221,7 @@ theme supports the following options:
 
 A list of third party themes can be found at the [community wiki] page and [the ranked catalog][catalog]. If you have created your own, please add them there.
 
-WARNING: Installing an MkDocs theme means installing a Python package and executing any code that the author has put in there. So, exercise the usual caution; there's no attempt at sandboxing.
+WARNING: Installing a ProperDocs theme means installing a Python package and executing any code that the author has put in there. So, exercise the usual caution; there's no attempt at sandboxing.
 
 [third party themes]: #third-party-themes
 [theme]: configuration.md#theme
@@ -206,6 +231,6 @@ WARNING: Installing an MkDocs theme means installing a Python package and execut
 [setup-GA4]: https://support.google.com/analytics/answer/9304153?hl=en&ref_topic=9303319
 [upgrade-GA4]: https://support.google.com/analytics/answer/9744165?hl=en&ref_topic=9303319
 [Read the Docs]: https://readthedocs.org/
-[community wiki]: https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes
-[catalog]: https://github.com/mkdocs/catalog#-theming
+[community wiki]: https://github.com/properdocs/properdocs/wiki/ProperDocs-Themes
+[catalog]: https://github.com/properdocs/catalog#-theming
 [localizing your theme]: localizing-your-theme.md

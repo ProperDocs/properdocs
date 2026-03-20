@@ -1,0 +1,112 @@
+# Persian translations for ProperDocs.
+# Copyright (C) 2022 MkDocs
+# This file is distributed under the same license as the ProperDocs project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MkDocs 1.2.2\n"
+"Report-Msgid-Bugs-To: \"https://github.com/properdocs/properdocs/issues\"\n"
+"POT-Creation-Date: 2024-04-09 16:13+0200\n"
+"PO-Revision-Date: 2022-03-03 15:56+0330\n"
+"Last-Translator: Peyman Mohammadi <@peymanr34>\n"
+"Language: fa\n"
+"Language-Team: fa <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: properdocs_theme_readthedocs/404.html:7
+msgid "Page not found"
+msgstr "صفحه یافت نشد"
+
+#: properdocs_theme_readthedocs/base.html:96
+msgid "Logo"
+msgstr "لوگو"
+
+#: properdocs_theme_readthedocs/base.html:110
+msgid "Navigation menu"
+msgstr "منوی ناوبری"
+
+#: properdocs_theme_readthedocs/base.html:147
+msgid "Mobile navigation menu"
+msgstr "منوی ناوبری موبایل"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:3
+msgid "Docs"
+msgstr "مستندات"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:18
+#: properdocs_theme_readthedocs/breadcrumbs.html:20
+#: properdocs_theme_readthedocs/breadcrumbs.html:22
+#: properdocs_theme_readthedocs/breadcrumbs.html:24
+#, python-format
+msgid "Edit on %(repo_name)s"
+msgstr "ویرایش در %(repo_name)s"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:26
+msgid "Edit"
+msgstr ""
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:34
+msgid "Breadcrumb Navigation"
+msgstr "فهرست مسیر"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:36
+#: properdocs_theme_readthedocs/footer.html:7
+#: properdocs_theme_readthedocs/versions.html:21
+msgid "Previous"
+msgstr "قبلی"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:39
+#: properdocs_theme_readthedocs/footer.html:10
+#: properdocs_theme_readthedocs/versions.html:24
+msgid "Next"
+msgstr "بعدی"
+
+#: properdocs_theme_readthedocs/footer.html:5
+msgid "Footer Navigation"
+msgstr "ناوبری پاورقی"
+
+#: properdocs_theme_readthedocs/footer.html:25
+#, python-format
+msgid ""
+"Built with %(properdocs_link)s using a %(sphinx_link)s provided by "
+"%(rtd_link)s."
+msgstr ""
+"ساخته شده توسط %(properdocs_link)s با استفاده از %(sphinx_link)s ارائه شده "
+"توسط %(rtd_link)s."
+
+#: properdocs_theme_readthedocs/footer.html:25
+msgid "theme"
+msgstr ""
+
+#: properdocs_theme_readthedocs/search.html:5
+msgid "Search Results"
+msgstr "نتایج جستجو"
+
+#: properdocs_theme_readthedocs/search.html:9
+msgid "Search the Docs"
+msgstr "جستجوی مستندات"
+
+#: properdocs_theme_readthedocs/search.html:9
+#: properdocs_theme_readthedocs/searchbox.html:3
+msgid "Type search term here"
+msgstr "عبارت جستجو را اینجا وارد کنید"
+
+#: properdocs_theme_readthedocs/search.html:12
+msgid "No results found"
+msgstr "موردی یافت نشد"
+
+#: properdocs_theme_readthedocs/search.html:13
+msgid "Searching..."
+msgstr "درحال جستجو..."
+
+#: properdocs_theme_readthedocs/searchbox.html:3
+msgid "Search docs"
+msgstr "جستجوی مستندات"
+
+#: properdocs_theme_readthedocs/versions.html:1
+msgid "Versions"
+msgstr "نسخه‌ها"
