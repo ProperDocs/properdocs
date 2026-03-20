@@ -1,0 +1,39 @@
+name: Deploy docs
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 6'
+jobs:
+  build:
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download source
+        uses: actions/checkout@v6
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: pip install --no-deps -r requirements/requirements-docs.txt && pip install .
+      - name: Build site
+        run: properdocs build --strict
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+  deploy:
+    if: github.event_name == 'push' && github.ref_name == github.event.repository.default_branch
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}

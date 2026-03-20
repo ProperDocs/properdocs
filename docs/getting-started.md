@@ -1,4 +1,4 @@
-# Getting Started with MkDocs
+# Getting Started with ProperDocs
 
 An introductory tutorial!
 
@@ -6,10 +6,10 @@ An introductory tutorial!
 
 ## Installation
 
-To install MkDocs, run the following command from the command line:
+To install ProperDocs, run the following command from the command line:
 
 ```bash
-pip install mkdocs
+pip install properdocs
 ```
 
 For more details, see the [Installation Guide].
@@ -20,37 +20,37 @@ Getting started is super easy. To create a new project, run the following
 command from the command line:
 
 ```bash
-mkdocs new my-project
+properdocs new my-project
 cd my-project
 ```
 
 Take a moment to review the initial project that has been created for you.
 
-![The initial MkDocs layout](img/initial-layout.png)
+![The initial ProperDocs layout](img/initial-layout.png)
 
-There's a single configuration file named `mkdocs.yml`, and a folder named
+There's a single configuration file named `properdocs.yml`, and a folder named
 `docs` that will contain your documentation source files (`docs` is
 the default value for the [docs_dir] configuration setting). Right now the `docs`
 folder just contains a single documentation page, named `index.md`.
 
-MkDocs comes with a built-in dev-server that lets you preview your documentation
-as you work on it. Make sure you're in the same directory as the `mkdocs.yml`
-configuration file, and then start the server by running the `mkdocs serve`
+ProperDocs comes with a built-in dev-server that lets you preview your documentation
+as you work on it. Make sure you're in the same directory as the `properdocs.yml`
+configuration file, and then start the server by running the `properdocs serve`
 command:
 
 ```console
-$ mkdocs serve
+$ properdocs serve
 INFO    -  Building documentation...
 INFO    -  Cleaning site directory
 INFO    -  Documentation built in 0.22 seconds
-INFO    -  [15:50:43] Watching paths for changes: 'docs', 'mkdocs.yml'
+INFO    -  [15:50:43] Watching paths for changes: 'docs', 'properdocs.yml'
 INFO    -  [15:50:43] Serving on http://127.0.0.1:8000/
 ```
 
 Open up <http://127.0.0.1:8000/> in your browser, and you'll see the default
 home page being displayed:
 
-![The MkDocs live server](img/screenshot.png)
+![The ProperDocs live server](img/screenshot.png)
 
 The dev-server also supports auto-reloading, and will rebuild your documentation
 whenever anything in the configuration file, documentation directory, or theme
@@ -60,12 +60,11 @@ Open the `docs/index.md` document in your text editor of choice, change the
 initial heading to `MkLorum`, and save your changes. Your browser will
 auto-reload and you should see your updated documentation immediately.
 
-Now try editing the configuration file: `mkdocs.yml`. Change the
+Now try editing the configuration file: `properdocs.yml`. Change the
 [`site_name`][site_name] setting to `MkLorum` and save the file.
 
 ```yaml
 site_name: MkLorum
-site_url: https://example.com/
 ```
 
 Your browser should immediately reload, and you'll see your new site name take
@@ -74,12 +73,8 @@ effect.
 ![The site_name setting](img/site-name.png)
 
 NOTE:
-The [`site_name`][site_name] and [`site_url`][site_url] configuration
-options are the only two required options in your configuration file. When
-you create a new project, the `site_url` option is assigned the placeholder
-value: `https://example.com`. If the final location is known, you can change
-the setting now to point to it. Or you may choose to leave it alone for now.
-Just be sure to edit it before you deploy your site to a production server.
+The [`site_name`][site_name] configuration
+option is the only required option in your configuration file.
 
 ## Adding pages
 
@@ -96,7 +91,6 @@ setting:
 
 ```yaml
 site_name: MkLorum
-site_url: https://example.com/
 nav:
   - Home: index.md
   - About: about.md
@@ -120,11 +114,10 @@ part!
 ## Theming our documentation
 
 Now change the configuration file to alter how the documentation is displayed by
-changing the theme. Edit the `mkdocs.yml` file and add a [`theme`][theme] setting:
+changing the theme. Edit the `properdocs.yml` file and add a [`theme`][theme] setting:
 
 ```yaml
 site_name: MkLorum
-site_url: https://example.com/
 nav:
   - Home: index.md
   - About: about.md
@@ -137,12 +130,12 @@ Save your changes, and you'll see the ReadTheDocs theme being used.
 
 ## Changing the Favicon Icon
 
-By default, MkDocs uses the [MkDocs favicon] icon. To use a different icon, create
+By default, ProperDocs uses the [ProperDocs favicon] icon. To use a different icon, create
 an `img` subdirectory in the `docs` directory and copy your custom `favicon.ico`
-file to that directory. MkDocs will automatically detect and use that file as your
+file to that directory. ProperDocs will automatically detect and use that file as your
 favicon icon.
 
-[MkDocs favicon]: img/favicon.ico
+[ProperDocs favicon]: img/favicon.ico
 
 ## Building the site
 
@@ -150,7 +143,7 @@ That's looking good. You're ready to deploy the first pass of your `MkLorum`
 documentation. First build the documentation:
 
 ```bash
-mkdocs build
+properdocs build
 ```
 
 This will create a new directory, named `site`. Take a look inside the
@@ -159,13 +152,13 @@ directory:
 ```console
 $ ls site
 about  fonts  index.html  license  search.html
-css    img    js          mkdocs   sitemap.xml
+css    img    js          properdocs   sitemap.xml
 ```
 
 Notice that your source documentation has been output as two HTML files named
 `index.html` and `about/index.html`. You also have various other media that's
 been copied into the `site` directory as part of the documentation theme. You
-even have a `sitemap.xml` file and `mkdocs/search_index.json`.
+even have a `sitemap.xml` file and `properdocs/search_index.json`.
 
 If you're using source code control such as `git` you probably don't want to
 check your documentation builds into the repository. Add a line containing
@@ -184,7 +177,7 @@ There are various other commands and options available. For a complete list of
 commands, use the `--help` flag:
 
 ```bash
-mkdocs --help
+properdocs --help
 ```
 
 To view a list of options available on a given command, use the `--help` flag
@@ -192,7 +185,7 @@ with that command. For example, to get a list of all options available for the
 `build` command run the following:
 
 ```bash
-mkdocs build --help
+properdocs build --help
 ```
 
 ## Deploying
@@ -205,17 +198,16 @@ you're done. For specific instructions on a number of common hosts, see the
 
 ## Getting help
 
-See the [User Guide] for more complete documentation of all of MkDocs' features.
+See the [User Guide] for more complete documentation of all of ProperDocs' features.
 
-To get help with MkDocs, please use the [GitHub discussions] or [GitHub issues].
+To get help with ProperDocs, please use the [GitHub discussions] or [GitHub issues].
 
 [Installation Guide]: user-guide/installation.md
 [docs_dir]: user-guide/configuration.md#docs_dir
 [deploy]: user-guide/deploying-your-docs.md
 [nav]: user-guide/configuration.md#nav
-[GitHub discussions]: https://github.com/mkdocs/mkdocs/discussions
-[GitHub issues]: https://github.com/mkdocs/mkdocs/issues
+[GitHub discussions]: https://github.com/properdocs/properdocs/discussions
+[GitHub issues]: https://github.com/properdocs/properdocs/issues
 [site_name]: user-guide/configuration.md#site_name
-[site_url]: user-guide/configuration.md#site_url
 [theme]: user-guide/configuration.md#theme
 [User Guide]: user-guide/README.md
