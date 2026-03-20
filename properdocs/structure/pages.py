@@ -417,7 +417,15 @@ class _RelativePathTreeprocessor(markdown.treeprocessors.Treeprocessor):
                     tried.add(guess)
 
     def path_to_url(self, url: str) -> str:
-        scheme, netloc, path, query, anchor = urlsplit(url)
+        try:
+            scheme, netloc, path, query, anchor = urlsplit(url)
+        except ValueError:  # Invalid URL, e.g. invalid IPv6.
+            log.log(
+                self.config.validation.links.unrecognized_links,
+                f"Doc file '{self.file.src_uri}' contains an invalid link '{url}', "
+                f"it was left as is.",
+            )
+            return url
 
         absolute_link = None
         warning_level, warning = 0, ''

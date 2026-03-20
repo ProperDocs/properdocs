@@ -221,8 +221,11 @@ def _get_norm_url(path: str) -> tuple[str, int]:
             f"That will be unsupported in a future release. Please change it to '/'."
         )
         path = path.replace('\\', '/')
+    try:
+        parsed = urlsplit(path)
+    except ValueError:
+        return path, -1
     # Allow links to be fully qualified URLs
-    parsed = urlsplit(path)
     if parsed.scheme or parsed.netloc or path.startswith(('/', '#')):
         return path, -1
 
