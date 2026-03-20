@@ -1231,7 +1231,7 @@ class RelativePathExtensionTests(unittest.TestCase):
                     files=['index.md'],
                     logs="INFO:Doc file 'index.md' contains an invalid link 'http://[a]/', it was left as is.",
                 ),
-                '<a href="http://[a]">absolute local path</a>',
+                '<a href="http://[a]/">invalid link</a>',
             )
 
     def test_email_link(self):
