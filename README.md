@@ -75,7 +75,7 @@ ProperDocs is distributed under the [**BSD-2-Clause license**](LICENSE).
 [properdocs]: https://properdocs.org
 [Issue]: https://github.com/properdocs/properdocs/issues
 [Discussions]: https://github.com/properdocs/properdocs/discussions
-[Chat room]: https://discord.gg/properdocs
+[Chat room]: https://discord.gg/CwYAgEPHZd
 [release-notes]: https://properdocs.org/about/release-notes/
 [Contributing Guide]: https://properdocs.org/about/contributing/
 [PSF Code of Conduct]: https://www.python.org/psf/conduct/
