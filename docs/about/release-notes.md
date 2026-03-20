@@ -93,29 +93,29 @@ The versions below are versions of MkDocs, just for reference.
 
 ### Fixed
 
-* Fix build error when environment variable `SOURCE_DATE_EPOCH=0` is set. #3795
-* Fix build error when `mkdocs_theme.yml` config is empty. #3700
-* Support `python -W` and `PYTHONWARNINGS` instead of overriding the configuration. #3809
-* Support running with Docker under strict mode, by removing `0.0.0.0` dev server warning. #3784
-* Drop unnecessary `changefreq` from `sitemap.xml`. #3629
-* Fix JavaScript console error when closing menu dropdown. #3774
-* Fix JavaScript console error that occur on repeated clicks. #3730
-* Fix JavaScript console error that can occur on dropdown selections. #3694
+* Fix build error when environment variable `SOURCE_DATE_EPOCH=0` is set. mkdocs/mkdocs#3795
+* Fix build error when `mkdocs_theme.yml` config is empty. mkdocs/mkdocs#3700
+* Support `python -W` and `PYTHONWARNINGS` instead of overriding the configuration. mkdocs/mkdocs#3809
+* Support running with Docker under strict mode, by removing `0.0.0.0` dev server warning. mkdocs/mkdocs#3784
+* Drop unnecessary `changefreq` from `sitemap.xml`. mkdocs/mkdocs#3629
+* Fix JavaScript console error when closing menu dropdown. mkdocs/mkdocs#3774
+* Fix JavaScript console error that occur on repeated clicks. mkdocs/mkdocs#3730
+* Fix JavaScript console error that can occur on dropdown selections. mkdocs/mkdocs#3694
 
 ### Added
 
-* Added translations for Dutch. #3804
-* Added and updated translations for Chinese (Simplified). #3684
+* Added translations for Dutch. mkdocs/mkdocs#3804
+* Added and updated translations for Chinese (Simplified). mkdocs/mkdocs#3684
 
 ## Version 1.6.0 (2024-04-20)
 
 ### Local preview
 
-*   `mkdocs serve` no longer locks up the browser when more than 5 tabs are open. This is achieved by closing the polling connection whenever a tab becomes inactive. Background tabs will no longer auto-reload either - that will instead happen as soon the tab is opened again. Context: #3391
+*   `mkdocs serve` no longer locks up the browser when more than 5 tabs are open. This is achieved by closing the polling connection whenever a tab becomes inactive. Background tabs will no longer auto-reload either - that will instead happen as soon the tab is opened again. Context: mkdocs/mkdocs#3391
 
 *   New flag `serve --open` to open the site in a browser.  
     After the first build is finished, this flag will cause the default OS Web browser to be opened at the home page of the local site.  
-    Context: #3500
+    Context: mkdocs/mkdocs#3500
 
 #### Drafts
 
@@ -131,7 +131,7 @@ See [documentation](../user-guide/configuration.md#exclude_docs).
 
 Other changes:
 
-* Reduce warning levels when a "draft" page has a link to a non-existent file. Context: #3449
+* Reduce warning levels when a "draft" page has a link to a non-existent file. Context: mkdocs/mkdocs#3449
 
 ### Update to deduction of page titles
 
@@ -141,19 +141,19 @@ Now tags are always fully sanitized from the title. Though it still remains the 
 
 Images (notably, emojis in some extensions) get preserved in the title only through their `alt` attribute's value.
 
-Context: #3564, #3578
+Context: mkdocs/mkdocs#3564, mkdocs/mkdocs#3578
 
 ### Themes
 
-* Built-in themes now also support Polish language (#3613)
+* Built-in themes now also support Polish language (mkdocs/mkdocs#3613)
 
 #### "readthedocs" theme
 
-*   Fix: "readthedocs" theme can now correctly handle deeply nested nav configurations (over 2 levels deep), without confusedly expanding all sections and jumping around vertically. (#3464)
+*   Fix: "readthedocs" theme can now correctly handle deeply nested nav configurations (over 2 levels deep), without confusedly expanding all sections and jumping around vertically. (mkdocs/mkdocs#3464)
 
-*   Fix: "readthedocs" theme now shows a link to the repository (with a generic logo) even when isn't one of the 3 known hosters. (#3435)
+*   Fix: "readthedocs" theme now shows a link to the repository (with a generic logo) even when isn't one of the 3 known hosters. (mkdocs/mkdocs#3435)
 
-*   "readthedocs" theme now also has translation for the word "theme" in the footer that mistakenly always remained in English. (#3613, #3625)
+*   "readthedocs" theme now also has translation for the word "theme" in the footer that mistakenly always remained in English. (mkdocs/mkdocs#3613, mkdocs/mkdocs#3625)
 
 #### "mkdocs" theme
 
@@ -173,7 +173,7 @@ See `color_mode`, `user_color_mode_toggle` in [**documentation**](../user-guide/
 >
 > Or even better if the script file is copied and included from your docs dir.
 
-Context: #3493, #3649
+Context: mkdocs/mkdocs#3493, mkdocs/mkdocs#3649
 
 ### Configuration
 
@@ -183,7 +183,7 @@ You may have seen some plugins take up the convention of having a setting `enabl
 
 Now *every* plugin has this setting. Plugins can still *choose* to implement this config themselves and decide how it behaves (and unless they drop older versions of MkDocs, they still should for now), but now there's always a fallback for every plugin.
 
-See [**documentation**](../user-guide/configuration.md/#enabled-option). Context: #3395
+See [**documentation**](../user-guide/configuration.md/#enabled-option). Context: mkdocs/mkdocs#3395
 
 ### Validation
 
@@ -201,7 +201,7 @@ So, now any document (e.g. "dir1/foo.md") can link to the document "dir2/bar.md"
 
 You have to enable the setting, though. The default is still to just skip any processing of such links.
 
-See [**documentation**](../user-guide/configuration.md#validation-of-absolute-links). Context: #3485
+See [**documentation**](../user-guide/configuration.md#validation-of-absolute-links). Context: mkdocs/mkdocs#3485
 
 ###### Absolute links within nav
 
@@ -238,25 +238,25 @@ Plugins and extensions that insert anchors, in order to be compatible with this,
 
 If you as a user are dealing with falsely reported missing anchors and there's no way to resolve this, you can choose to disable these messages by setting this option to `ignore` (and they are at INFO level by default anyway).
 
-See [**documentation**](../user-guide/configuration.md#validation). Context: #3463
+See [**documentation**](../user-guide/configuration.md#validation). Context: mkdocs/mkdocs#3463
 
 Other changes:
 
-*   When the `nav` config is not specified at all, the `not_in_nav` setting (originally added in 1.5.0) gains an additional behavior: documents covered by `not_in_nav` will not be part of the automatically deduced navigation. Context: #3443
+*   When the `nav` config is not specified at all, the `not_in_nav` setting (originally added in 1.5.0) gains an additional behavior: documents covered by `not_in_nav` will not be part of the automatically deduced navigation. Context: mkdocs/mkdocs#3443
 
 *   Fix: the `!relative` YAML tag for `markdown_extensions` (originally added in 1.5.0) - it was broken in many typical use cases.
 
-    See [**documentation**](../user-guide/configuration.md#paths-relative-to-the-current-file-or-site). Context: #3466
+    See [**documentation**](../user-guide/configuration.md#paths-relative-to-the-current-file-or-site). Context: mkdocs/mkdocs#3466
 
-*   Config validation now exits on first error, to avoid showing bizarre secondary errors. Context: #3437
+*   Config validation now exits on first error, to avoid showing bizarre secondary errors. Context: mkdocs/mkdocs#3437
 
-*   MkDocs used to shorten error messages for unexpected errors such as "file not found", but that is no longer the case, the full error message and stack trace will be possible to see (unless the error has a proper handler, of course). Context: #3445
+*   MkDocs used to shorten error messages for unexpected errors such as "file not found", but that is no longer the case, the full error message and stack trace will be possible to see (unless the error has a proper handler, of course). Context: mkdocs/mkdocs#3445
 
 ### Upgrades for plugin developers
 
 #### Plugins can add multiple handlers for the same event type, at multiple priorities
 
-See [`properdocs.plugins.CombinedEvent`][] in [**documentation**](../dev-guide/plugins.md#event-priorities). Context: #3448
+See [`properdocs.plugins.CombinedEvent`][] in [**documentation**](../dev-guide/plugins.md#event-priorities). Context: mkdocs/mkdocs#3448
 
 #### Enabling true generated files and expanding the [`File`][properdocs.structure.files.File] API
 
@@ -304,29 +304,29 @@ Other changes:
 
 *   The order of `File` objects inside a `Files` collection is no longer significant when automatically inferring the `nav`. They get forcibly sorted according to the default alphabetic order.
 
-Context: #3451, #3463
+Context: mkdocs/mkdocs#3451, mkdocs/mkdocs#3463
 
 ### Hooks and debugging
 
-*   Hook files can now import adjacent *.py files using the `import` statement. Previously this was possible to achieve only through a `sys.path` workaround. See the new mention in [documentation](../user-guide/configuration.md#hooks). Context: #3568
+*   Hook files can now import adjacent *.py files using the `import` statement. Previously this was possible to achieve only through a `sys.path` workaround. See the new mention in [documentation](../user-guide/configuration.md#hooks). Context: mkdocs/mkdocs#3568
 
-*   Verbose `-v` log shows the sequence of plugin events in more detail - shows each invoked plugin one by one, not only the event type. Context: #3444
+*   Verbose `-v` log shows the sequence of plugin events in more detail - shows each invoked plugin one by one, not only the event type. Context: mkdocs/mkdocs#3444
 
 ### Deprecations
 
-*   Python 3.7 is no longer supported, Python 3.12 is officially supported. Context: #3429
+*   Python 3.7 is no longer supported, Python 3.12 is officially supported. Context: mkdocs/mkdocs#3429
 
-*   The theme config file `mkdocs_theme.yml` no longer executes YAML tags. Context: #3465
+*   The theme config file `mkdocs_theme.yml` no longer executes YAML tags. Context: mkdocs/mkdocs#3465
 
 *   The plugin event `on_page_read_source` is soft-deprecated because there is always a better alternative to it (see the new `File` API or just `on_page_markdown`, depending on the desired interaction).
 
     When multiple plugins/hooks apply this event handler, they trample over each other, so now there is a warning in that case.
 
-    See [**documentation**](../dev-guide/plugins.md#on_page_read_source). Context: #3503
+    See [**documentation**](../dev-guide/plugins.md#on_page_read_source). Context: mkdocs/mkdocs#3503
 
 #### API deprecations
 
-*   It is no longer allowed to set `File.page` to a type other than `Page` or a subclass thereof. Context: #3443 - following the deprecation in version 1.5.3 and #3381.
+*   It is no longer allowed to set `File.page` to a type other than `Page` or a subclass thereof. Context: mkdocs/mkdocs#3443 - following the deprecation in version 1.5.3 and mkdocs/mkdocs#3381.
 
 *   `Theme._vars` is deprecated - use `theme['foo']` instead of `theme._vars['foo']`
 
@@ -334,49 +334,49 @@ Context: #3451, #3463
 
 *   `LiveReloadServer.watch()` no longer accepts a custom callback.
 
-Context: #3429
+Context: mkdocs/mkdocs#3429
 
 ### Misc
 
-* The `sitemap.xml.gz` file is slightly more reproducible and no longer changes on every build, but instead only once per day (upon a date change). Context: #3460
+* The `sitemap.xml.gz` file is slightly more reproducible and no longer changes on every build, but instead only once per day (upon a date change). Context: mkdocs/mkdocs#3460
 
-Other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/1.5.3...1.6.0).
+Other small improvements; see [commit log](https://github.com/mkdocs/mkdocs/compare/1.5.3...1.6.0).
 
 ## Version 1.5.3 (2023-09-18)
 
-*   Fix `mkdocs serve` sometimes locking up all browser tabs when navigating quickly (#3390)
+*   Fix `mkdocs serve` sometimes locking up all browser tabs when navigating quickly (mkdocs/mkdocs#3390)
 
-*   Add many new supported languages for "search" plugin - update lunr-languages to 1.12.0 (#3334)
+*   Add many new supported languages for "search" plugin - update lunr-languages to 1.12.0 (mkdocs/mkdocs#3334)
 
-*   Bugfix (regression in 1.5.0): In "readthedocs" theme the styling of "breadcrumb navigation" was broken for nested pages (#3383)
+*   Bugfix (regression in 1.5.0): In "readthedocs" theme the styling of "breadcrumb navigation" was broken for nested pages (mkdocs/mkdocs#3383)
 
-*   Built-in themes now also support Chinese (Traditional, Taiwan) language (#3154)
+*   Built-in themes now also support Chinese (Traditional, Taiwan) language (mkdocs/mkdocs#3154)
 
-*   Plugins can now set `File.page` to their own subclass of `Page`. There is also now a warning if `File.page` is set to anything other than a strict subclass of `Page`. (#3367, #3381)
+*   Plugins can now set `File.page` to their own subclass of `Page`. There is also now a warning if `File.page` is set to anything other than a strict subclass of `Page`. (mkdocs/mkdocs#3367, mkdocs/mkdocs#3381)
 
     Note that just instantiating a `Page` [sets the file automatically](https://github.com/properdocs/properdocs/blob/f94ab3f62d0416d484d81a0c695c8ca86ab3b975/mkdocs/structure/pages.py#L34), so care needs to be taken not to create an unneeded `Page`.
 
-Other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/1.5.2...1.5.3).
+Other small improvements; see [commit log](https://github.com/mkdocs/mkdocs/compare/1.5.2...1.5.3).
 
 ## Version 1.5.2 (2023-08-02)
 
-*   Bugfix (regression in 1.5.0): Restore functionality of `--no-livereload`. (#3320)
+*   Bugfix (regression in 1.5.0): Restore functionality of `--no-livereload`. (mkdocs/mkdocs#3320)
 
-*   Bugfix (regression in 1.5.0): The new page title detection would sometimes be unable to drop anchorlinks - fix that. (#3325)
+*   Bugfix (regression in 1.5.0): The new page title detection would sometimes be unable to drop anchorlinks - fix that. (mkdocs/mkdocs#3325)
 
 *   Partly bring back pre-1.5 API: `extra_javascript` items will once again be mostly strings, and only sometimes `ExtraScriptValue` (when the extra `script` functionality is used).
 
-    Plugins should be free to append strings to `config.extra_javascript`, but when reading the values, they must still make sure to read it as `str(value)` in case it is an `ExtraScriptValue` item. For querying the attributes such as `.type` you need to check `isinstance` first. Static type checking will guide you in that. (#3324)
+    Plugins should be free to append strings to `config.extra_javascript`, but when reading the values, they must still make sure to read it as `str(value)` in case it is an `ExtraScriptValue` item. For querying the attributes such as `.type` you need to check `isinstance` first. Static type checking will guide you in that. (mkdocs/mkdocs#3324)
 
-See [commit log](https://github.com/properdocs/properdocs/compare/1.5.1...1.5.2).
+See [commit log](https://github.com/mkdocs/mkdocs/compare/1.5.1...1.5.2).
 
 ## Version 1.5.1 (2023-07-28)
 
 *   Bugfix (regression in 1.5.0): Make it possible to treat `ExtraScriptValue` as a path. This lets some plugins still work despite the breaking change.
 
-*   Bugfix (regression in 1.5.0): Prevent errors for special setups that have 3 conflicting files, such as `index.html`, `index.md` *and* `README.md` (#3314)
+*   Bugfix (regression in 1.5.0): Prevent errors for special setups that have 3 conflicting files, such as `index.html`, `index.md` *and* `README.md` (mkdocs/mkdocs#3314)
 
-See [commit log](https://github.com/properdocs/properdocs/compare/1.5.0...1.5.1).
+See [commit log](https://github.com/mkdocs/mkdocs/compare/1.5.0...1.5.1).
 
 ## Version 1.5.0 (2023-07-26)
 
@@ -396,7 +396,7 @@ Of course, you're welcome to use a "virtualenv" with such a command. Also note t
 
 The command allows overriding which config file is used (instead of `properdocs.yml` in the current directory) as well as which catalog of projects is used (instead of downloading it from the default location). See [`mkdocs get-deps --help`](../user-guide/cli.md#properdocs-get-deps).
 
-Context: #3205
+Context: mkdocs/mkdocs#3205
 
 ### MkDocs has an official catalog of plugins
 
@@ -428,7 +428,7 @@ validation:
 
 If, on the opposite end, you want these to print `WARNING` messages and cause `mkdocs build --strict` to fail, you are recommended to configure these to `warn` instead.
 
-See [**documentation**](../user-guide/configuration.md#validation) for actual recommended settings and more details. Context: #3283
+See [**documentation**](../user-guide/configuration.md#validation) for actual recommended settings and more details. Context: mkdocs/mkdocs#3283
 
 #### Validated links in the nav
 
@@ -449,7 +449,7 @@ This can make the following message appear with the `WARNING` level (as opposed 
 INFO - The following pages exist in the docs directory, but are not included in the "nav" configuration: ...
 ```
 
-See [**documentation**](../user-guide/configuration.md#validation). Context: #3283, #1755
+See [**documentation**](../user-guide/configuration.md#validation). Context: mkdocs/mkdocs#3283, mkdocs/mkdocs#1755
 
 #### Mark docs as intentionally "not in nav"
 
@@ -459,7 +459,7 @@ This is useful if you generally like these warnings about files that were forgot
 
 The `not_in_nav` config is a set of gitignore-like patterns. See the next section for an explanation of another such config.
 
-See [**documentation**](../user-guide/configuration.md#not_in_nav). Context: #3224, #1888
+See [**documentation**](../user-guide/configuration.md#not_in_nav). Context: mkdocs/mkdocs#3224, mkdocs/mkdocs#1888
 
 ### Excluded doc files
 
@@ -479,7 +479,7 @@ Validation of links (described above) is also affected by `exclude_docs`. During
 
 As an additional related change, if you have a need to have both `README.md` and `index.md` files in a directory but publish only one of them, you can now use this feature to explicitly ignore one of them and avoid warnings.
 
-See [**documentation**](../user-guide/configuration.md#exclude_docs). Context: #3224
+See [**documentation**](../user-guide/configuration.md#exclude_docs). Context: mkdocs/mkdocs#3224
 
 #### Drafts
 
@@ -491,7 +491,7 @@ The `exclude_docs` config has another behavior: all excluded Markdown pages will
 
 If you don't want `mkdocs serve` to have any special behaviors and instead want it to perform completely normal builds, use the new flag `mkdocs serve --clean`.
 
-See [**documentation**](../user-guide/configuration.md#exclude_docs). Context: #3224
+See [**documentation**](../user-guide/configuration.md#exclude_docs). Context: mkdocs/mkdocs#3224
 
 ### `mkdocs serve` no longer exits after build errors
 
@@ -499,11 +499,11 @@ If there was an error (from the config or a plugin) during a site re-build, `mkd
 
 But errors on the *first* build still cause `mkdocs serve` to exit, as before.
 
-Context: #3255
+Context: mkdocs/mkdocs#3255
 
 ### Page titles will be deduced from any style of heading
 
-MkDocs always had the ability to infer the title of a page (if it's not specified in the `nav`) based on the first line of the document, if it had a `<h1>` heading that had to written starting with the exact character `#`. Now any style of Markdown heading is understood (#1886). Due to the previous simplistic parsing, it was also impossible to use `attr_list` attributes in that first heading (#3136). Now that is also fixed.
+MkDocs always had the ability to infer the title of a page (if it's not specified in the `nav`) based on the first line of the document, if it had a `<h1>` heading that had to written starting with the exact character `#`. Now any style of Markdown heading is understood (mkdocs/mkdocs#1886). Due to the previous simplistic parsing, it was also impossible to use `attr_list` attributes in that first heading (mkdocs/mkdocs#3136). Now that is also fixed.
 
 ### Markdown extensions can use paths relative to the current document
 
@@ -515,7 +515,7 @@ markdown_extensions:
       base_path: !relative
 ```
 
-See [**documentation**](../user-guide/configuration.md#paths-relative-to-the-current-file-or-site). Context: #2154, #3258
+See [**documentation**](../user-guide/configuration.md#paths-relative-to-the-current-file-or-site). Context: mkdocs/mkdocs#2154, mkdocs/mkdocs#3258
 
 ### `<script>` tags can specify `type="module"` and other attributes
 
@@ -525,7 +525,7 @@ See [updated **documentation** for `extra_javascript`](../user-guide/configurati
 
 **At first this is only supported in built-in themes, other themes need to follow up, see below.**
 
-Context: #3237
+Context: mkdocs/mkdocs#3237
 
 ### Changes for theme developers (action required!)
 
@@ -543,13 +543,13 @@ See [**documentation**](../dev-guide/themes.md#picking-up-css-and-javascript-fro
 
 ### Upgrades for plugin developers
 
-*   Breaking change: `config.extra_javascript` is no longer a plain list of strings, but instead a list of `ExtraScriptValue` items. So you can no longer treat the list values as strings. If you want to keep compatibility with old versions, just always reference the items as `str(item)` instead. And you can still append plain strings to the list if you wish. See information about `<script>` tags above. Context: #3237
+*   Breaking change: `config.extra_javascript` is no longer a plain list of strings, but instead a list of `ExtraScriptValue` items. So you can no longer treat the list values as strings. If you want to keep compatibility with old versions, just always reference the items as `str(item)` instead. And you can still append plain strings to the list if you wish. See information about `<script>` tags above. Context: mkdocs/mkdocs#3237
 
 *   `File` has a new attribute `inclusion`. Its value is calculated from both the `exclude_docs` and `not_in_nav` configs, and implements their behavior. Plugins can read this value or write to it. New `File` instances by default follow whatever the configs say, but plugins can choose to make this decision explicitly, per file.
 
 *   When creating a `File`, one can now set a `dest_uri` directly, rather than having to update it (and other dependent attributes) after creation. [Context](https://github.com/properdocs/properdocs/commit/d5af6426c52421f1113f6dcc591de1e01bea48bd)
 
-*   A new config option was added - `DictOfItems`. Similarly to `ListOfItems`, it validates a mapping of config options that all have the same type. Keys are arbitrary but always strings. Context: #3242
+*   A new config option was added - `DictOfItems`. Similarly to `ListOfItems`, it validates a mapping of config options that all have the same type. Keys are arbitrary but always strings. Context: mkdocs/mkdocs#3242
 
 *   A new function `get_plugin_logger` was added. In order to opt into a standardized way for plugins to log messages, please use the idiom:
 
@@ -559,11 +559,11 @@ See [**documentation**](../dev-guide/themes.md#picking-up-css-and-javascript-fro
     log.info("Hello, world")
     ```
 
-    Context: #3245
+    Context: mkdocs/mkdocs#3245
 
 *   `SubConfig` config option can be conveniently subclassed with a particular type of config specified. For example, `class ExtraScript(SubConfig[ExtraScriptValue]):`. To see how this is useful, search for this class in code. [Context](https://github.com/properdocs/properdocs/commit/73e503990e3e3504bfe1cb627d41a7e97970687e)
 
-*   Bugfix: `SubConfig` had a bug where paths (from `FilesystemObject` options) were not made relative to the main config file as intended, because `config_file_path` was not properly inherited to it. This is now fixed. Context: #3265
+*   Bugfix: `SubConfig` had a bug where paths (from `FilesystemObject` options) were not made relative to the main config file as intended, because `config_file_path` was not properly inherited to it. This is now fixed. Context: mkdocs/mkdocs#3265
 
 *   `Config` members now have a way to avoid clashing with Python's reserved words. This is achieved by stripping a trailing underscore from each member's name.
 
@@ -583,15 +583,15 @@ See [**documentation**](../dev-guide/themes.md#picking-up-css-and-javascript-fro
     * The `context` parameter has gained the type `TemplateContext` (`TypedDict`). [Context](https://github.com/properdocs/properdocs/commit/0f793b9984c7e6a1d53ce874e7d17b6d27ebf4b2)
     * The classes `Page`, `Section`, `Link` now have a common base class `StructureItem`. [Context](https://github.com/properdocs/properdocs/commit/01be507e30b05db0a4c44ef05ba62b2098010653)
     * Some methods stopped accepting `Config` and only accept `ProperDocsConfig` as was originally intended. [Context](https://github.com/properdocs/properdocs/commit/c459cd24fc0320333f51525e9cf681d4a8370f50)
-    * `config.mdx_configs` got a proper type. Context: #3229
+    * `config.mdx_configs` got a proper type. Context: mkdocs/mkdocs#3229
 
 ### Theme updates
 
-*   Built-in themes mostly stopped relying on `<script defer>`. This may affect some usages of `extra_javascript`, mainly remove the need for custom handling of "has the page fully loaded yet". Context: #3237
+*   Built-in themes mostly stopped relying on `<script defer>`. This may affect some usages of `extra_javascript`, mainly remove the need for custom handling of "has the page fully loaded yet". Context: mkdocs/mkdocs#3237
 
-*   "mkdocs" theme now has a styling for `>` blockquotes, previously they were not distinguished at all. Context: #3291
+*   "mkdocs" theme now has a styling for `>` blockquotes, previously they were not distinguished at all. Context: mkdocs/mkdocs#3291
 
-*   "readthedocs" theme was updated to v1.2.0 according to upstream, with improved styles for `<kbd>` and breadcrumb navigation. Context: #3058
+*   "readthedocs" theme was updated to v1.2.0 according to upstream, with improved styles for `<kbd>` and breadcrumb navigation. Context: mkdocs/mkdocs#3058
 
 *   Both built-in themes had their version of highlight.js updated to 11.8.0, and jQuery updated to 3.6.0.
 
@@ -601,7 +601,7 @@ See [**documentation**](../dev-guide/themes.md#picking-up-css-and-javascript-fro
 
 Regression in 1.2 - relative paths in the nav could no longer traverse above the site's root and were truncated to the root. Although such traversal is discouraged and produces a warning, this was a documented behavior. The behavior is now restored.
 
-Context: #2752, #3010
+Context: mkdocs/mkdocs#2752, mkdocs/mkdocs#3010
 
 #### MkDocs can accept the config from stdin
 
@@ -613,8 +613,8 @@ The command to use this is `mkdocs build -f -`. In previous versions doing this 
 
 ### New command line flags
 
-* `mkdocs --no-color build` disables color output and line wrapping. This option is also available through an environment variable `NO_COLOR=true`. Context: #3282
-* `mkdocs build --no-strict` overrides the `strict` config to `false`. Context: #3254
+* `mkdocs --no-color build` disables color output and line wrapping. This option is also available through an environment variable `NO_COLOR=true`. Context: mkdocs/mkdocs#3282
+* `mkdocs build --no-strict` overrides the `strict` config to `false`. Context: mkdocs/mkdocs#3254
 * `mkdocs build -f -` (described directly above).
 * `mkdocs serve --clean` (described above).
 * `mkdocs serve --dirty` is the new name of `mkdocs serve --dirtyreload`.
@@ -623,40 +623,40 @@ The command to use this is `mkdocs build -f -`. In previous versions doing this 
 
 *   `extra_javascript` underwent a change that can break plugins in rare cases, and it requires attention from theme developers. See respective entries above.
 
-*   Python-Markdown was unpinned from `<3.4`. That version is known to remove functionality. If you are affected by those removals, you can still choose to pin the version for yourself: `Markdown <3.4`. Context: #3222, #2892
+*   Python-Markdown was unpinned from `<3.4`. That version is known to remove functionality. If you are affected by those removals, you can still choose to pin the version for yourself: `Markdown <3.4`. Context: mkdocs/mkdocs#3222, mkdocs/mkdocs#2892
 
-*   `mkdocs.utils.warning_filter` now shows a warning about being deprecated. It does nothing since MkDocs 1.2. Consider `get_plugin_logger` or just logging under `mkdocs.plugins.*` instead. Context: #3008
+*   `mkdocs.utils.warning_filter` now shows a warning about being deprecated. It does nothing since MkDocs 1.2. Consider `get_plugin_logger` or just logging under `mkdocs.plugins.*` instead. Context: mkdocs/mkdocs#3008
 
 *   Accessing the `_vars` attribute of a `Theme` is deprecated - just access the keys directly.
 
 *   Accessing the `user_configs` attribute of a `Config` is deprecated. Note: instead of `config.user_configs[*]['theme']['custom_dir']`, please use the new attribute `config.theme.custom_dir`.
 
-Other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/1.4.3...1.5.0).
+Other small improvements; see [commit log](https://github.com/mkdocs/mkdocs/compare/1.4.3...1.5.0).
 
 ## Version 1.4.3 (2023-05-02)
 
-*   Bugfix: for the `hooks` feature, modules no longer fail to load if using some advanced Python features like dataclasses (#3193)
+*   Bugfix: for the `hooks` feature, modules no longer fail to load if using some advanced Python features like dataclasses (mkdocs/mkdocs#3193)
 
 *   Bugfix: Don't create `None` sitemap entries if the page has no populated URL - affects sites that exclude some files from navigation ([`07a297b`](https://github.com/properdocs/properdocs/commit/07a297b3b4de4a1b49469b1497ee34039b9f38fa))
 
 *   "readthedocs" theme:
-    * Accessibility: add aria labels to Home logo (#3129) and search inputs (#3046)
-    * "readthedocs" theme now supports `hljs_style:` config, same as "mkdocs" theme (#3199)
+    * Accessibility: add aria labels to Home logo (mkdocs/mkdocs#3129) and search inputs (mkdocs/mkdocs#3046)
+    * "readthedocs" theme now supports `hljs_style:` config, same as "mkdocs" theme (mkdocs/mkdocs#3199)
 
 *   Translations:
-    * Built-in themes now also support Indonesian language (#3154)
-    * Fixed `zh_CN` translation (#3125)
-    * `tr_TR` translation becomes just `tr` - usage should remain unaffected (#3195)
+    * Built-in themes now also support Indonesian language (mkdocs/mkdocs#3154)
+    * Fixed `zh_CN` translation (mkdocs/mkdocs#3125)
+    * `tr_TR` translation becomes just `tr` - usage should remain unaffected (mkdocs/mkdocs#3195)
 
-See [commit log](https://github.com/properdocs/properdocs/compare/1.4.2...1.4.3).
+See [commit log](https://github.com/mkdocs/mkdocs/compare/1.4.2...1.4.3).
 
 ## Version 1.4.2 (2022-11-01)
 
-*   Officially support Python 3.11 (#3020)
+*   Officially support Python 3.11 (mkdocs/mkdocs#3020)
 
     NEW: **Tip:** Simply upgrading to Python 3.11 can cut off 10-15% of your site's build time.
 
-*   Support multiple instances of the same plugin (#3027)
+*   Support multiple instances of the same plugin (mkdocs/mkdocs#3027)
 
     If a plugin is specified multiple times in the list under the `plugins:` config, that will create 2 (or more) instances of the plugin with their own config each.
 
@@ -664,21 +664,21 @@ See [commit log](https://github.com/properdocs/properdocs/compare/1.4.2...1.4.3)
 
     Now even though this works, by default a warning will appear from MkDocs anyway, unless the plugin adds a class variable `supports_multiple_instances = True`.
 
-*   Bugfix (regression in 1.4.1): Don't error when a plugin puts a plain string into `warnings` (#3016)
+*   Bugfix (regression in 1.4.1): Don't error when a plugin puts a plain string into `warnings` (mkdocs/mkdocs#3016)
 
-*   Bugfix: Relative links will always render with a trailing slash (#3022)
+*   Bugfix: Relative links will always render with a trailing slash (mkdocs/mkdocs#3022)
 
     Previously under `use_directory_urls`, links *from* a sub-page *to* the main index page rendered as e.g. `<a href="../..">` even though in all other cases the links look like `<a href="../../">`. This caused unwanted behavior on some combinations of Web browsers and servers. Now this special-case bug was removed.
 
-*   Built-in "mkdocs" theme now also supports Norwegian language (#3024)
+*   Built-in "mkdocs" theme now also supports Norwegian language (mkdocs/mkdocs#3024)
 
-*   Plugin-related warnings look more readable (#3016)
+*   Plugin-related warnings look more readable (mkdocs/mkdocs#3016)
 
-See [commit log](https://github.com/properdocs/properdocs/compare/1.4.1...1.4.2).
+See [commit log](https://github.com/mkdocs/mkdocs/compare/1.4.1...1.4.2).
 
 ## Version 1.4.1 (2022-10-15)
 
-*   Support theme-namespaced plugin loading (#2998)
+*   Support theme-namespaced plugin loading (mkdocs/mkdocs#2998)
 
     Plugins' entry points can be named as 'sometheme/someplugin'. That will have the following outcome:
 
@@ -687,41 +687,41 @@ See [commit log](https://github.com/properdocs/properdocs/compare/1.4.1...1.4.2)
 
     One can also specify `plugins: ['/someplugin']` instead of `plugins: ['someplugin']` to definitely avoid the theme-namespaced plugin.
 
-*   Bugfix: `mkdocs serve` will work correctly with non-ASCII paths and redirects (#3001)
+*   Bugfix: `mkdocs serve` will work correctly with non-ASCII paths and redirects (mkdocs/mkdocs#3001)
 
-*   Windows: 'colorama' is now a dependency of MkDocs, to ensure colorful log output (#2987)
+*   Windows: 'colorama' is now a dependency of MkDocs, to ensure colorful log output (mkdocs/mkdocs#2987)
 
-*   Plugin-related config options have more reliable validation and error reporting (#2997)
+*   Plugin-related config options have more reliable validation and error reporting (mkdocs/mkdocs#2997)
 
-*   Translation sub-commands of `setup.py` were completely dropped. See documentation [[1]](../about/contributing.md#submitting-changes-to-the-builtin-themes) [[2]](../dev-guide/translations.md#updating-the-translation-catalogs) for their new replacements (#2990)
+*   Translation sub-commands of `setup.py` were completely dropped. See documentation [[1]](../about/contributing.md#submitting-changes-to-the-builtin-themes) [[2]](../dev-guide/translations.md#updating-the-translation-catalogs) for their new replacements (mkdocs/mkdocs#2990)
 
-*   The ['mkdocs' package](https://pypi.org/project/mkdocs/#files) (wheel and source) is now produced by Hatch build system and pyproject.toml instead of setup.py (#2988)
+*   The ['mkdocs' package](https://pypi.org/project/mkdocs/#files) (wheel and source) is now produced by Hatch build system and pyproject.toml instead of setup.py (mkdocs/mkdocs#2988)
 
-Other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/1.4.0...1.4.1).
+Other small improvements; see [commit log](https://github.com/mkdocs/mkdocs/compare/1.4.0...1.4.1).
 
 ## Version 1.4.0 (2022-09-27)
 
 ### Feature upgrades
 
-#### Hooks (#2978)
+#### Hooks (mkdocs/mkdocs#2978)
 
 The new `hooks:` config allows you to add plugin-like event handlers from local Python files, without needing to set up and install an actual plugin.
 
 See [**documentation**](../user-guide/configuration.md#hooks).
 
-#### `edit_uri` flexibility (#2927)
+#### `edit_uri` flexibility (mkdocs/mkdocs#2927)
 
 There is a new `edit_uri_template:` config.  
 It works like `edit_uri` but more generally covers ways to construct an edit URL.  
 See [**documentation**](../user-guide/configuration.md#edit_uri_template).
 
-Additionally, the `edit_uri` functionality will now fully work even if `repo_url` is omitted (#2928)
+Additionally, the `edit_uri` functionality will now fully work even if `repo_url` is omitted (mkdocs/mkdocs#2928)
 
 ### Upgrades for plugin developers
 
 NOTE: This release has big changes to the implementation of plugins and their configs. But, the intention is to have zero breaking changes in all reasonably common use cases. Or at the very least if a code fix is required, there should always be a way to stay compatible with older MkDocs versions. Please report if this release breaks something.
 
-#### Customize event order for plugin event handlers (#2973)
+#### Customize event order for plugin event handlers (mkdocs/mkdocs#2973)
 
 Plugins can now choose to set a priority value for their event handlers. This can override the old behavior where for each event type, the handlers are called in the order that their plugins appear in the [`plugins` config](../user-guide/configuration.md#plugins).
 
@@ -732,14 +732,14 @@ As different plugins discover more precise relations to each other, the values s
 
 See [**documentation**](../dev-guide/plugins.md#event-priorities).
 
-#### New events that persist across builds in `mkdocs serve` (#2972)
+#### New events that persist across builds in `mkdocs serve` (mkdocs/mkdocs#2972)
 
 The new events are `on_startup` and `on_shutdown`. They run at the very beginning and very end of an `mkdocs` invocation.  
 `on_startup` also receives information on how `mkdocs` was invoked (e.g. `serve` `--dirtyreload`).
 
 See [**documentation**](../dev-guide/plugins.md#events).
 
-#### Replace `File.src_path` to not deal with backslashes (#2930)
+#### Replace `File.src_path` to not deal with backslashes (mkdocs/mkdocs#2930)
 
 The property `src_path` uses backslashes on Windows, which doesn't make sense as it's a virtual path.  
 To not make a breaking change, there's no change to how *this* property is used, but now you should:
@@ -753,9 +753,9 @@ See [source code](https://github.com/properdocs/properdocs/blob/1.4.0/mkdocs/str
 
 As a related tip: you should also stop using `os.path.*` or `pathlib.Path()` to deal with these paths, and instead use `posixpath.*` or `pathlib.PurePosixPath()`
 
-#### MkDocs is type-annotated, ready for use with [mypy](https://mypy.readthedocs.io/) (#2941, #2970)
+#### MkDocs is type-annotated, ready for use with [mypy](https://mypy.readthedocs.io/) (mkdocs/mkdocs#2941, mkdocs/mkdocs#2970)
 
-##### Type annotations for event handler methods (#2931)
+##### Type annotations for event handler methods (mkdocs/mkdocs#2931)
 
 MkDocs' plugin event methods now have type annotations. You might have been adding annotations to events already, but now they will be validated to match the original.
 
@@ -765,7 +765,7 @@ One big update is that now you should annotate method parameters more specifical
 
 See [source code](https://github.com/properdocs/properdocs/blob/1.4.0/mkdocs/config/defaults.py) and [documentation](../dev-guide/plugins.md#on_event_name).
 
-#### Rework ConfigOption schemas as class-based (#2962)
+#### Rework ConfigOption schemas as class-based (mkdocs/mkdocs#2962)
 
 When developing a plugin, the settings that it accepts used to be specified in the `config_scheme` variable on the plugin class.  
 This approach is now soft-deprecated, and instead you should specify the config in a sub-class of `base.Config`.
@@ -823,18 +823,18 @@ See [**documentation**](../dev-guide/plugins.md#config_scheme).
 Also notice that we had to explicitly mark the config attribute `foo` as `Optional`.  
 The new-style config has all attributes marked as required by default, and specifying `required=False` or `required=True` is not allowed!
 
-##### New: `config_options.Optional` (#2962)
+##### New: `config_options.Optional` (mkdocs/mkdocs#2962)
 
 Wrapping something into `Optional` is conceptually similar to "I want the default to be `None`" -- and you *have* to express it like that, because writing `default=None` doesn't actually work.
 
-Breaking change: the method `BaseConfigOption.is_required()` was removed. Use `.required` instead. (#2938)  
+Breaking change: the method `BaseConfigOption.is_required()` was removed. Use `.required` instead. (mkdocs/mkdocs#2938)  
 And even the `required` property should be mostly unused now.  
 For class-based configs, there's a new definition for whether an option is "required":
 
 * It has no default, and
 * It is not wrapped into `config_options.Optional`.
 
-##### New: `config_options.ListOfItems` (#2938)
+##### New: `config_options.ListOfItems` (mkdocs/mkdocs#2938)
 
 Defines a list of items that each must adhere to the same constraint. Kind of like a validated `Type(list)`
 
@@ -848,7 +848,7 @@ Optional, default is None | `foo = c.Optional(c.ListOfItems(c.Type(int)))`
 
 See more [examples in **documentation**](../dev-guide/plugins.md#examples-of-config-definitions).
 
-##### Updated: `config_options.SubConfig` (#2807)
+##### Updated: `config_options.SubConfig` (mkdocs/mkdocs#2807)
 
 `SubConfig` used to silently ignore all validation of its config options. Now you should pass `validate=True` to it or just use new class-based configs where this became the default.
 
@@ -858,78 +858,78 @@ See [examples in **documentation**](../dev-guide/plugins.md#examples-of-config-d
 
 #### Other changes to config options
 
-`URL`'s default is now `None` instead of `''`. This can still be checked for truthiness in the same way - `if config.some_url:` (#2962)
+`URL`'s default is now `None` instead of `''`. This can still be checked for truthiness in the same way - `if config.some_url:` (mkdocs/mkdocs#2962)
 
-`FilesystemObject` is no longer abstract and can be used directly, standing for "file or directory" with optional existence checking (#2938)
+`FilesystemObject` is no longer abstract and can be used directly, standing for "file or directory" with optional existence checking (mkdocs/mkdocs#2938)
 
 Bug fixes:
 
-* Fix `SubConfig`, `ConfigItems`, `MarkdownExtensions` to not leak values across different instances (#2916, #2290)
-* `SubConfig` raises the correct kind of validation error without a stack trace (#2938)
-* Fix dot-separated redirect in `config_options.Deprecated(moved_to)` (#2963)
+* Fix `SubConfig`, `ConfigItems`, `MarkdownExtensions` to not leak values across different instances (mkdocs/mkdocs#2916, mkdocs/mkdocs#2290)
+* `SubConfig` raises the correct kind of validation error without a stack trace (mkdocs/mkdocs#2938)
+* Fix dot-separated redirect in `config_options.Deprecated(moved_to)` (mkdocs/mkdocs#2963)
 
-Tweaked logic for handling `ConfigOption.default` (#2938)
+Tweaked logic for handling `ConfigOption.default` (mkdocs/mkdocs#2938)
 
-Deprecated config option classes: `ConfigItems` (#2983), `OptionallyRequired` (#2962), `RepoURL` (#2927)
+Deprecated config option classes: `ConfigItems` (mkdocs/mkdocs#2983), `OptionallyRequired` (mkdocs/mkdocs#2962), `RepoURL` (mkdocs/mkdocs#2927)
 
 ### Theme updates
 
-*   Styles of admonitions in "MkDocs" theme (#2981):
+*   Styles of admonitions in "MkDocs" theme (mkdocs/mkdocs#2981):
     * Update colors to increase contrast
     * Apply admonition styles also to `<details>` tag, to support Markdown extensions that provide it ([pymdownx.details](https://facelessuser.github.io/pymdown-extensions/extensions/details/), [callouts](https://oprypin.github.io/markdown-callouts/#collapsible-blocks))
 
 *   Built-in themes now also support these languages:
-    * Russian (#2976)
-    * Turkish (Turkey) (#2946)
-    * Ukrainian (#2980)
+    * Russian (mkdocs/mkdocs#2976)
+    * Turkish (Turkey) (mkdocs/mkdocs#2946)
+    * Ukrainian (mkdocs/mkdocs#2980)
 
 ### Future compatibility
 
-*   `extra_css:` and `extra_javascript:` warn if a backslash `\` is passed to them. (#2930, #2984)
+*   `extra_css:` and `extra_javascript:` warn if a backslash `\` is passed to them. (mkdocs/mkdocs#2930, mkdocs/mkdocs#2984)
 
-*   Show `DeprecationWarning`s as INFO messages. (#2907)
+*   Show `DeprecationWarning`s as INFO messages. (mkdocs/mkdocs#2907)
 
     If any plugin or extension that you use relies on deprecated functionality of other libraries, it is at risk of breaking in the near future. Plugin developers should address these in a timely manner.
 
-*   Avoid a dependency on `importlib_metadata` starting from Python 3.10 (#2959)
+*   Avoid a dependency on `importlib_metadata` starting from Python 3.10 (mkdocs/mkdocs#2959)
 
-*   Drop support for Python 3.6 (#2948)
+*   Drop support for Python 3.6 (mkdocs/mkdocs#2948)
 
 #### Incompatible changes to public APIs
 
 *   `mkdocs.utils`:
-    * `create_media_urls` and `normalize_url` warn if a backslash `\` is passed to them. (#2930)
-    * `is_markdown_file` stops accepting case-insensitive variants such as `.MD`, which is how MkDocs build was already operating. (#2912)
-    * Hard-deprecated: `modified_time`, `reduce_list`, `get_html_path`, `get_url_path`, `is_html_file`, `is_template_file`. (#2912)
+    * `create_media_urls` and `normalize_url` warn if a backslash `\` is passed to them. (mkdocs/mkdocs#2930)
+    * `is_markdown_file` stops accepting case-insensitive variants such as `.MD`, which is how MkDocs build was already operating. (mkdocs/mkdocs#2912)
+    * Hard-deprecated: `modified_time`, `reduce_list`, `get_html_path`, `get_url_path`, `is_html_file`, `is_template_file`. (mkdocs/mkdocs#2912)
 
 ### Miscellaneous
 
-*   If a plugin adds paths to `watch` in `LiveReloadServer`, it can now `unwatch` them. (#2777)
+*   If a plugin adds paths to `watch` in `LiveReloadServer`, it can now `unwatch` them. (mkdocs/mkdocs#2777)
 
-*   Bugfix (regression in 1.2): Support listening on an IPv6 address in `mkdocs serve`. (#2951)
+*   Bugfix (regression in 1.2): Support listening on an IPv6 address in `mkdocs serve`. (mkdocs/mkdocs#2951)
 
-Other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/1.3.1...1.4.0).
+Other small improvements; see [commit log](https://github.com/mkdocs/mkdocs/compare/1.3.1...1.4.0).
 
 ## Version 1.3.1 (2022-07-19)
 
-*   Pin Python-Markdown version to &lt;3.4, thus excluding its latest release that breaks too many external extensions (#2893)
+*   Pin Python-Markdown version to &lt;3.4, thus excluding its latest release that breaks too many external extensions (mkdocs/mkdocs#2893)
 
-*   When a Markdown extension fails to load, print its name and traceback (#2894)
+*   When a Markdown extension fails to load, print its name and traceback (mkdocs/mkdocs#2894)
 
-*   Bugfix for "readthedocs" theme (regression in 1.3.0): add missing space in breadcrumbs (#2810)
+*   Bugfix for "readthedocs" theme (regression in 1.3.0): add missing space in breadcrumbs (mkdocs/mkdocs#2810)
 
-*   Bugfix: don't complain when a file "readme.md" (lowercase) exists, it's not recognized otherwise (#2852)
+*   Bugfix: don't complain when a file "readme.md" (lowercase) exists, it's not recognized otherwise (mkdocs/mkdocs#2852)
 
 *   Built-in themes now also support these languages:
-    * Italian (#2860)
+    * Italian (mkdocs/mkdocs#2860)
 
-Other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/1.3.0...1.3.1).
+Other small improvements; see [commit log](https://github.com/mkdocs/mkdocs/compare/1.3.0...1.3.1).
 
 ## Version 1.3.0 (2022-03-26)
 
 ### Feature upgrades
 
-*   ReadTheDocs theme updated from v0.4.1 to v1.0.0 according to upstream (#2585)
+*   ReadTheDocs theme updated from v0.4.1 to v1.0.0 according to upstream (mkdocs/mkdocs#2585)
 
     The most notable changes:
 
@@ -940,10 +940,10 @@ Other small improvements; see [commit log](https://github.com/properdocs/properd
     See [documentation of config options for the theme](../user-guide/choosing-your-theme.md#readthedocs)
 
 *   Built-in themes now also support these languages:
-    * German (#2633)
-    * Persian (Farsi) (#2787)
+    * German (mkdocs/mkdocs#2633)
+    * Persian (Farsi) (mkdocs/mkdocs#2787)
 
-*   Support custom directories to watch when running `mkdocs serve` (#2642)
+*   Support custom directories to watch when running `mkdocs serve` (mkdocs/mkdocs#2642)
 
     MkDocs by default watches the *docs* directory and the config file. Now there is a way to add more directories to watch for changes, either via the YAML `watch` key or the command line flag `--watch`.
 
@@ -951,35 +951,35 @@ Other small improvements; see [commit log](https://github.com/properdocs/properd
 
     See [documentation](https://properdocs.org/user-guide/configuration/#watch).
 
-*   New `--no-history` option for `gh_deploy` (#2594)
+*   New `--no-history` option for `gh_deploy` (mkdocs/mkdocs#2594)
 
     Allows to discard the history of commits when deploying, and instead replace it with one root commit
 
 ### Bug fixes
 
-*   An XSS vulnerability when using the search function in built-in themes was fixed (#2791)
+*   An XSS vulnerability when using the search function in built-in themes was fixed (mkdocs/mkdocs#2791)
 
-*   Setting the `edit_uri` option no longer erroneously adds a trailing slash to `repo_url` (#2733)
+*   Setting the `edit_uri` option no longer erroneously adds a trailing slash to `repo_url` (mkdocs/mkdocs#2733)
 
 ### Miscellaneous
 
-*   Breaking change: the `pages` config option that was deprecated for a very long time now causes an error when used (#2652)
+*   Breaking change: the `pages` config option that was deprecated for a very long time now causes an error when used (mkdocs/mkdocs#2652)
 
     To fix the error, just change from `pages` to `nav`.
 
-*   Performance optimization: during startup of MkDocs, code and dependencies of other commands will not be imported (#2714)
+*   Performance optimization: during startup of MkDocs, code and dependencies of other commands will not be imported (mkdocs/mkdocs#2714)
 
     The most visible effect of this is that dependencies of `mkdocs serve` will not be imported when `mkdocs build` is used.
 
-*   Recursively validate `nav` (#2680)
+*   Recursively validate `nav` (mkdocs/mkdocs#2680)
 
     Validation of the nested `nav` structure has been reworked to report errors early and reliably. Some [edge cases](https://github.com/properdocs/properdocs/blob/b7272150bbc9bf8f66c878f6517742de3528972b/mkdocs/tests/config/config_options_tests.py#L783) have been declared invalid.
 
-Other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/1.2.3...1.3.0).
+Other small improvements; see [commit log](https://github.com/mkdocs/mkdocs/compare/1.2.3...1.3.0).
 
 ## Version 1.2.4 (2022-03-26)
 
-*   Compatibility with Jinja2 3.1.0 (#2800)
+*   Compatibility with Jinja2 3.1.0 (mkdocs/mkdocs#2800)
 
     Due to a breaking change in Jinja2, MkDocs would crash with the message
     `AttributeError: module 'jinja2' has no attribute 'contextfilter'`
@@ -987,50 +987,50 @@ Other small improvements; see [commit log](https://github.com/properdocs/properd
 ## Version 1.2.3 (2021-10-12)
 
 *   Built-in themes now also support these languages:
-    * Simplified Chinese (#2497)
-    * Japanese (#2525)
-    * Brazilian Portuguese (#2535)
-    * Spanish (#2545, previously #2396)
+    * Simplified Chinese (mkdocs/mkdocs#2497)
+    * Japanese (mkdocs/mkdocs#2525)
+    * Brazilian Portuguese (mkdocs/mkdocs#2535)
+    * Spanish (mkdocs/mkdocs#2545, previously mkdocs/mkdocs#2396)
 
-*   Third-party plugins will take precedence over built-in plugins with the same name (#2591)
+*   Third-party plugins will take precedence over built-in plugins with the same name (mkdocs/mkdocs#2591)
 
-*   Bugfix: Fix ability to load translations for some languages: core support (#2565) and search plugin support with fallbacks (#2602)
+*   Bugfix: Fix ability to load translations for some languages: core support (mkdocs/mkdocs#2565) and search plugin support with fallbacks (mkdocs/mkdocs#2602)
 
-*   Bugfix (regression in 1.2): Prevent directory traversal in the dev server (#2604)
+*   Bugfix (regression in 1.2): Prevent directory traversal in the dev server (mkdocs/mkdocs#2604)
 
-*   Bugfix (regression in 1.2): Prevent webserver warnings from being treated as a build failure in strict mode (#2607)
+*   Bugfix (regression in 1.2): Prevent webserver warnings from being treated as a build failure in strict mode (mkdocs/mkdocs#2607)
 
-*   Bugfix: Correctly print colorful messages in the terminal on Windows (#2606)
+*   Bugfix: Correctly print colorful messages in the terminal on Windows (mkdocs/mkdocs#2606)
 
-*   Bugfix: Python version 3.10 was displayed incorrectly in `--version` (#2618)
+*   Bugfix: Python version 3.10 was displayed incorrectly in `--version` (mkdocs/mkdocs#2618)
 
-Other small improvements; see [commit log](https://github.com/properdocs/properdocs/compare/1.2.2...1.2.3).
+Other small improvements; see [commit log](https://github.com/mkdocs/mkdocs/compare/1.2.2...1.2.3).
 
 ## Version 1.2.2 (2021-07-18)
 
-*   Bugfix (regression in 1.2): Fix serving files/paths with Unicode characters (#2464)
+*   Bugfix (regression in 1.2): Fix serving files/paths with Unicode characters (mkdocs/mkdocs#2464)
 
-*   Bugfix (regression in 1.2): Revert livereload file watching to use polling observer (#2477)
+*   Bugfix (regression in 1.2): Revert livereload file watching to use polling observer (mkdocs/mkdocs#2477)
 
     This had to be done to reasonably support usages that span virtual filesystems such as non-native Docker and network mounts.
 
     This goes back to the polling approach, very similar to that was always used prior, meaning most of the same downsides with latency and CPU usage.
 
-*   Revert from 1.2: Remove the requirement of a `site_url` config and the restriction on `use_directory_urls` (#2490)
+*   Revert from 1.2: Remove the requirement of a `site_url` config and the restriction on `use_directory_urls` (mkdocs/mkdocs#2490)
 
-*   Bugfix (regression in 1.2): Don't require trailing slash in the URL when serving a directory index in `mkdocs serve` server (#2507)
+*   Bugfix (regression in 1.2): Don't require trailing slash in the URL when serving a directory index in `mkdocs serve` server (mkdocs/mkdocs#2507)
 
     Instead of showing a 404 error, detect if it's a directory and redirect to a path with a trailing slash added, like before.
 
-*   Bugfix: Fix `gh_deploy` with config-file in the current directory (#2481)
+*   Bugfix: Fix `gh_deploy` with config-file in the current directory (mkdocs/mkdocs#2481)
 
-*   Bugfix: Fix reversed breadcrumbs in "readthedocs" theme (#2179)
+*   Bugfix: Fix reversed breadcrumbs in "readthedocs" theme (mkdocs/mkdocs#2179)
 
-*   Allow "mkdocs.yaml" as the file name when '--config' is not passed (#2478)
+*   Allow "mkdocs.yaml" as the file name when '--config' is not passed (mkdocs/mkdocs#2478)
 
-*   Stop treating ";" as a special character in URLs: urlparse -> urlsplit (#2502)
+*   Stop treating ";" as a special character in URLs: urlparse -> urlsplit (mkdocs/mkdocs#2502)
 
-*   Improve build performance for sites with many pages (partly already done in 1.2) (#2407)
+*   Improve build performance for sites with many pages (partly already done in 1.2) (mkdocs/mkdocs#2407)
 
 ## Version 1.2.1 (2021-06-09)
 
@@ -1040,7 +1040,7 @@ Other small improvements; see [commit log](https://github.com/properdocs/properd
 
 ### Major Additions to Version 1.2
 
-#### Support added for Theme Localization (#2299)
+#### Support added for Theme Localization (mkdocs/mkdocs#2299)
 
 The `mkdocs` and `readthedocs` themes now support language localization using
 the `theme.locale` parameter, which defaults to `en` (English). The only other
@@ -1068,7 +1068,7 @@ Guide](contributing.md#submitting-changes-to-the-builtin-themes).
 The `lang` setting of the `search` plugin now defaults to the language
 specified in `theme.locale`.
 
-#### Support added for Environment Variables in the configuration file (#1954)
+#### Support added for Environment Variables in the configuration file (mkdocs/mkdocs#1954)
 
 Environments variables may now be specified in the configuration file with the
 `!ENV` tag. The value of the variable will be parsed by the YAML parser and
@@ -1082,7 +1082,7 @@ otherkey: !ENV [VAR_NAME, FALLBACK_VAR, 'default value']
 See [Environment Variables](../user-guide/configuration.md#environment-variables)
 in the Configuration documentation for details.
 
-#### Support added for Configuration Inheritance (#2218)
+#### Support added for Configuration Inheritance (mkdocs/mkdocs#2218)
 
 A configuration file may now inherit from a parent configuration file. In the
 primary file set the `INHERIT` key to the relative path of the parent file.
@@ -1095,7 +1095,7 @@ The two files will then be deep merged. See
 [Configuration Inheritance](../user-guide/configuration.md#configuration-inheritance)
 for details.
 
-#### Update `gh-deploy` command (#2170)
+#### Update `gh-deploy` command (mkdocs/mkdocs#2170)
 
 The vendored (and modified) copy of ghp_import has been replaced with a
 dependency on the upstream library. As of version 1.0.0, [ghp-import] includes a
@@ -1105,11 +1105,11 @@ MkDocs can now benefit from recent bug fixes and new features, including the fol
 
 * A `.nojekyll` file is automatically included when deploying to GitHub Pages.
 * The `--shell` flag is now available, which reportedly works better on Windows.
-* Git author and committer environment variables should be respected (#1383).
+* Git author and committer environment variables should be respected (mkdocs/mkdocs#1383).
 
 [ghp-import]: https://github.com/c-w/ghp-import/
 
-#### Rework auto-reload and HTTP server for `mkdocs serve` (#2385)
+#### Rework auto-reload and HTTP server for `mkdocs serve` (mkdocs/mkdocs#2385)
 
 `mkdocs serve` now uses a new underlying server + file watcher implementation,
 based on [http.server] from standard library and [watchdog]. It provides similar
@@ -1117,7 +1117,7 @@ functionality to the previously used [livereload] library (which is now dropped
 from dependencies, along with [tornado]).
 
 This makes reloads more responsive and consistent in terms of timing. Multiple
-rapid file changes no longer cause the site to repeatedly rebuild (issue #2061).
+rapid file changes no longer cause the site to repeatedly rebuild (issue mkdocs/mkdocs#2061).
 
 Almost every aspect of the server is slightly different, but actual visible
 changes are minor. The logging outputs are only *similar* to the old ones.
@@ -1128,14 +1128,14 @@ Degradations in behavior are not expected, and should be reported if found.
 [livereload]: https://pypi.org/project/livereload/
 [tornado]: https://pypi.org/project/tornado/
 
-##### Offset the local site root according to the sub-path of the `site_url` (#2424)
+##### Offset the local site root according to the sub-path of the `site_url` (mkdocs/mkdocs#2424)
 
 When using `mkdocs serve` and having the `site_url` specified as e.g.
 `http://example.org/sub/path/`, now the root of the locally served site
 becomes `http://127.0.0.1:8000/sub/path/` and all document paths are offset
 accordingly.
 
-#### A `build_error` event was added (#2103)
+#### A `build_error` event was added (mkdocs/mkdocs#2103)
 
 Plugin developers can now use the `on_build_error` hook
 to execute code when an exception is raised while building the site.
@@ -1143,7 +1143,7 @@ to execute code when an exception is raised while building the site.
 See [`on_build_error`](../dev-guide/plugins.md#on_build_error)
 in the Plugins documentation for details.
 
-#### Three new exceptions: BuildError PluginError and Abort (#2103)
+#### Three new exceptions: BuildError PluginError and Abort (mkdocs/mkdocs#2103)
 
 MkDocs now has tree new exceptions defined in `mkdocs.exceptions`:
 `BuildError`, `PluginError`, and `Abort`:
@@ -1171,13 +1171,13 @@ configuration documentation for details.
 
 *   The [site_url](../user-guide/configuration.md#site_url) configuration option
     is now **required**. If it is not set, a warning will be issued. In a future
-    release an error will be raised (#2189).
+    release an error will be raised (mkdocs/mkdocs#2189).
 
     The [use_directory_urls](../user-guide/configuration.md#use_directory_urls)
     configuration option will be forced to `false` if
     [site_url](../user-guide/configuration.md#site_url) is set to an empty
     string. In that case, if `use_directory_urls` is not explicitly set to
-    `false`, a warning will be issued (#2189).
+    `false`, a warning will be issued (mkdocs/mkdocs#2189).
 
     NOTE: This was reverted in release 1.2.2
 
@@ -1192,20 +1192,20 @@ configuration documentation for details.
     `google_analytics` configuration option which contains a "UA-" ID. So long
     as the old "UA-" ID and new "G-" ID are properly linked in your Google
     account, and you are using the "G-" ID, the data will be made available in
-    both the old and new formats by Google Analytics. See #2252.
+    both the old and new formats by Google Analytics. See mkdocs/mkdocs#2252.
 
 *   A theme's files are now excluded from the list of watched files by default
     when using the `--livereload` server. This new default behavior is what most
     users need and provides better performance when editing site content.
     Theme developers can enable the old behavior with the `--watch-theme`
-    option. (#2092).
+    option. (mkdocs/mkdocs#2092).
 
 *   The `mkdocs` theme now removes the sidebar when printing a page. This frees
-    up horizontal space for better rendering of content like tables (#2193).
+    up horizontal space for better rendering of content like tables (mkdocs/mkdocs#2193).
 
 *   The `mkdocs.config.DEFAULT_SCHEMA` global variable has been replaced with the
     function `mkdocs.config.defaults.get_schema()`, which ensures that each
-    instance of the configuration is unique (#2289).
+    instance of the configuration is unique (mkdocs/mkdocs#2289).
 
 *   The `mkdocs.utils.warning_filter` is deprecated and now does nothing. Plugins
     should remove any reference to is as it may be deleted in a future release.
@@ -1241,19 +1241,19 @@ configuration documentation for details.
 
 ### Other Changes and Additions to Version 1.2
 
-* Bugfix: Properly process navigation child items in `_get_by_type` when filtering for sections (#2203).
+* Bugfix: Properly process navigation child items in `_get_by_type` when filtering for sections (mkdocs/mkdocs#2203).
 * Official support for Python 3.9 has been added and support for Python 3.5 has been dropped.
-* Bugfix: Fixes an issue that would result in a partially cut-off navigation item in the ReadTheDocs theme (#2297).
-* Structure Files object now has a `remove` method to help plugin developers manipulate the Files tree. The corresponding `src_paths` has become a property to accommodate this possible dynamic behavior. See #2305.
-* Updated highlight.js to 10.5.0. See #2313.
-* Bugfix: Search plugin now works with Japanese language. See #2178.
-* Documentation has been refactored (#1629).
-* Restore styling of tables in the `readthedocs` theme (#2028).
-* Ensure `site_url` ends with a slash (#1785).
-* Correct documentation of `pages` template context variable (#1736).
-* The `lunr` dependency has been updated to 0.5.9, and `lunr.js` to the corresponding 2.3.9 version (#2306).
+* Bugfix: Fixes an issue that would result in a partially cut-off navigation item in the ReadTheDocs theme (mkdocs/mkdocs#2297).
+* Structure Files object now has a `remove` method to help plugin developers manipulate the Files tree. The corresponding `src_paths` has become a property to accommodate this possible dynamic behavior. See mkdocs/mkdocs#2305.
+* Updated highlight.js to 10.5.0. See mkdocs/mkdocs#2313.
+* Bugfix: Search plugin now works with Japanese language. See mkdocs/mkdocs#2178.
+* Documentation has been refactored (mkdocs/mkdocs#1629).
+* Restore styling of tables in the `readthedocs` theme (mkdocs/mkdocs#2028).
+* Ensure `site_url` ends with a slash (mkdocs/mkdocs#1785).
+* Correct documentation of `pages` template context variable (mkdocs/mkdocs#1736).
+* The `lunr` dependency has been updated to 0.5.9, and `lunr.js` to the corresponding 2.3.9 version (mkdocs/mkdocs#2306).
 * Color is now used in log messages to identify errors, warnings and debug messages.
-* Bugfix: Identify homepage when `use_directory_urls` is `False` (#2362).
+* Bugfix: Identify homepage when `use_directory_urls` is `False` (mkdocs/mkdocs#2362).
 
 ## Older versions
 

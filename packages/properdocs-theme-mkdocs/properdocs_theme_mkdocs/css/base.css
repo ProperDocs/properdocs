@@ -5,7 +5,7 @@ html {
 }
 
 /* Replacement for `body { background-attachment: fixed; }`, which has
-   performance issues when scrolling on large displays. See #1394. */
+   performance issues when scrolling on large displays. See mkdocs/mkdocs#1394. */
 body::before {
     content: ' ';
     position: fixed;
