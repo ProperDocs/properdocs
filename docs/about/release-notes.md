@@ -29,7 +29,7 @@ properdocs, version 1.6.7 from /path/to/properdocs (Python 3.13)
 
     The environment variable is now `DISABLE_MKDOCS_2_WARNING=true` instead of `NO_MKDOCS_2_WARNING=true`.
 
-    Apologies for the inconvenience. [A change in mkdocs-material](https://github.com/squidfunk/mkdocs-material/commit/51d9b76636431814df924bcda27485b16023978b) made this environment unusable - it's always set and there's no reasonable way to detect whether it was actually set on the command line, so we are forced to use a different environment variable now.
+    Apologies for the inconvenience. [A change in mkdocs-material](https://github.com/squidfunk/mkdocs-material/commit/51d9b76636431814df924bcda27485b16023978b) made this environment variable unusable - it's always set and there's no reasonable way to detect whether it was actually set on the command line, so we are forced to use a different environment variable now.
 
 *   Eliminate dependency on 'mergedeep' (unmaintained) - no change in functionality (#48)
 
