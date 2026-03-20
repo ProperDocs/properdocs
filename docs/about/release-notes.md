@@ -33,6 +33,8 @@ properdocs, version 1.6.7 from /path/to/properdocs (Python 3.13)
 
 *   Eliminate dependency on 'mergedeep' (unmaintained) - no change in functionality (#48)
 
+See [commit log](https://github.com/properdocs/properdocs/compare/v1.6.6...v1.6.7).
+
 ### `properdocs-theme-mkdocs` 1.6.7
 
 *   Fix ability to toggle dark mode when `highlightjs: false` is set (#54)
