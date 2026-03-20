@@ -14,8 +14,30 @@ You can determine your currently installed version using `properdocs --version`:
 
 ```console
 $ properdocs --version
-properdocs, version 1.6.6 from /path/to/properdocs (Python 3.13)
+properdocs, version 1.6.7 from /path/to/properdocs (Python 3.13)
 ```
+
+## Version 1.6.7 (2026-03-20)
+
+*   Fix: Do not skip anchor validation warnings when `--verbose` mode happens to be enabled (#57)
+
+*   Fix `mkdocs serve` crashing after the first reload if the config is passed from stdin (#56)
+
+*   Fix crashes when trying to parse invalid URLs (#55)
+
+*   Change the environment variable that is used to suppress the warning message when running through MkDocs. (#53)
+
+    The environment variable is now `DISABLE_MKDOCS_2_WARNING=true` instead of `NO_MKDOCS_2_WARNING=true`.
+
+    Apologies for the inconvenience. [A change in mkdocs-material](https://github.com/squidfunk/mkdocs-material/commit/51d9b76636431814df924bcda27485b16023978b) made this environment unusable - it's always set and there's no reasonable way to detect whether it was actually set on the command line, so we are forced to use a different environment variable now.
+
+*   Eliminate dependency on 'mergedeep' (unmaintained) - no change in functionality (#48)
+
+### `properdocs-theme-mkdocs` 1.6.7
+
+*   Fix ability to toggle dark mode when `highlightjs: false` is set (#54)
+
+*   Fix the dropdown submenu marker being invisible (#58)
 
 ## Version 1.6.6 (2026-03-16)
 
