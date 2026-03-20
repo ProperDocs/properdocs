@@ -58,6 +58,7 @@ def serve(
             site_dir=site_dir,
             **kwargs,
         )
+        config.site_dir = site_dir  # Overwrite it afterwards, so normal validation still kicks in.
         config.watch.extend(watch)
         return config
 
