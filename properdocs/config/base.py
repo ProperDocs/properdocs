@@ -290,9 +290,6 @@ def _open_config_file(config_file: str | IO | None) -> Iterator[IO]:
     # If it is a string, we can assume it is a path and attempt to open it.
     elif isinstance(config_file, str):
         paths_to_try = [config_file]
-    # If closed file descriptor, get file path to reopen later.
-    elif getattr(config_file, 'closed', False):
-        paths_to_try = [config_file.name]
     else:
         result_config_file = config_file
         paths_to_try = None

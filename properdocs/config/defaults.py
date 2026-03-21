@@ -71,7 +71,7 @@ class ProperDocsConfig(base.Config):
     site_author = c.Optional(c.Type(str))
     """The name of the author to add to the HTML meta tags."""
 
-    theme = c.Theme(default='mkdocs')
+    theme = c.ProperDocsTheme()
     """The ProperDocs theme for the documentation."""
 
     docs_dir = c.DocsDir(default='docs', exists=True)

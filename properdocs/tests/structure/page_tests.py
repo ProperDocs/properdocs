@@ -20,6 +20,7 @@ DOCS_DIR = os.path.join(
 
 def load_config(**cfg) -> ProperDocsConfig:
     cfg.setdefault('site_name', 'Example')
+    cfg.setdefault('theme', 'mkdocs')
     cfg.setdefault(
         'docs_dir',
         os.path.join(
@@ -87,7 +88,7 @@ class PageTests(unittest.TestCase):
         cfg = load_config(docs_dir=DOCS_DIR)
         fl = File('sub1/index.md', cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
         pg = Page('Foo', fl, cfg)
-        pg.parent = None  # non-homepage at nav root level; see #1919.
+        pg.parent = None  # non-homepage at nav root level; see mkdocs/mkdocs#1919.
         self.assertEqual(pg.url, 'sub1/')
         self.assertEqual(pg.abs_url, None)
         self.assertEqual(pg.canonical_url, None)
@@ -111,7 +112,7 @@ class PageTests(unittest.TestCase):
         cfg = load_config(docs_dir=DOCS_DIR, use_directory_urls=False)
         fl = File('sub1/index.md', cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
         pg = Page('Foo', fl, cfg)
-        pg.parent = None  # non-homepage at nav root level; see #1919.
+        pg.parent = None  # non-homepage at nav root level; see mkdocs/mkdocs#1919.
         self.assertEqual(pg.url, 'sub1/index.html')
         self.assertEqual(pg.abs_url, None)
         self.assertEqual(pg.canonical_url, None)
@@ -535,7 +536,7 @@ class PageTests(unittest.TestCase):
         cfg = load_config(docs_dir=docs_dir)
         fl = File('index.md', cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
         pg = Page(None, fl, cfg)
-        # Create an UTF-8 Encoded file with BOM (as Microsoft editors do). See #1186
+        # Create an UTF-8 Encoded file with BOM (as Microsoft editors do). See mkdocs/mkdocs#1186
         with open(fl.abs_src_path, 'w', encoding='utf-8-sig') as f:
             f.write(md_src)
         # Now read the file.
@@ -1218,6 +1219,19 @@ class RelativePathExtensionTests(unittest.TestCase):
                     logs="INFO:Doc file 'index.md' contains an absolute link '\\image.png', it was left as is.",
                 ),
                 '<a href="\\image.png">absolute local path</a>',
+            )
+
+    @unittest.skipUnless(sys.version_info >= (3, 11), "new error kind in Python 3.11")
+    def test_invalid_link_ipv6(self):
+        for use_directory_urls in True, False:
+            self.assertEqual(
+                self.get_rendered_result(
+                    use_directory_urls=use_directory_urls,
+                    content='[invalid link](http://[a]/)',
+                    files=['index.md'],
+                    logs="INFO:Doc file 'index.md' contains an invalid link 'http://[a]/', it was left as is.",
+                ),
+                '<a href="http://[a]/">invalid link</a>',
             )
 
     def test_email_link(self):

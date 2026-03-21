@@ -1,5 +1,8 @@
 # ProperDocs
 
+[![PyPI Version][pypi-v-image]][pypi-v-link]
+[![Build Status][GHAction-image]][GHAction-link]
+
 ProperDocs is a static site generator intended for project documentation. Source files are written in Markdown and converted to static HTML during the build process.
 
 Project configuration is defined in a YAML configuration file (`properdocs.yml`). This file specifies the documentation structure, theme configuration, and optional plugin settings.
@@ -14,12 +17,12 @@ For usage instructions and examples, see the Documentation.
 
 Current functionality includes:
 
-* Conversion of Markdown source files into static HTML pages
-* YAML-based configuration
-* Plugin system for extending functionality
-* Support for Markdown extensions
-* Support for third-party themes
-* Static output suitable for deployment on standard web servers
+- Conversion of Markdown source files into static HTML pages
+- YAML-based configuration
+- Plugin system for extending functionality
+- Support for Markdown extensions
+- Support for third-party themes
+- Static output suitable for deployment on standard web servers
 
 Additional functionality is available through plugins.
 
@@ -30,7 +33,7 @@ Additional functionality is available through plugins.
 If you encounter problems while using ProperDocs, the following resources are available:
 
 -   For questions and high-level discussions, use **[Discussions]** on GitHub.
--   For small questions, a good alternative is the **[Chat room]** on Discord.
+    - For small questions, a good alternative is the **[Discord server]**.
 -   To report a bug or make a feature request, open an **[Issue]** on GitHub.
 
 Support is generally limited to **core ProperDocs functionality**. Issues related to third-party themes, plugins or extensions should normally be reported to the maintainers of those projects.
@@ -51,7 +54,7 @@ Questions about such components may still be discussed in chat.
 
 Contributions are welcome.
 
-For development setup, coding guidelines and contribution workflow, see the **Contributing Guide**.
+For development setup, coding guidelines and contribution workflow, see the **[Contributing Guide]**.
 
 ---
 
@@ -75,7 +78,7 @@ ProperDocs is distributed under the [**BSD-2-Clause license**](LICENSE).
 [properdocs]: https://properdocs.org
 [Issue]: https://github.com/properdocs/properdocs/issues
 [Discussions]: https://github.com/properdocs/properdocs/discussions
-[Chat room]: https://discord.gg/CwYAgEPHZd
+[Discord server]: https://discord.gg/CwYAgEPHZd
 [release-notes]: https://properdocs.org/about/release-notes/
 [Contributing Guide]: https://properdocs.org/about/contributing/
 [PSF Code of Conduct]: https://www.python.org/psf/conduct/
