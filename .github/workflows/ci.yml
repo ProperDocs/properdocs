@@ -35,12 +35,8 @@ jobs:
           - python: '3.11'
             os: macos-latest
           - python: '3.10'
-            os: ubuntu-latest
-          - python: '3.10'
-            os: macos-latest
-          - python: '3.9'
             os: windows-latest
-          - python: '3.9'
+          - python: '3.10'
             os: ubuntu-latest
             versions: minimal
     runs-on: ${{matrix.os}}

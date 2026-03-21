@@ -1,3 +1,4 @@
+import itertools
 import os
 import sys
 import unittest
@@ -64,7 +65,7 @@ class TestFiles(PathAssertionMixin, unittest.TestCase):
         ]:
             with self.subTest(case):
                 files = [File(f, "", "", use_directory_urls=True) for f in case]
-                for a, b in zip(files, files[1:]):
+                for a, b in itertools.pairwise(files):
                     self.assertLess(file_sort_key(a), file_sort_key(b))
 
     def test_md_file(self):

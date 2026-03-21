@@ -10,9 +10,9 @@ import traceback
 import types
 import warnings
 from collections import Counter, UserString
-from collections.abc import Collection, Iterator, Mapping, MutableMapping
+from collections.abc import Callable, Collection, Iterator, Mapping, MutableMapping
 from types import SimpleNamespace
-from typing import Any, Callable, Generic, NamedTuple, TypeVar, Union, overload
+from typing import Any, Generic, NamedTuple, TypeVar, Union, overload
 from urllib.parse import quote as urlquote
 from urllib.parse import urlsplit, urlunsplit
 

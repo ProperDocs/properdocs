@@ -4,8 +4,8 @@ import enum
 import logging
 import posixpath
 import warnings
-from collections.abc import Iterator, MutableMapping, Sequence
-from typing import TYPE_CHECKING, Any, Callable
+from collections.abc import Callable, Iterator, MutableMapping, Sequence
+from typing import TYPE_CHECKING, Any
 from urllib.parse import unquote as urlunquote
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
