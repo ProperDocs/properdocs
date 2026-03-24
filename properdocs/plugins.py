@@ -8,7 +8,7 @@ from importlib.metadata import EntryPoint, entry_points
 from typing import TYPE_CHECKING, Any, Concatenate, Generic, Literal, TypeVar, overload
 
 if TYPE_CHECKING:
-    import jinja2.environment
+    import jinja2
 
 from properdocs import utils
 from properdocs.config.base import (
