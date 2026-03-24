@@ -1,6 +1,14 @@
 # DO NOT UPDATE THIS FILE, only for tests.
 # This is an intentionally small subset of https://github.com/properdocs/catalog
 projects:
+- name: MkDocs theme
+  properdocs_theme: [mkdocs]
+  github_id: properdocs/properdocs
+  pypi_id: properdocs-theme-mkdocs
+- name: ReadTheDocs theme
+  properdocs_theme: [readthedocs]
+  github_id: properdocs/properdocs
+  pypi_id: properdocs-theme-readthedocs
 - name: Material for MkDocs
   mkdocs_theme: material
   mkdocs_plugin: [material/info, material/offline, material/search, material/social, material/tags]

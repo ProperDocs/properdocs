@@ -37,10 +37,10 @@ class _AbsoluteLinksValidation(_LogLevel):
 # depend on others. So, if config option A depends on B, then A should be
 # listed higher in the schema.
 class ProperDocsConfig(base.Config):
-    """The configuration of ProperDocs itself (the root object of mkdocs.yml)."""
+    """The configuration of ProperDocs itself (the root object of properdocs.yml)."""
 
     config_file_path: str = c.Type(str)  # type: ignore[assignment]
-    """The path to the mkdocs.yml config file. Can't be populated from the config."""
+    """The path to the properdocs.yml config file. Can't be populated from the config."""
 
     site_name = c.Type(str)
     """The title to use for the documentation."""
@@ -71,7 +71,7 @@ class ProperDocsConfig(base.Config):
     site_author = c.Optional(c.Type(str))
     """The name of the author to add to the HTML meta tags."""
 
-    theme = c.Theme(default='mkdocs')
+    theme = c.ProperDocsTheme()
     """The ProperDocs theme for the documentation."""
 
     docs_dir = c.DocsDir(default='docs', exists=True)

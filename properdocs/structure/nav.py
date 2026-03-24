@@ -164,9 +164,16 @@ def get_navigation(files: Files, config: ProperDocsConfig) -> Navigation:
 
     links = _get_by_type(items, Link)
     for link in links:
-        scheme, netloc, path, query, fragment = urlsplit(link.url)
-        if scheme or netloc:
-            log.debug(f"An external link to '{link.url}' is included in the 'nav' configuration.")
+        invalid: str | None = None
+        try:
+            scheme, netloc, path, query, fragment = urlsplit(link.url)
+        except Exception as e:
+            invalid = 'invalid'
+        else:
+            if scheme or netloc:
+                invalid = 'external'
+        if invalid:
+            log.debug(f"An {invalid} link to '{link.url}' is included in the 'nav' configuration.")
         elif (
             link.url.startswith('/')
             and config.validation.nav.absolute_links

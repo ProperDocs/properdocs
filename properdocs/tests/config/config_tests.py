@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import dataclasses
 import os
 import unittest
 
@@ -13,6 +14,14 @@ from properdocs.localization import parse_locale
 from properdocs.tests.base import dedent, tempdir
 
 
+@dataclasses.dataclass
+class ThemeDir:
+    theme: str
+
+    def __eq__(self, other):
+        return os.path.basename(other) == f'properdocs_theme_{self.theme}'
+
+
 class ConfigTests(unittest.TestCase):
     def test_missing_config_file(self):
         with self.assertRaises(ConfigurationError):
@@ -20,12 +29,26 @@ class ConfigTests(unittest.TestCase):
 
     def test_missing_site_name(self):
         conf = defaults.ProperDocsConfig()
-        conf.load_dict({})
+        conf.load_dict({'theme': 'mkdocs'})
         errors, warnings = conf.validate()
         self.assertEqual(
             errors, [('site_name', ValidationError("Required configuration not provided."))]
         )
         self.assertEqual(warnings, [])
+
+    def test_missing_theme(self):
+        conf = defaults.ProperDocsConfig(config_file_path='a.yml')
+        conf.load_dict({'site_name': 'Example'})
+        with self.assertLogs('properdocs') as cm:
+            errors, warnings = conf.validate()
+        self.assertEqual(errors, [])
+        self.assertEqual(warnings, [])
+        self.assertEqual(
+            cm.output,
+            [
+                "WARNING:properdocs.config.config_options:Please select a theme explicitly in 'a.yml'. Defaulted to 'theme: mkdocs', but this may change in the future."
+            ],
+        )
 
     def test_nonexistant_config(self):
         with self.assertRaises(ConfigurationError):
@@ -51,7 +74,7 @@ class ConfigTests(unittest.TestCase):
     def test_config_option(self, temp_path):
         """
         Users can explicitly set the config file using the '--config' option.
-        Allows users to specify a config other than the default `mkdocs.yml`.
+        Allows users to specify a config other than the default `properdocs.yml`.
         """
         expected_result = {
             'site_name': 'Example',
@@ -60,11 +83,12 @@ class ConfigTests(unittest.TestCase):
         file_contents = dedent(
             """
             site_name: Example
+            theme: mkdocs
             nav:
             - 'Introduction': 'index.md'
             """
         )
-        config_path = os.path.join(temp_path, 'mkdocs.yml')
+        config_path = os.path.join(temp_path, 'properdocs.yml')
         with open(config_path, 'w') as config_file:
             config_file.write(file_contents)
         os.mkdir(os.path.join(temp_path, 'docs'))
@@ -97,11 +121,10 @@ class ConfigTests(unittest.TestCase):
 
         properdocs_dir = os.path.abspath(os.path.dirname(properdocs.__file__))
         properdocs_templates_dir = os.path.join(properdocs_dir, 'templates')
-        theme_dir = os.path.abspath(os.path.join(properdocs_dir, 'themes'))
 
         results = (
             {
-                'dirs': [os.path.join(theme_dir, 'mkdocs'), properdocs_templates_dir],
+                'dirs': [ThemeDir('mkdocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml'],
                 'vars': {
                     'name': 'mkdocs',
@@ -121,7 +144,7 @@ class ConfigTests(unittest.TestCase):
                 },
             },
             {
-                'dirs': [os.path.join(theme_dir, 'readthedocs'), properdocs_templates_dir],
+                'dirs': [ThemeDir('readthedocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml'],
                 'vars': {
                     'name': 'readthedocs',
@@ -142,7 +165,7 @@ class ConfigTests(unittest.TestCase):
                 },
             },
             {
-                'dirs': [os.path.join(theme_dir, 'readthedocs'), properdocs_templates_dir],
+                'dirs': [ThemeDir('readthedocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml'],
                 'vars': {
                     'name': 'readthedocs',
@@ -168,7 +191,7 @@ class ConfigTests(unittest.TestCase):
                 'vars': {'name': None, 'locale': parse_locale('en')},
             },
             {
-                'dirs': [custom, os.path.join(theme_dir, 'readthedocs'), properdocs_templates_dir],
+                'dirs': [custom, ThemeDir('readthedocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml'],
                 'vars': {
                     'name': 'readthedocs',
@@ -189,7 +212,7 @@ class ConfigTests(unittest.TestCase):
                 },
             },
             {
-                'dirs': [os.path.join(theme_dir, 'mkdocs'), properdocs_templates_dir],
+                'dirs': [ThemeDir('mkdocs'), properdocs_templates_dir],
                 'static_templates': ['404.html', 'sitemap.xml', 'foo.html'],
                 'vars': {
                     'name': 'mkdocs',
@@ -219,15 +242,15 @@ class ConfigTests(unittest.TestCase):
                 errors, warnings = conf.validate()
                 self.assertEqual(errors, [])
                 self.assertEqual(warnings, [])
-                self.assertEqual(conf['theme'].dirs, result['dirs'])
-                self.assertEqual(conf['theme'].static_templates, set(result['static_templates']))
-                self.assertEqual(dict(conf['theme']), result['vars'])
+                self.assertEqual(result['dirs'], conf['theme'].dirs)
+                self.assertEqual(set(result['static_templates']), conf['theme'].static_templates)
+                self.assertEqual(result['vars'], dict(conf['theme']))
 
     def test_empty_nav(self):
         conf = defaults.ProperDocsConfig(
-            config_file_path=os.path.join(os.path.abspath('.'), 'mkdocs.yml')
+            config_file_path=os.path.join(os.path.abspath('.'), 'properdocs.yml')
         )
-        conf.load_dict({'site_name': 'Example'})
+        conf.load_dict({'site_name': 'Example', 'theme': 'mkdocs'})
         conf.validate()
         self.assertEqual(conf['nav'], None)
 
@@ -236,6 +259,7 @@ class ConfigTests(unittest.TestCase):
         conf.load_dict(
             {
                 'site_name': 'Example',
+                'theme': 'mkdocs',
                 'pages': ['index.md', 'about.md'],
             }
         )
@@ -264,7 +288,7 @@ class ConfigTests(unittest.TestCase):
                         ('docs_dir', c.Dir(default='docs')),
                         ('site_dir', c.SiteDir(default='site')),
                     ),
-                    config_file_path=os.path.join(os.path.abspath('..'), 'mkdocs.yml'),
+                    config_file_path=os.path.join(os.path.abspath('..'), 'properdocs.yml'),
                 )
                 conf.load_dict(test_config)
 

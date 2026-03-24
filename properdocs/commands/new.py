@@ -17,10 +17,10 @@ For full documentation visit [properdocs.org](https://properdocs.org).
 
 ## Project layout
 
-    mkdocs.yml    # The configuration file.
+    properdocs.yml # The configuration file.
     docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+        index.md   # The documentation homepage.
+        ...        # Other markdown pages, images and other files.
 """
 
 log = logging.getLogger(__name__)
@@ -28,7 +28,7 @@ log = logging.getLogger(__name__)
 
 def new(output_dir: str) -> None:
     docs_dir = os.path.join(output_dir, 'docs')
-    config_path = os.path.join(output_dir, 'mkdocs.yml')
+    config_path = os.path.join(output_dir, 'properdocs.yml')
     index_path = os.path.join(docs_dir, 'index.md')
 
     if os.path.exists(config_path):

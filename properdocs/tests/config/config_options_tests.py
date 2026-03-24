@@ -424,6 +424,7 @@ class URLTest(TestCase):
         conf = self.get_config(Schema, {'option': None})
         self.assertEqual(conf.option, None)
 
+    @unittest.skipUnless(sys.version_info >= (3, 11), "new error kind in Python 3.11")
     def test_invalid_url(self) -> None:
         class Schema(Config):
             option = c.URL()
@@ -431,7 +432,16 @@ class URLTest(TestCase):
         with self.expect_error(option="Required configuration not provided."):
             self.get_config(Schema, {'option': None})
 
-        for url in "properdocs.org", "//properdocs.org/test", "http:/properdocs.org/", "/hello/":
+        for url in ["http://[a]/"]:
+            with self.subTest(url=url):
+                with self.expect_error(option="The URL is invalid"):
+                    self.get_config(Schema, {'option': url})
+
+    def test_invalid_url_no_http(self) -> None:
+        class Schema(Config):
+            option = c.URL()
+
+        for url in ["properdocs.org", "//properdocs.org/test", "http:/properdocs.org/", "/hello/"]:
             with self.subTest(url=url):
                 with self.expect_error(
                     option="The URL isn't valid, it should include the http:// (scheme)"
@@ -959,7 +969,7 @@ class FilesystemObjectTest(TestCase):
                 conf = self.get_config(
                     Schema,
                     {'dir': 'foo'},
-                    config_file_path=os.path.join(base_path, 'mkdocs.yml'),
+                    config_file_path=os.path.join(base_path, 'properdocs.yml'),
                 )
                 self.assertEqual(conf.dir, os.path.join(base_path, 'foo'))
 
@@ -974,7 +984,7 @@ class FilesystemObjectTest(TestCase):
             self.get_config(
                 Schema,
                 {'dir': '.'},
-                config_file_path=os.path.join(os.path.abspath('.'), 'mkdocs.yml'),
+                config_file_path=os.path.join(os.path.abspath('.'), 'properdocs.yml'),
             )
 
 
@@ -1053,7 +1063,7 @@ class ListOfPathsTest(TestCase):
         conf = self.get_config(
             Schema,
             {'watch': ['foo']},
-            config_file_path=os.path.join(base_path, 'mkdocs.yml'),
+            config_file_path=os.path.join(base_path, 'properdocs.yml'),
         )
 
         self.assertEqual(conf.watch, [os.path.join(base_path, 'foo')])
@@ -1560,7 +1570,7 @@ class SubConfigTest(TestCase):
         class Schema(Config):
             sub = c.ListOfItems(c.SubConfig(Sub), default=[])
 
-        config_path = "foo/mkdocs.yaml"
+        config_path = "foo/properdocs.yaml"
         self.get_config(Schema, {"sub": [{"opt": "bar"}]}, config_file_path=config_path)
         self.assertEqual(passed_config_path, config_path)
 
@@ -2363,7 +2373,7 @@ class HooksTest(TestCase):
         conf = self.get_config(
             self.Schema,
             {'hooks': ['hooks/my_hook.py']},
-            config_file_path=os.path.join(src_dir, 'mkdocs.yml'),
+            config_file_path=os.path.join(src_dir, 'properdocs.yml'),
         )
         self.assertIn('hooks/my_hook.py', conf.plugins)
         hook = conf.plugins['hooks/my_hook.py']

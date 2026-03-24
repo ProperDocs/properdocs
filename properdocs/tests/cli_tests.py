@@ -35,7 +35,7 @@ class CLITests(unittest.TestCase):
     @mock.patch('properdocs.commands.serve.serve', autospec=True)
     def test_serve_config_file(self, mock_serve):
         result = self.runner.invoke(
-            cli.cli, ["serve", "--config-file", "mkdocs.yml"], catch_exceptions=False
+            cli.cli, ["serve", "--config-file", "properdocs.yml"], catch_exceptions=False
         )
 
         self.assertEqual(result.exit_code, 0)
@@ -43,7 +43,7 @@ class CLITests(unittest.TestCase):
         args, kwargs = mock_serve.call_args
         self.assertTrue('config_file' in kwargs)
         self.assertIsInstance(kwargs['config_file'], io.BufferedReader)
-        self.assertEqual(kwargs['config_file'].name, 'mkdocs.yml')
+        self.assertEqual(kwargs['config_file'].name, 'properdocs.yml')
 
     @mock.patch('properdocs.commands.serve.serve', autospec=True)
     def test_serve_dev_addr(self, mock_serve):
@@ -261,7 +261,7 @@ class CLITests(unittest.TestCase):
     @mock.patch('properdocs.commands.build.build', autospec=True)
     def test_build_config_file(self, mock_build, mock_load_config):
         result = self.runner.invoke(
-            cli.cli, ['build', '--config-file', 'mkdocs.yml'], catch_exceptions=False
+            cli.cli, ['build', '--config-file', 'properdocs.yml'], catch_exceptions=False
         )
 
         self.assertEqual(result.exit_code, 0)
@@ -270,7 +270,7 @@ class CLITests(unittest.TestCase):
         args, kwargs = mock_load_config.call_args
         self.assertTrue('config_file' in kwargs)
         self.assertIsInstance(kwargs['config_file'], io.BufferedReader)
-        self.assertEqual(kwargs['config_file'].name, 'mkdocs.yml')
+        self.assertEqual(kwargs['config_file'].name, 'properdocs.yml')
 
     @mock.patch('properdocs.config.load_config', autospec=True)
     @mock.patch('properdocs.commands.build.build', autospec=True)
@@ -442,7 +442,7 @@ class CLITests(unittest.TestCase):
     @mock.patch('properdocs.commands.gh_deploy.gh_deploy', autospec=True)
     def test_gh_deploy_config_file(self, mock_gh_deploy, mock_build, mock_load_config):
         result = self.runner.invoke(
-            cli.cli, ['gh-deploy', '--config-file', 'mkdocs.yml'], catch_exceptions=False
+            cli.cli, ['gh-deploy', '--config-file', 'properdocs.yml'], catch_exceptions=False
         )
 
         self.assertEqual(result.exit_code, 0)
@@ -452,7 +452,7 @@ class CLITests(unittest.TestCase):
         args, kwargs = mock_load_config.call_args
         self.assertTrue('config_file' in kwargs)
         self.assertIsInstance(kwargs['config_file'], io.BufferedReader)
-        self.assertEqual(kwargs['config_file'].name, 'mkdocs.yml')
+        self.assertEqual(kwargs['config_file'].name, 'properdocs.yml')
 
     @mock.patch('properdocs.config.load_config', autospec=True)
     @mock.patch('properdocs.commands.build.build', autospec=True)

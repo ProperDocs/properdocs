@@ -54,7 +54,7 @@ structure:
 
 ```text
 my-project/
-    mkdocs.yml
+    properdocs.yml
     docs/
 orgname.github.io/
 ```
@@ -65,10 +65,10 @@ directories to the `orgname.github.io` repository and call the
 
 ```sh
 cd ../orgname.github.io/
-properdocs gh-deploy --config-file ../my-project/mkdocs.yml --remote-branch master
+properdocs gh-deploy --config-file ../my-project/properdocs.yml --remote-branch master
 ```
 
-Note that you need to explicitly point to the `mkdocs.yml` configuration file as
+Note that you need to explicitly point to the `properdocs.yml` configuration file as
 it is no longer in the current working directory. You also need to inform the
 deploy script to commit to the `master` branch. You may override the default
 with the [remote_branch] configuration setting, but if you forget to change
@@ -124,7 +124,7 @@ should provide some general assistance.
 
 When you build your site (using the `properdocs build` command), all of the files
 are written to the directory assigned to the [site_dir] configuration option
-(defaults to `"site"`) in your `mkdocs.yaml` config file. Generally, you will
+(defaults to `"site"`) in your `properdocs.yml` config file. Generally, you will
 simply need to copy the contents of that directory to the root directory of your
 hosting provider's server. Depending on your hosting provider's setup, you may
 need to use a graphical or command line [ftp], [ssh] or [scp] client to transfer
@@ -203,7 +203,7 @@ a theme which includes all support files directly in the theme.
 
 When you build your site (using the `properdocs build` command), all of the files
 are written to the directory assigned to the [site_dir] configuration option
-(defaults to `"site"`) in your `mkdocs.yaml` config file. Generally, you will
+(defaults to `"site"`) in your `properdocs.yml` config file. Generally, you will
 simply need to copy the contents of that directory and distribute it to your
 readers. Alternatively, you may choose to use a third party tool to convert the
 HTML files to some other documentation format.

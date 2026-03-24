@@ -4,11 +4,10 @@ import functools
 import logging
 import os
 import os.path
+from collections.abc import Mapping
 from typing import IO, TYPE_CHECKING, Any
 
-import mergedeep  # type: ignore
 import yaml
-import yaml.constructor
 import yaml_env_tag  # type: ignore
 
 from properdocs import exceptions
@@ -125,9 +124,12 @@ def get_yaml_loader(loader=yaml.Loader, config: ProperDocsConfig | None = None):
     return Loader
 
 
-def yaml_load(source: IO | str, loader: type[yaml.BaseLoader] | None = None) -> dict[str, Any]:
+def yaml_load(
+    source: IO | str, loader: type[yaml.BaseLoader | yaml.SafeLoader] | None = None
+) -> dict[str, Any]:
     """Return dict of source YAML file using loader, recursively deep merging inherited parent."""
-    loader = loader or get_yaml_loader()
+    if loader is None:
+        loader = get_yaml_loader()
     try:
         result = yaml.load(source, Loader=loader)
     except yaml.YAMLError as e:
@@ -136,7 +138,11 @@ def yaml_load(source: IO | str, loader: type[yaml.BaseLoader] | None = None) -> 
         )
     if result is None:
         return {}
-    if 'INHERIT' in result and not isinstance(source, str):
+    if (
+        'INHERIT' in result
+        and not isinstance(source, str)
+        and getattr(source, 'name', None) is not None
+    ):
         relpath = result.pop('INHERIT')
         abspath = os.path.normpath(os.path.join(os.path.dirname(source.name), relpath))
         if not os.path.exists(abspath):
@@ -146,5 +152,14 @@ def yaml_load(source: IO | str, loader: type[yaml.BaseLoader] | None = None) -> 
         log.debug(f"Loading inherited configuration file: {abspath}")
         with open(abspath, 'rb') as fd:
             parent = yaml_load(fd, loader)
-        result = mergedeep.merge(parent, result)
+        result = deep_merge_dicts(parent, result)
     return result
+
+
+def deep_merge_dicts(dst: dict[str, Any], src: Mapping[str, Any]) -> dict[str, Any]:
+    for key, src_value in src.items():
+        if isinstance(dst.get(key), Mapping) and isinstance(src_value, Mapping):
+            deep_merge_dicts(dst[key], src_value)
+        else:
+            dst[key] = src_value
+    return dst

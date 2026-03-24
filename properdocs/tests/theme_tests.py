@@ -1,3 +1,4 @@
+import dataclasses
 import os
 import unittest
 from unittest import mock
@@ -10,15 +11,22 @@ from properdocs.theme import Theme
 abs_path = os.path.abspath(os.path.dirname(__file__))
 properdocs_dir = os.path.abspath(os.path.dirname(properdocs.__file__))
 properdocs_templates_dir = os.path.join(properdocs_dir, 'templates')
-theme_dir = os.path.abspath(os.path.join(properdocs_dir, 'themes'))
+
+
+@dataclasses.dataclass
+class ThemeDir:
+    theme: str
+
+    def __eq__(self, other):
+        return os.path.basename(other) == f'properdocs_theme_{self.theme}'
 
 
 class ThemeTests(unittest.TestCase):
     def test_simple_theme(self):
         theme = Theme(name='mkdocs')
         self.assertEqual(
+            [ThemeDir('mkdocs'), properdocs_templates_dir],
             theme.dirs,
-            [os.path.join(theme_dir, 'mkdocs'), properdocs_templates_dir],
         )
         self.assertEqual(theme.static_templates, {'404.html', 'sitemap.xml'})
         self.assertEqual(
@@ -45,12 +53,12 @@ class ThemeTests(unittest.TestCase):
     def test_custom_dir(self, custom):
         theme = Theme(name='mkdocs', custom_dir=custom)
         self.assertEqual(
-            theme.dirs,
             [
                 custom,
-                os.path.join(theme_dir, 'mkdocs'),
+                ThemeDir('mkdocs'),
                 properdocs_templates_dir,
             ],
+            theme.dirs,
         )
 
     @tempdir()
@@ -96,12 +104,12 @@ class ThemeTests(unittest.TestCase):
             theme = Theme(name='mkdocs')
             self.assertEqual(m.call_count, 2)
             self.assertEqual(
-                theme.dirs,
                 [
-                    os.path.join(theme_dir, 'mkdocs'),
-                    os.path.join(theme_dir, 'readthedocs'),
+                    ThemeDir('mkdocs'),
+                    ThemeDir('readthedocs'),
                     properdocs_templates_dir,
                 ],
+                theme.dirs,
             )
             self.assertEqual(theme.static_templates, {'sitemap.xml', 'child.html', 'parent.html'})
 

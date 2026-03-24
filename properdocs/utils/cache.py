@@ -1,10 +1,20 @@
+# Copyright (c) 2023 Oleh Prypin <oleh@pryp.in>
+
+from __future__ import annotations
+
 import datetime
+import hashlib
+import logging
+import os
+import random
 import urllib.request
 from collections.abc import Callable
 
-import mkdocs_get_deps.cache
+import platformdirs
 
 import properdocs
+
+log = logging.getLogger(__name__)
 
 
 def download_url(url: str) -> bytes:
@@ -33,6 +43,33 @@ def download_and_cache_url(
         cache_duration: How long to consider the URL content cached.
         comment: The appropriate comment prefix for this file format.
     """
-    return mkdocs_get_deps.cache.download_and_cache_url(
-        url=url, cache_duration=cache_duration, download=download, comment=comment
-    )
+    directory = os.path.join(platformdirs.user_cache_dir("properdocs"), "properdocs_url_cache")
+    name_hash = hashlib.sha256(url.encode()).hexdigest()[:32]
+    path = os.path.join(directory, name_hash + os.path.splitext(url)[1])
+
+    now = int(datetime.datetime.now(datetime.timezone.utc).timestamp())
+    prefix = b"%s%s downloaded at timestamp " % (comment, url.encode())
+    # Check for cached file and try to return it
+    if os.path.isfile(path):
+        try:
+            with open(path, "rb") as f:
+                line = f.readline()
+                if line.startswith(prefix):
+                    line = line[len(prefix) :]
+                    timestamp = int(line)
+                    if datetime.timedelta(seconds=(now - timestamp)) <= cache_duration:
+                        log.debug(f"Using cached '{path}' for '{url}'")
+                        return f.read()
+        except (OSError, ValueError) as e:
+            log.debug(f"{type(e).__name__}: {e}")
+
+    # Download and cache the file
+    log.debug(f"Downloading '{url}' to '{path}'")
+    content = download(url)
+    os.makedirs(directory, exist_ok=True)
+    temp_filename = f"{path}.{random.randrange(1 << 32):08x}.part"
+    with open(temp_filename, "wb") as f:
+        f.write(b"%s%d\n" % (prefix, now))
+        f.write(content)
+    os.replace(temp_filename, path)
+    return content

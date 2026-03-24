@@ -15,7 +15,7 @@ class NewTests(unittest.TestCase):
 
             expected_paths = [
                 os.path.join(temp_dir, "myproject"),
-                os.path.join(temp_dir, "myproject", "mkdocs.yml"),
+                os.path.join(temp_dir, "myproject", "properdocs.yml"),
                 os.path.join(temp_dir, "myproject", "docs"),
                 os.path.join(temp_dir, "myproject", "docs", "index.md"),
             ]

@@ -4,11 +4,9 @@ Selecting and configuring a theme.
 
 ---
 
-ProperDocs includes two built-in themes ([mkdocs](#mkdocs) and
-[readthedocs](#readthedocs)), as documented below. However, many [third party
-themes] are available to choose from as well.
+ProperDocs includes two official themes ([mkdocs](#mkdocs) and [readthedocs](#readthedocs)), as documented below. Many [third party themes] are available to choose from as well.
 
-To choose a theme, set the [theme] configuration option in your `mkdocs.yml`
+To choose a theme, set the [theme] configuration option in your `properdocs.yml`
 config file.
 
 ```yaml
@@ -18,8 +16,13 @@ theme:
 
 ## mkdocs
 
-The default theme, which was built as a custom [Bootstrap] theme, supports almost
-every feature of ProperDocs.
+The `mkdocs` theme is the default official theme, built as a custom [Bootstrap] theme, and supports almost every feature of ProperDocs.
+
+Which can be installed with pip:
+
+```bash
+pip install properdocs-theme-mkdocs
+```
 
 <div id="mkdocs-theme-images" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-inner">
@@ -126,15 +129,19 @@ supports the following options:
     The following locales are supported by this theme:
 
     * `en`: English (default)
-    * (see the list of existing directories `properdocs/themes/mkdocs/locales/*/`)
+    * (see the list of existing directories `packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales/*/`)
 
     See the guide on [localizing your theme] for more information.
 
 ## readthedocs
 
-A clone of the default theme used by the [Read the Docs] service, which offers
-the same restricted feature set as its parent theme. Like its parent theme, only
-two levels of navigation are supported.
+A clone of the default theme used by the [Read the Docs] service, which offers the same restricted feature set as its parent theme. Like its parent theme, only two levels of navigation are supported.  
+
+Which can be installed with pip:
+
+```bash
+pip install properdocs-theme-readthedocs
+```
 
 ![ReadTheDocs](../img/readthedocs.png)
 
@@ -203,7 +210,7 @@ theme supports the following options:
     The following locales are supported by this theme:
 
     * `en`: English (default)
-    * (see the list of existing directories `properdocs/themes/readthedocs/locales/*/`)
+    * (see the list of existing directories `packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/locales/*/`)
 
     See the guide on [localizing your theme] for more information.
 

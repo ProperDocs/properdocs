@@ -17,7 +17,6 @@ from urllib.parse import quote as urlquote
 from urllib.parse import urlsplit, urlunsplit
 
 import markdown
-import pathspec
 import pathspec.gitignore
 
 from properdocs import plugins, theme, utils
@@ -352,7 +351,10 @@ class Choice(Generic[T], OptionallyRequired[T]):
         if not length or isinstance(choices, str):
             raise ValueError(f'Expected iterable of choices, got {choices}')
         if default is not None and default not in choices:
-            raise ValueError(f'{default!r} is not one of {choices!r}')
+            if choices:
+                raise ValueError(f'{default!r} is not one of {choices!r}')
+            else:
+                raise ValueError('There are no themes installed.')
 
         self.choices = choices
 
@@ -494,8 +496,8 @@ class URL(OptionallyRequired[str]):
             return value
         try:
             parsed_url = urlsplit(value)
-        except (AttributeError, TypeError):
-            raise ValidationError("Unable to parse the URL.")
+        except Exception:
+            raise ValidationError("The URL is invalid")
 
         if parsed_url.scheme and parsed_url.netloc:
             if self.is_dir and not parsed_url.path.endswith('/'):
@@ -809,10 +811,17 @@ class Theme(BaseConfigOption[theme.Theme]):
 
         themes = utils.get_theme_names()
         if theme_config['name'] is not None and theme_config['name'] not in themes:
-            raise ValidationError(
-                f"Unrecognised theme name: '{theme_config['name']}'. "
-                f"The available installed themes are: {', '.join(themes)}"
-            )
+            message = f"Unrecognised theme name: '{theme_config['name']}'."
+            if theme_config['name'] in ('mkdocs', 'readthedocs'):
+                message += (
+                    f"\nAn additional dependency is needed:"
+                    f"\n    pip install properdocs-theme-{theme_config['name']}"
+                )
+            elif themes:
+                message += f" The available installed themes are: {', '.join(themes)}"
+            else:
+                message += " There aren't any themes installed."
+            raise ValidationError(message)
 
         if not theme_config['name'] and 'custom_dir' not in theme_config:
             raise ValidationError("At least one of 'name' or 'custom_dir' must be defined.")
@@ -833,6 +842,21 @@ class Theme(BaseConfigOption[theme.Theme]):
             raise ValidationError("'locale' must be a string.")
 
         return theme.Theme(**theme_config)
+
+
+class ProperDocsTheme(Theme):
+    def run_validation(self, value: object) -> theme.Theme:
+        if value is None:
+            value = 'mkdocs'
+            if self.config_file_path:
+                config_file_name = repr(os.path.basename(self.config_file_path))
+            else:
+                config_file_name = "the configuration file"
+            log.warning(
+                f"Please select a theme explicitly in {config_file_name}."
+                " Defaulted to 'theme: mkdocs', but this may change in the future."
+            )
+        return super().run_validation(value)
 
 
 class Nav(OptionallyRequired):

@@ -26,15 +26,15 @@ def get_markdown_toc(markdown_source):
 def load_config(config_file_path: str | None = None, **cfg) -> ProperDocsConfig:
     """Helper to build a simple config for testing."""
     path_base = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'integration', 'minimal')
-    if 'site_name' not in cfg:
-        cfg['site_name'] = 'Example'
+    cfg.setdefault('site_name', 'Example')
+    cfg.setdefault('theme', 'mkdocs')
     if 'docs_dir' not in cfg:
         # Point to an actual dir to avoid a 'does not exist' error on validation.
         cfg['docs_dir'] = os.path.join(path_base, 'docs')
     if 'plugins' not in cfg:
         cfg['plugins'] = []
     conf = ProperDocsConfig(
-        config_file_path=config_file_path or os.path.join(path_base, 'mkdocs.yml')
+        config_file_path=config_file_path or os.path.join(path_base, 'properdocs.yml')
     )
     conf.load_dict(cfg)
 

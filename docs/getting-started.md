@@ -28,13 +28,13 @@ Take a moment to review the initial project that has been created for you.
 
 ![The initial ProperDocs layout](img/initial-layout.png)
 
-There's a single configuration file named `mkdocs.yml`, and a folder named
+There's a single configuration file named `properdocs.yml`, and a folder named
 `docs` that will contain your documentation source files (`docs` is
 the default value for the [docs_dir] configuration setting). Right now the `docs`
 folder just contains a single documentation page, named `index.md`.
 
 ProperDocs comes with a built-in dev-server that lets you preview your documentation
-as you work on it. Make sure you're in the same directory as the `mkdocs.yml`
+as you work on it. Make sure you're in the same directory as the `properdocs.yml`
 configuration file, and then start the server by running the `properdocs serve`
 command:
 
@@ -43,7 +43,7 @@ $ properdocs serve
 INFO    -  Building documentation...
 INFO    -  Cleaning site directory
 INFO    -  Documentation built in 0.22 seconds
-INFO    -  [15:50:43] Watching paths for changes: 'docs', 'mkdocs.yml'
+INFO    -  [15:50:43] Watching paths for changes: 'docs', 'properdocs.yml'
 INFO    -  [15:50:43] Serving on http://127.0.0.1:8000/
 ```
 
@@ -60,7 +60,7 @@ Open the `docs/index.md` document in your text editor of choice, change the
 initial heading to `MkLorum`, and save your changes. Your browser will
 auto-reload and you should see your updated documentation immediately.
 
-Now try editing the configuration file: `mkdocs.yml`. Change the
+Now try editing the configuration file: `properdocs.yml`. Change the
 [`site_name`][site_name] setting to `MkLorum` and save the file.
 
 ```yaml
@@ -114,7 +114,7 @@ part!
 ## Theming our documentation
 
 Now change the configuration file to alter how the documentation is displayed by
-changing the theme. Edit the `mkdocs.yml` file and add a [`theme`][theme] setting:
+changing the theme. Edit the `properdocs.yml` file and add a [`theme`][theme] setting:
 
 ```yaml
 site_name: MkLorum

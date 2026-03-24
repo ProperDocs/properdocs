@@ -27,7 +27,7 @@ h1 {
 }
 ```
 
-Then you need to add it to `mkdocs.yml`:
+Then you need to add it to `properdocs.yml`:
 
 ```yaml
 extra_css:
@@ -88,7 +88,7 @@ next to your `docs_dir`:
 mkdir custom_theme
 ```
 
-And then point your `mkdocs.yml` configuration file at the new directory:
+And then point your `properdocs.yml` configuration file at the new directory:
 
 ```yaml
 theme:
@@ -219,7 +219,7 @@ any additional CSS files included in the `custom_dir`.
 [custom_dir]: ./configuration.md#custom_dir
 [name]: ./configuration.md#name
 [mkdocs]: ./choosing-your-theme.md#mkdocs
-[browse source]: https://github.com/properdocs/properdocs/tree/master/properdocs/themes/mkdocs
+[browse source]: https://github.com/properdocs/properdocs/tree/master/packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs
 [Template Variables]: ../dev-guide/themes.md#template-variables
 [Jinja documentation]: https://jinja.palletsprojects.com/en/latest/templates/#template-inheritance
 [super block]: https://jinja.palletsprojects.com/en/latest/templates/#super-blocks
