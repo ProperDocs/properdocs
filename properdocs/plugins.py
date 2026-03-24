@@ -5,7 +5,7 @@ from __future__ import annotations
 import logging
 from collections.abc import Callable, MutableMapping
 from importlib.metadata import EntryPoint, entry_points
-from typing import TYPE_CHECKING, Any, Generic, Literal, TypeVar, overload
+from typing import TYPE_CHECKING, Any, Concatenate, Generic, Literal, TypeVar, overload
 
 if TYPE_CHECKING:
     import jinja2.environment
@@ -28,8 +28,6 @@ if TYPE_CHECKING:
     from properdocs.utils.templates import TemplateContext
 
 if TYPE_CHECKING:
-    from typing import Concatenate
-
     from typing_extensions import ParamSpec
 else:
     ParamSpec = TypeVar
