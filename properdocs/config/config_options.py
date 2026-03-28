@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import functools
+import importlib.util
 import ipaddress
 import logging
 import os
@@ -1172,6 +1173,7 @@ class Hooks(BaseConfigOption[list[types.ModuleType]]):
         super().__init__()
         self.default = []
         self.plugins_key = plugins_key
+        self._loaded_hooks: dict[tuple[str, str], types.ModuleType] = {}
 
     def pre_validation(self, config: Config, key_name: str):
         self._base_option = ListOfItems(File(exists=True))
@@ -1183,13 +1185,13 @@ class Hooks(BaseConfigOption[list[types.ModuleType]]):
         assert isinstance(value, list)
 
         hooks = {}
-        for name, path in zip(value, paths):
+        for name, path in zip(value, paths, strict=True):
             hooks[name] = self._load_hook(name, path)
         return hooks
 
-    @functools.cache
-    def _load_hook(self, name, path):
-        import importlib.util
+    def _load_hook(self, name: str, path: str) -> types.ModuleType:
+        if loaded_hook := self._loaded_hooks.get((name, path)):
+            return loaded_hook
 
         spec = importlib.util.spec_from_file_location(name, path)
         if spec is None:
@@ -1206,6 +1208,7 @@ class Hooks(BaseConfigOption[list[types.ModuleType]]):
         finally:
             sys.path[:] = old_sys_path
 
+        self._loaded_hooks[name, path] = module
         return module
 
     def post_validation(self, config: Config, key_name: str):
