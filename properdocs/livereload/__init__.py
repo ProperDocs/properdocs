@@ -76,8 +76,8 @@ livereload(${epoch}, ${request_id});
 _SCRIPT_TEMPLATE = string.Template(_SCRIPT_TEMPLATE_STR)
 
 
-class _LoggerAdapter(logging.LoggerAdapter):
-    def process(self, msg: str, kwargs: dict) -> tuple[str, dict]:  # type: ignore[override]
+class _LoggerAdapter(logging.LoggerAdapter[logging.Logger]):
+    def process(self, msg: str, kwargs: dict[str, Any]) -> tuple[str, dict[str, Any]]:  # type: ignore[override]
         return time.strftime("[%H:%M:%S] ") + msg, kwargs
 
 
@@ -149,7 +149,7 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
             return
         self._watched_paths[path] = 1
 
-        def callback(event):
+        def callback(event: watchdog.events.FileSystemEvent) -> None:
             if event.is_directory:
                 return
             log.debug(str(event))
@@ -171,7 +171,7 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
             self._watched_paths.pop(path)
             self.observer.unschedule(self._watch_refs.pop(path))
 
-    def serve(self, *, open_in_browser=False):
+    def serve(self, *, open_in_browser: bool = False) -> None:
         self.server_bind()
         self.server_activate()
 
@@ -191,7 +191,7 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
 
         self._build_loop()
 
-    def _build_loop(self):
+    def _build_loop(self) -> None:
         while True:
             with self._rebuild_cond:
                 while not self._rebuild_cond.wait_for(
@@ -226,7 +226,7 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
                 self._visible_epoch = self._wanted_epoch
                 self._epoch_cond.notify_all()
 
-    def shutdown(self, wait=False) -> None:
+    def shutdown(self, wait: bool = False) -> None:
         self.observer.stop()
         with self._rebuild_cond:
             self._shutdown = True
@@ -239,7 +239,7 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
             self.serve_thread.join()
             self.observer.join()
 
-    def serve_request(self, environ, start_response) -> Iterable[bytes]:
+    def serve_request(self, environ: dict[str, Any], start_response: Any) -> Iterable[bytes]:
         try:
             result = self._serve_request(environ, start_response)
         except Exception:
@@ -263,7 +263,7 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
         start_response(msg, [("Content-Type", "text/html")])
         return [error_content]
 
-    def _serve_request(self, environ, start_response) -> Iterable[bytes] | None:
+    def _serve_request(self, environ: dict[str, Any], start_response: Any) -> Iterable[bytes] | None:
         # https://bugs.python.org/issue16679
         # https://github.com/bottlepy/bottle/blob/f9b1849db4/bottle.py#L984
         path = environ["PATH_INFO"].encode("latin-1").decode("utf-8", "ignore")
@@ -273,7 +273,7 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
                 epoch = int(m[1])
                 start_response("200 OK", [("Content-Type", "text/plain")])
 
-                def condition():
+                def condition() -> bool:
                     return self._visible_epoch > epoch
 
                 with self._epoch_cond:
@@ -326,7 +326,7 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
         )
         return wsgiref.util.FileWrapper(file)
 
-    def _inject_js_into_html(self, content, epoch):
+    def _inject_js_into_html(self, content: bytes, epoch: int) -> bytes:
         try:
             body_end = content.rindex(b"</body>")
         except ValueError:
@@ -342,11 +342,11 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
 
     @classmethod
     @functools.lru_cache  # "Cache" to not repeat the same message for the same browser tab.
-    def _log_poll_request(cls, url, request_id):
+    def _log_poll_request(cls, url: str | None, request_id: str) -> None:
         log.info(f"Browser connected: {url}")
 
     @classmethod
-    def _guess_type(cls, path):
+    def _guess_type(cls, path: str) -> str:
         # ProperDocs only ensures a few common types (as seen in livereload_tests.py::test_mime_types).
         # Other uncommon types will not be accepted.
         if path.endswith((".js", ".JS", ".mjs")):
@@ -361,11 +361,11 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
 
 
 class _Handler(wsgiref.simple_server.WSGIRequestHandler):
-    def log_request(self, code="-", size="-"):
+    def log_request(self, code: int | str = "-", size: int | str = "-") -> None:
         level = logging.DEBUG if str(code) == "200" else logging.WARNING
         log.log(level, f'"{self.requestline}" code {code}')
 
-    def log_message(self, format, *args):
+    def log_message(self, format: str, *args: Any) -> None:
         log.debug(format, *args)
 
 

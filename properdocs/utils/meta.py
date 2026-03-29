@@ -70,7 +70,7 @@ def get_data(doc: str) -> tuple[str, dict[str, Any]]:
             if isinstance(data, dict):
                 doc = doc[m.end() :].lstrip('\n')
             else:
-                data = {}  # type: ignore[unreachable]
+                data = {}
         except Exception:
             pass
         return doc, data

@@ -16,11 +16,11 @@ import shutil
 import warnings
 from bisect import insort  # noqa: F401 - legacy re-export
 from collections import defaultdict
-from collections.abc import Collection, Iterable
+from collections.abc import Callable, Collection, Iterable
 from datetime import datetime, timezone
 from importlib.metadata import EntryPoint, entry_points
 from pathlib import PurePath
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 from urllib.parse import urlsplit
 
 from properdocs import exceptions
@@ -228,7 +228,7 @@ def create_media_urls(
     return [normalize_url(path, page, base) for path in path_list]
 
 
-def path_to_url(path):
+def path_to_url(path: str) -> str:
     warnings.warn(
         "path_to_url is never used in ProperDocs and will be removed soon.", DeprecationWarning
     )
@@ -309,7 +309,7 @@ def get_markdown_title(markdown_src: str) -> str | None:
     return None
 
 
-def find_or_create_node(branch, key):
+def find_or_create_node(branch: list[Any], key: str) -> list[Any]:
     """
     Given a list, look for dictionary with a key matching key and return it's
     value. If it doesn't exist, create it with the value of an empty list and
@@ -322,18 +322,18 @@ def find_or_create_node(branch, key):
         if key in node:
             return node[key]
 
-    new_branch = []
+    new_branch: list[Any] = []
     node = {key: new_branch}
     branch.append(node)
     return new_branch
 
 
-def nest_paths(paths):
+def nest_paths(paths: Iterable[str]) -> list[Any]:
     """
     Given a list of paths, convert them into a nested structure that will match
     the pages config.
     """
-    nested = []
+    nested: list[Any] = []
 
     for path in paths:
         parts = PurePath(path).parent.parts
@@ -363,16 +363,16 @@ class DuplicateFilter:
 class CountHandler(logging.NullHandler):
     """Counts all logged messages >= level."""
 
-    def __init__(self, **kwargs) -> None:
+    def __init__(self, **kwargs: Any) -> None:
         self.counts: dict[int, int] = defaultdict(int)
         super().__init__(**kwargs)
 
-    def handle(self, record):
+    def handle(self, record: logging.LogRecord) -> bool:
         rv = self.filter(record)
         if rv:
             # Use levelno for keys so they can be sorted later
             self.counts[record.levelno] += 1
-        return rv
+        return bool(rv)
 
     def get_counts(self) -> list[tuple[str, int]]:
         return [(logging.getLevelName(k), v) for k, v in sorted(self.counts.items(), reverse=True)]
@@ -381,17 +381,17 @@ class CountHandler(logging.NullHandler):
 class weak_property:
     """Same as a read-only property, but allows overwriting the field for good."""
 
-    def __init__(self, func):
+    def __init__(self, func: Callable[..., Any]) -> None:
         self.func = func
         self.__doc__ = func.__doc__
 
-    def __get__(self, instance, owner=None):
+    def __get__(self, instance: Any, owner: type | None = None) -> Any:
         if instance is None:
             return self
         return self.func(instance)
 
 
-def __getattr__(name: str):
+def __getattr__(name: str) -> Any:
     if name == 'warning_filter':
         warnings.warn(
             "warning_filter doesn't do anything since MkDocs 1.2 and will be removed soon. "

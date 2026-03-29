@@ -5,7 +5,7 @@ import logging
 import posixpath
 import warnings
 from collections.abc import Callable, Iterator, MutableMapping, Sequence
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, cast
 from urllib.parse import unquote as urlunquote
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
@@ -58,14 +58,14 @@ class Page(StructureItem):
         self.toc = []  # type: ignore[assignment]
         self.meta = {}
 
-    def __eq__(self, other) -> bool:
+    def __eq__(self, other: object) -> bool:
         return (
             isinstance(other, self.__class__)
             and self.title == other.title
             and self.file == other.file
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         name = self.__class__.__name__
         title = f"{self.title!r}" if self.title is not None else '[blank]'
         url = self.abs_url or self.file.url
@@ -115,7 +115,7 @@ class Page(StructureItem):
         return self.__active
 
     @active.setter
-    def active(self, value: bool):
+    def active(self, value: bool) -> None:
         """Set active status of page and ancestors."""
         self.__active = bool(value)
         if self.parent is not None:
@@ -225,7 +225,7 @@ class Page(StructureItem):
         )
 
     @weak_property
-    def title(self) -> str | None:  # type: ignore[override]
+    def title(self) -> str | None:
         """
         Returns the title for the current page.
 
@@ -242,7 +242,7 @@ class Page(StructureItem):
             return None
 
         if 'title' in self.meta:
-            return self.meta['title']
+            return cast(str, self.meta['title'])
 
         if self._title_from_render:
             return self._title_from_render
@@ -546,7 +546,7 @@ class _RawHTMLPreprocessor(markdown.preprocessors.Preprocessor):
         )
 
 
-class _HTMLHandler(markdown.htmlparser.htmlparser.HTMLParser):  # type: ignore[name-defined]
+class _HTMLHandler(markdown.htmlparser.htmlparser.HTMLParser):  # type: ignore[misc, name-defined]
     def __init__(self) -> None:
         super().__init__()
         self.present_anchor_ids: set[str] = set()
@@ -555,7 +555,7 @@ class _HTMLHandler(markdown.htmlparser.htmlparser.HTMLParser):  # type: ignore[n
         for k, v in attrs:
             if k == 'id' or (k == 'name' and tag == 'a'):
                 self.present_anchor_ids.add(v)
-        return super().handle_starttag(tag, attrs)
+        super().handle_starttag(tag, attrs)
 
 
 class _ExtractTitleTreeprocessor(markdown.treeprocessors.Treeprocessor):

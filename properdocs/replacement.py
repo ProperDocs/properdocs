@@ -1,29 +1,34 @@
 """After this file is imported, all mkdocs.* imports get redirected to properdocs.* imports."""
 
 import importlib.abc
+import importlib.machinery
 import importlib.util
 import sys
+import types
+from typing import Any
 
 
 class _AliasLoader(importlib.abc.Loader):
     """Loads the module with the given name and replaces the passed spec's module."""
 
-    def __init__(self, realname):
+    def __init__(self, realname: str) -> None:
         self.realname = realname
 
-    def create_module(self, spec):
+    def create_module(self, spec: importlib.machinery.ModuleSpec) -> types.ModuleType:
         module = importlib.import_module(self.realname)
         sys.modules[spec.name] = module
         return module
 
-    def exec_module(self, module):
+    def exec_module(self, module: types.ModuleType) -> None:
         pass
 
 
 class _AliasFinder:
     """When searching for any mkdocs.* module, find the corresponding properdocs.* module instead."""
 
-    def find_spec(self, fullname, path, target=None):
+    def find_spec(
+        self, fullname: str, path: Any, target: Any = None
+    ) -> importlib.machinery.ModuleSpec | None:
         if fullname.startswith("mkdocs."):
             realname = "properdocs." + fullname.removeprefix("mkdocs.")
             spec = importlib.util.find_spec(realname)

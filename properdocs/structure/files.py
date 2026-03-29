@@ -40,22 +40,22 @@ class InclusionLevel(enum.Enum):
     INCLUDED = 1
     """The file is part of the site. Documentation pages that are omitted from the nav will produce warnings."""
 
-    def all(self):
+    def all(self) -> bool:
         return True
 
-    def is_included(self):
+    def is_included(self) -> bool:
         return self.value > self.DRAFT.value
 
-    def is_excluded(self):
+    def is_excluded(self) -> bool:
         return self.value <= self.DRAFT.value
 
-    def is_in_serve(self):
+    def is_in_serve(self) -> bool:
         return self.value >= self.DRAFT.value
 
-    def is_in_nav(self):
+    def is_in_nav(self) -> bool:
         return self.value > self.NOT_IN_NAV.value
 
-    def is_not_in_nav(self):
+    def is_not_in_nav(self) -> bool:
         return self.value <= self.NOT_IN_NAV.value
 
 
@@ -146,7 +146,7 @@ class Files:
     def add_files_from_theme(self, env: jinja2.Environment, config: ProperDocsConfig) -> None:
         """Retrieve static files from Jinja environment and add to collection."""
 
-        def filter(name):
+        def filter(name: str) -> bool:
             # '.*' filters dot files/dirs at root level whereas '*/.*' filters nested levels
             patterns = ['.*', '*/.*', '*.py', '*.pyc', '*.html', '*readme*', 'mkdocs_theme.yml']
             # Exclude translation files
@@ -173,7 +173,7 @@ class Files:
         return self
 
     @_files.setter
-    def _files(self, value: Iterable[File]):
+    def _files(self, value: Iterable[File]) -> None:
         warnings.warn("Do not access Files._files.", DeprecationWarning)
         self._src_uris = {f.src_uri: f for f in value}
 
@@ -252,7 +252,7 @@ class File:
         return os.path.normpath(self.src_uri)
 
     @src_path.setter
-    def src_path(self, value: str):
+    def src_path(self, value: str) -> None:
         self.src_uri = PurePath(value).as_posix()
 
     @property
@@ -261,7 +261,7 @@ class File:
         return os.path.normpath(self.dest_uri)
 
     @dest_path.setter
-    def dest_path(self, value: str):
+    def dest_path(self, value: str) -> None:
         self.dest_uri = PurePath(value).as_posix()
 
     page: Page | None = None
@@ -345,7 +345,7 @@ class File:
             self.dest_uri = dest_uri
         self.inclusion = inclusion
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return (
             f"{type(self).__name__}({self.src_uri!r}, src_dir={self.src_dir!r}, "
             f"dest_dir={self.dest_dir!r}, use_directory_urls={self.use_directory_urls!r}, "
@@ -441,7 +441,7 @@ class File:
         return content
 
     @content_bytes.setter
-    def content_bytes(self, value: bytes):
+    def content_bytes(self, value: bytes) -> None:
         assert isinstance(value, bytes)
         self._content = value
         self.abs_src_path = None
@@ -465,7 +465,7 @@ class File:
         return content
 
     @content_string.setter
-    def content_string(self, value: str):
+    def content_string(self, value: str) -> None:
         assert isinstance(value, str)
         self._content = value
         self.abs_src_path = None
@@ -584,7 +584,7 @@ def get_files(config: ProperDocsConfig) -> Files:
     return Files(files)
 
 
-def file_sort_key(f: File, /):
+def file_sort_key(f: File, /) -> tuple[()] | tuple[tuple[str, ...], bool, str]:
     """
     Replicates the sort order how `get_files` produces it - index first, directories last.
 
@@ -596,7 +596,7 @@ def file_sort_key(f: File, /):
     return (parts[:-1], f.name != "index", parts[-1])
 
 
-def _file_sort_key(f: str):
+def _file_sort_key(f: str) -> tuple[bool, str]:
     """Always sort `index` or `README` as first filename in list. This works only on basenames of files."""
     return (os.path.splitext(f)[0] not in ('index', 'README'), f)
 

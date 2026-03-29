@@ -18,7 +18,7 @@ class Abort(ProperDocsException, SystemExit):
 
     code = 1
 
-    def show(self, *args, **kwargs) -> None:
+    def show(self, *args: object, **kwargs: object) -> None:
         echo('\n' + self.format_message())
 
 

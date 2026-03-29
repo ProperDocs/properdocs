@@ -12,13 +12,13 @@ class Locale(NamedTuple):
     language: str
     territory: str = ''
 
-    def __str__(self):
+    def __str__(self) -> str:
         if self.territory:
             return f'{self.language}_{self.territory}'
         return self.language
 
     @classmethod
-    def parse(cls, identifier, sep):
+    def parse(cls, identifier: object, sep: str) -> Locale:
         if not isinstance(identifier, str):
             raise TypeError(f"Unexpected value for identifier: '{identifier}'")
         locale = cls(*identifier.split(sep, 1))

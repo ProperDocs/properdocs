@@ -5,7 +5,7 @@ import logging
 import os
 import os.path
 from collections.abc import Mapping
-from typing import IO, TYPE_CHECKING, Any
+from typing import IO, TYPE_CHECKING, Any, cast
 
 import yaml
 import yaml_env_tag  # type: ignore[import-untyped]
@@ -38,7 +38,7 @@ def _construct_dir_placeholder(
         return RelativeDirPlaceholder(config, value)
 
 
-class _DirPlaceholder(os.PathLike):
+class _DirPlaceholder(os.PathLike[str]):
     def __init__(self, config: ProperDocsConfig, suffix: str = ''):
         self.config = config
         self.suffix = suffix
@@ -105,10 +105,12 @@ class RelativeDirPlaceholder(_DirPlaceholder):
         return os.path.dirname(os.path.join(self.config.docs_dir, current_page.file.src_path))
 
 
-def get_yaml_loader(loader=yaml.Loader, config: ProperDocsConfig | None = None):
+def get_yaml_loader(
+    loader: type[Any] = yaml.Loader, config: ProperDocsConfig | None = None
+) -> type[yaml.BaseLoader]:
     """Wrap PyYaml's loader so we can extend it to suit our needs."""
 
-    class Loader(loader):
+    class Loader(loader):  # type: ignore[valid-type,misc]
         """
         Define a custom loader derived from the global loader to leave the
         global loader unaltered.
@@ -125,7 +127,7 @@ def get_yaml_loader(loader=yaml.Loader, config: ProperDocsConfig | None = None):
 
 
 def yaml_load(
-    source: IO | str, loader: type[yaml.BaseLoader | yaml.SafeLoader] | None = None
+    source: IO[Any] | str, loader: type[yaml.BaseLoader | yaml.SafeLoader] | None = None
 ) -> dict[str, Any]:
     """Return dict of source YAML file using loader, recursively deep merging inherited parent."""
     if loader is None:
@@ -153,7 +155,7 @@ def yaml_load(
         with open(abspath, 'rb') as fd:
             parent = yaml_load(fd, loader)
         result = deep_merge_dicts(parent, result)
-    return result
+    return cast(dict[str, Any], result)
 
 
 def deep_merge_dicts(dst: dict[str, Any], src: Mapping[str, Any]) -> dict[str, Any]:

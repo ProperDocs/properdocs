@@ -9,6 +9,7 @@ import os
 import random
 import urllib.request
 from collections.abc import Callable
+from typing import cast
 
 import platformdirs
 
@@ -22,7 +23,7 @@ def download_url(url: str) -> bytes:
         url, headers={"User-Agent": f"properdocs/{properdocs.__version__}"}
     )
     with urllib.request.urlopen(req) as resp:
-        return resp.read()
+        return cast(bytes, resp.read())
 
 
 def download_and_cache_url(

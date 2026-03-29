@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Iterator
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 from urllib.parse import urlsplit
 
 from properdocs.exceptions import BuildError
@@ -20,7 +20,7 @@ log = logging.getLogger(__name__)
 
 
 class Navigation:
-    def __init__(self, items: list, pages: list[Page]) -> None:
+    def __init__(self, items: list[StructureItem], pages: list[Page]) -> None:
         self.items = items  # Nested List with full navigation of Sections, Pages, and Links.
         self.pages = pages  # Flat List of subset of Pages in nav, in order.
 
@@ -39,7 +39,7 @@ class Navigation:
     def __str__(self) -> str:
         return '\n'.join(item._indent_print() for item in self)
 
-    def __iter__(self) -> Iterator:
+    def __iter__(self) -> Iterator[StructureItem]:
         return iter(self.items)
 
     def __len__(self) -> int:
@@ -53,7 +53,7 @@ class Section(StructureItem):
 
         self.active = False
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         name = self.__class__.__name__
         return f"{name}(title={self.title!r})"
 
@@ -73,7 +73,7 @@ class Section(StructureItem):
         return self.__active
 
     @active.setter
-    def active(self, value: bool):
+    def active(self, value: bool) -> None:
         """Set active status of section and ancestors."""
         self.__active = bool(value)
         if self.parent is not None:
@@ -100,7 +100,7 @@ class Link(StructureItem):
         self.title = title
         self.url = url
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         name = self.__class__.__name__
         title = f"{self.title!r}" if self.title is not None else '[blank]'
         return f"{name}(title={title}, url={self.url!r})"
@@ -194,7 +194,7 @@ def get_navigation(files: Files, config: ProperDocsConfig) -> Navigation:
     return Navigation(items, pages)
 
 
-def _data_to_navigation(data, files: Files, config: ProperDocsConfig):
+def _data_to_navigation(data: Any, files: Files, config: ProperDocsConfig) -> Any:
     if isinstance(data, dict):
         return [
             _data_to_navigation((key, value), files, config)
@@ -235,7 +235,7 @@ def _data_to_navigation(data, files: Files, config: ProperDocsConfig):
 T = TypeVar('T')
 
 
-def _get_by_type(nav, t: type[T]) -> list[T]:
+def _get_by_type(nav: list[Any], t: type[T]) -> list[T]:
     ret = []
     for item in nav:
         if isinstance(item, t):
@@ -245,7 +245,7 @@ def _get_by_type(nav, t: type[T]) -> list[T]:
     return ret
 
 
-def _add_parent_links(nav) -> None:
+def _add_parent_links(nav: list[Any]) -> None:
     for item in nav:
         if item.is_section:
             for child in item.children:

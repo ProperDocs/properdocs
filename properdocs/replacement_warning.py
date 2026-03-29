@@ -40,7 +40,7 @@ For more info visit https://github.com/ProperDocs/properdocs/discussions/33 and 
 ----------------------------------------------------------------'''
 
 
-def setup():
+def setup() -> None:
     global _warning_message  # noqa: PLW0603
     if not _warning_message:
         return
@@ -53,7 +53,7 @@ def setup():
     _warning_message = ''  # Disable all activations other than the first one.
 
 
-def is_running_from_mkdocs():
+def is_running_from_mkdocs() -> bool:
     if 'mkdocs' not in sys.modules:
         return False
 
