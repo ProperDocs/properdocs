@@ -73,7 +73,7 @@ BUILTIN_EXTENSIONS = {
 _NotFound = ()
 
 
-def _dig(cfg, keys: str):
+def _dig(cfg: Any, keys: str) -> Any:
     """
     Receives a string such as 'foo.bar' and returns `cfg['foo']['bar']`, or `_NotFound`.
 
@@ -97,7 +97,7 @@ def _dig(cfg, keys: str):
     return _dig(cfg, rest)
 
 
-def _strings(obj) -> Sequence[str]:
+def _strings(obj: Any) -> Sequence[str]:
     if isinstance(obj, str):
         return (obj,)
     else:
@@ -134,8 +134,8 @@ def get_projects_file(path: str | None = None) -> BinaryIO:
 
 
 def get_deps(
-    config_file: IO | os.PathLike | str | None = None,
-    projects_file: IO | None = None,
+    config_file: IO[Any] | os.PathLike[str] | str | None = None,
+    projects_file: IO[Any] | None = None,
 ) -> Collection[str]:
     """
     Print PyPI package dependencies inferred from a properdocs.yml file based on a reverse mapping of known projects.

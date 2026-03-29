@@ -129,7 +129,7 @@ def _build_theme_template(
 
 def _build_extra_template(
     template_name: str, files: Files, config: ProperDocsConfig, nav: Navigation
-):
+) -> None:
     """Build user templates which are not part of the theme."""
     log.debug(f"Building extra template: {template_name}")
 

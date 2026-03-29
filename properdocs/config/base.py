@@ -8,7 +8,7 @@ import sys
 import warnings
 from collections import UserDict
 from collections.abc import Iterator, Mapping, Sequence
-from typing import IO, TYPE_CHECKING, Any, Generic, TypeVar, overload
+from typing import IO, TYPE_CHECKING, Any, Generic, TypeVar, cast, overload
 
 from properdocs import exceptions, utils
 from properdocs.utils import weak_property
@@ -29,7 +29,7 @@ class BaseConfigOption(Generic[T]):
         self.default = None
 
     @property
-    def default(self):
+    def default(self) -> Any:
         try:
             # ensure no mutable values are assigned
             return self._default.copy()
@@ -37,10 +37,10 @@ class BaseConfigOption(Generic[T]):
             return self._default
 
     @default.setter
-    def default(self, value):
+    def default(self, value: Any) -> None:
         self._default = value
 
-    def validate(self, value: object, /) -> T:
+    def validate(self, value: object, /) -> T | None:
         return self.run_validation(value)
 
     def reset_warnings(self) -> None:
@@ -53,13 +53,13 @@ class BaseConfigOption(Generic[T]):
         The pre-validation process method should be implemented by subclasses.
         """
 
-    def run_validation(self, value: object, /):
+    def run_validation(self, value: object, /) -> T:
         """
         Perform validation for a value.
 
         The run_validation method should be implemented by subclasses.
         """
-        return value
+        return cast(T, value)
 
     def post_validation(self, config: Config, key_name: str) -> None:
         """
@@ -69,23 +69,23 @@ class BaseConfigOption(Generic[T]):
         The post-validation process method should be implemented by subclasses.
         """
 
-    def __set_name__(self, owner, name):
+    def __set_name__(self, owner: type, name: str) -> None:
         if name.endswith('_') and not name.startswith('_'):
             name = name[:-1]
         self._name = name
 
     @overload
-    def __get__(self, obj: Config, type=None) -> T: ...
+    def __get__(self, obj: Config, type: type[Config] | None = None) -> T: ...
 
     @overload
-    def __get__(self, obj, type=None) -> BaseConfigOption: ...
+    def __get__(self, obj: object, type: type | None = None) -> BaseConfigOption[Any]: ...
 
-    def __get__(self, obj, type=None):
+    def __get__(self, obj: object, type: type | None = None) -> T | BaseConfigOption[Any]:
         if not isinstance(obj, Config):
             return self
-        return obj[self._name]
+        return cast(T, obj[self._name])
 
-    def __set__(self, obj, value: T):
+    def __set__(self, obj: object, value: T) -> None:
         if not isinstance(obj, Config):
             raise AttributeError(
                 f"can't set attribute ({self._name}) because the parent is a {type(obj)} not a {Config}"
@@ -96,18 +96,18 @@ class BaseConfigOption(Generic[T]):
 class ValidationError(Exception):
     """Raised during the validation process of the config on errors."""
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
         return type(self) is type(other) and str(self) == str(other)
 
 
-PlainConfigSchemaItem = tuple[str, BaseConfigOption]
+PlainConfigSchemaItem = tuple[str, BaseConfigOption[Any]]
 PlainConfigSchema = Sequence[PlainConfigSchemaItem]
 
 ConfigErrors = list[tuple[str, Exception]]
 ConfigWarnings = list[tuple[str, str]]
 
 
-class Config(UserDict):
+class Config(UserDict[str, Any]):
     """
     Base class for ProperDocs configuration, plugin configuration (and sub-configuration) objects.
 
@@ -120,7 +120,7 @@ class Config(UserDict):
     _schema: PlainConfigSchema
     config_file_path: str
 
-    def __init_subclass__(cls):
+    def __init_subclass__(cls) -> None:
         schema = dict(getattr(cls, '_schema', ()))
         for attr_name, attr in cls.__dict__.items():
             if isinstance(attr, BaseConfigOption):
@@ -128,7 +128,7 @@ class Config(UserDict):
         cls._schema = tuple(schema.items())
 
         for attr_name, attr in cls._schema:
-            attr.required = True
+            attr.required = True  # type: ignore[attr-defined]
             if getattr(attr, '_legacy_required', None) is not None:
                 raise TypeError(
                     f"{cls.__name__}.{attr_name}: "
@@ -136,7 +136,7 @@ class Config(UserDict):
                     "All values are required, or can be wrapped into config_options.Optional"
                 )
 
-    def __new__(cls, *args, **kwargs) -> Config:  # noqa: PYI034
+    def __new__(cls, *args: Any, **kwargs: Any) -> Config:  # noqa: PYI034
         """Compatibility: allow referring to `LegacyConfig(...)` constructor as `Config(...)`."""
         if cls is Config:
             return LegacyConfig(*args, **kwargs)
@@ -144,7 +144,7 @@ class Config(UserDict):
 
     def __init__(self, config_file_path: str | bytes | None = None):
         super().__init__()
-        self.__user_configs: list[dict] = []
+        self.__user_configs: list[dict[str, Any]] = []
         self.set_defaults()
 
         self._schema_keys = {k for k, v in self._schema}
@@ -229,7 +229,7 @@ class Config(UserDict):
 
         return failed, warnings
 
-    def load_dict(self, patch: dict) -> None:
+    def load_dict(self, patch: dict[str, Any]) -> None:
         """Load config options from a dictionary."""
         if not isinstance(patch, dict):
             raise exceptions.ConfigurationError(
@@ -240,14 +240,14 @@ class Config(UserDict):
         self.__user_configs.append(patch)
         self.update(patch)
 
-    def load_file(self, config_file: IO) -> None:
+    def load_file(self, config_file: IO[Any]) -> None:
         """Load config options from the open file descriptor of a YAML file."""
         warnings.warn(
             "Config.load_file is not used since MkDocs 1.5 and will be removed soon. "
             "Use ProperDocsConfig.load_file instead",
             DeprecationWarning,
         )
-        return self.load_dict(utils.yaml_load(config_file))
+        return self.load_dict(utils.yaml_load(config_file))  # type: ignore[attr-defined]
 
     @weak_property
     def user_configs(self) -> Sequence[Mapping[str, Any]]:
@@ -274,7 +274,7 @@ class LegacyConfig(Config):
 
 
 @contextlib.contextmanager
-def _open_config_file(config_file: str | IO | None) -> Iterator[IO]:
+def _open_config_file(config_file: str | IO[Any] | None) -> Iterator[IO[Any]]:
     """
     A context manager which yields an open file descriptor ready to be read.
 
@@ -325,7 +325,7 @@ def _open_config_file(config_file: str | IO | None) -> Iterator[IO]:
 
 
 def load_config(
-    config_file: str | IO | None = None, *, config_file_path: str | None = None, **kwargs
+    config_file: str | IO[Any] | None = None, *, config_file_path: str | None = None, **kwargs: Any
 ) -> ProperDocsConfig:
     """
     Load the configuration for a given file object or name.

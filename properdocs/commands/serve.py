@@ -7,7 +7,7 @@ import sys
 import tempfile
 from collections.abc import Callable
 from os.path import isdir, isfile, join
-from typing import TYPE_CHECKING, BinaryIO
+from typing import TYPE_CHECKING, Any, BinaryIO
 from urllib.parse import urlsplit
 
 from properdocs.commands.build import build
@@ -28,7 +28,7 @@ def serve(
     watch: list[str] = [],
     *,
     open_in_browser: bool = False,
-    **kwargs,
+    **kwargs: Any,
 ) -> None:
     """
     Start the ProperDocs development server.
@@ -53,7 +53,7 @@ def serve(
             config_file.name if getattr(config_file, 'closed', False) else config_file
         )
 
-    def get_config():
+    def get_config() -> ProperDocsConfig:
         config = load_config(
             config_file=get_config_file(),
             site_dir=site_dir,
@@ -72,7 +72,7 @@ def serve(
     mount_path = urlsplit(config.site_url or '/').path
     config.site_url = serve_url = _serve_url(host, port, mount_path)
 
-    def builder(config: ProperDocsConfig | None = None):
+    def builder(config: ProperDocsConfig | None = None) -> None:
         log.info("Building documentation...")
         if config is None:
             config = get_config()
@@ -84,7 +84,7 @@ def serve(
         builder=builder, host=host, port=port, root=site_dir, mount_path=mount_path
     )
 
-    def error_handler(code) -> bytes | None:
+    def error_handler(code: int) -> bytes | None:
         if code in (404, 500):
             error_page = join(site_dir, f'{code}.html')
             if isfile(error_page):

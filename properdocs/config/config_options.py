@@ -14,7 +14,7 @@ import warnings
 from collections import Counter, UserString
 from collections.abc import Callable, Collection, Iterator, Mapping, MutableMapping
 from types import SimpleNamespace
-from typing import Any, Generic, NamedTuple, TypeVar, overload
+from typing import Any, Generic, NamedTuple, TypeVar, cast, overload
 from urllib.parse import quote as urlquote
 from urllib.parse import urlsplit, urlunsplit
 
@@ -68,7 +68,7 @@ class SubConfig(Generic[SomeConfig], BaseConfigOption[SomeConfig]):
     ):
         """Create an untyped sub-config, using directly passed fields."""
 
-    def __init__(self, *config_options, validate=None):
+    def __init__(self, *config_options: Any, validate: bool | None = None) -> None:
         super().__init__()
         self.default = {}
         self._do_validation = True if validate is None else validate
@@ -80,15 +80,15 @@ class SubConfig(Generic[SomeConfig], BaseConfigOption[SomeConfig]):
             ):
                 (self.config_class,) = config_options
             else:
-                self.config_class = functools.partial(LegacyConfig, config_options)
+                self.config_class = functools.partial(LegacyConfig, config_options)  # type: ignore[assignment]
                 self._do_validation = False if validate is None else validate
 
-    def __class_getitem__(cls, config_class: type[Config]):
+    def __class_getitem__(cls, config_class: type[Config]) -> type[Any]:
         """Eliminates the need to write `config_class = FooConfig` when subclassing SubConfig[FooConfig]."""
         name = f'{cls.__name__}[{config_class.__name__}]'
         return type(name, (cls,), dict(config_class=config_class))
 
-    def pre_validation(self, config: Config, key_name: str):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         self._config_file_path = config.config_file_path
 
     def run_validation(self, value: object) -> SomeConfig:
@@ -117,7 +117,7 @@ class PropagatingSubConfig(SubConfig[SomeConfig], Generic[SomeConfig]):
     Any value set on the top config gets moved to sub-configs with matching keys.
     """
 
-    def run_validation(self, value: object):
+    def run_validation(self, value: object) -> SomeConfig:
         if isinstance(value, dict):
             to_discard = set()
             for k1, v1 in self.config_class._schema:
@@ -142,18 +142,18 @@ class OptionallyRequired(Generic[T], BaseConfigOption[T]):
     """
 
     @overload
-    def __init__(self, default=None): ...
+    def __init__(self, default: Any = None) -> None: ...
 
     @overload
-    def __init__(self, default=None, *, required: bool): ...
+    def __init__(self, default: Any = None, *, required: bool) -> None: ...
 
-    def __init__(self, default=None, required=None):
+    def __init__(self, default: Any = None, required: bool | None = None) -> None:
         super().__init__()
         self.default = default
         self._legacy_required = required
         self.required = bool(required)
 
-    def validate(self, value):
+    def validate(self, value: object) -> T | None:
         """
         Perform some initial validation.
 
@@ -181,7 +181,7 @@ class ListOfItems(Generic[T], BaseConfigOption[list[T]]):
 
     required: bool | None = None  # Only for subclasses to set.
 
-    def __init__(self, option_type: BaseConfigOption[T], default=None) -> None:
+    def __init__(self, option_type: BaseConfigOption[T], default: list[T] | None = None) -> None:
         super().__init__()
         self.default = default
         self.option_type = option_type
@@ -190,7 +190,7 @@ class ListOfItems(Generic[T], BaseConfigOption[list[T]]):
     def __repr__(self) -> str:
         return f'{type(self).__name__}: {self.option_type}'
 
-    def pre_validation(self, config: Config, key_name: str):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         self._config = config
         self._key_name = key_name
 
@@ -234,7 +234,7 @@ class DictOfItems(Generic[T], BaseConfigOption[dict[str, T]]):
 
     required: bool | None = None  # Only for subclasses to set.
 
-    def __init__(self, option_type: BaseConfigOption[T], default=None) -> None:
+    def __init__(self, option_type: BaseConfigOption[T], default: dict[str, T] | None = None) -> None:
         super().__init__()
         self.default = default
         self.option_type = option_type
@@ -243,7 +243,7 @@ class DictOfItems(Generic[T], BaseConfigOption[dict[str, T]]):
     def __repr__(self) -> str:
         return f"{type(self).__name__}: {self.option_type}"
 
-    def pre_validation(self, config: Config, key_name: str):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         self._config = config
         self._key_name = key_name
 
@@ -294,7 +294,7 @@ class ConfigItems(ListOfItems[LegacyConfig]):
     @overload
     def __init__(self, *config_options: PlainConfigSchemaItem, required: bool): ...
 
-    def __init__(self, *config_options: PlainConfigSchemaItem, required=None) -> None:
+    def __init__(self, *config_options: PlainConfigSchemaItem, required: bool | None = None) -> None:
         super().__init__(SubConfig(*config_options), default=[])
         self._legacy_required = required
         self.required = bool(required)
@@ -308,12 +308,12 @@ class Type(Generic[T], OptionallyRequired[T]):
     """
 
     @overload
-    def __init__(self, type_: type[T], /, length: int | None = None, **kwargs): ...
+    def __init__(self, type_: type[T], /, length: int | None = None, **kwargs: Any) -> None: ...
 
     @overload
-    def __init__(self, type_: tuple[type[T], ...], /, length: int | None = None, **kwargs): ...
+    def __init__(self, type_: tuple[type[T], ...], /, length: int | None = None, **kwargs: Any) -> None: ...
 
-    def __init__(self, type_, /, length=None, **kwargs) -> None:
+    def __init__(self, type_: Any, /, length: int | None = None, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self._type = type_
         self.length = length
@@ -327,7 +327,7 @@ class Type(Generic[T], OptionallyRequired[T]):
                 f" but received: {value!r} with length {len(value)}"
             )
         else:
-            return value
+            return cast(T, value)
 
         raise ValidationError(msg)
 
@@ -339,7 +339,7 @@ class Choice(Generic[T], OptionallyRequired[T]):
     Validate the config option against a strict set of values.
     """
 
-    def __init__(self, choices: Collection[T], default: T | None = None, **kwargs) -> None:
+    def __init__(self, choices: Collection[T], default: T | None = None, **kwargs: Any) -> None:
         super().__init__(default=default, **kwargs)
         try:
             length = len(choices)
@@ -362,7 +362,7 @@ class Choice(Generic[T], OptionallyRequired[T]):
         return value  # type: ignore[return-value]
 
 
-class Deprecated(BaseConfigOption):
+class Deprecated(BaseConfigOption[Any]):
     """
     Deprecated Config Option.
 
@@ -377,7 +377,7 @@ class Deprecated(BaseConfigOption):
         moved_to: str | None = None,
         message: str | None = None,
         removed: bool = False,
-        option_type: BaseConfigOption | None = None,
+        option_type: BaseConfigOption[Any] | None = None,
     ) -> None:
         super().__init__()
         self.default = None
@@ -399,7 +399,7 @@ class Deprecated(BaseConfigOption):
 
         self.warnings = self.option.warnings
 
-    def pre_validation(self, config: Config, key_name: str):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         self.option.pre_validation(config, key_name)
 
         if config.get(key_name) is not None:
@@ -422,13 +422,13 @@ class Deprecated(BaseConfigOption):
 
                 target[target_key] = config.pop(key_name)
 
-    def validate(self, value):
+    def validate(self, value: object) -> Any:
         return self.option.validate(value)
 
-    def post_validation(self, config: Config, key_name: str):
+    def post_validation(self, config: Config, key_name: str) -> None:
         self.option.post_validation(config, key_name)
 
-    def reset_warnings(self):
+    def reset_warnings(self) -> None:
         self.option.reset_warnings()
         self.warnings = self.option.warnings
 
@@ -478,14 +478,14 @@ class URL(OptionallyRequired[str]):
     """
 
     @overload
-    def __init__(self, default=None, *, is_dir: bool = False): ...
+    def __init__(self, default: Any = None, *, is_dir: bool = False) -> None: ...
 
     @overload
-    def __init__(self, default=None, *, required: bool, is_dir: bool = False): ...
+    def __init__(self, default: Any = None, *, required: bool, is_dir: bool = False) -> None: ...
 
-    def __init__(self, default=None, required=None, is_dir: bool = False) -> None:
+    def __init__(self, default: Any = None, required: bool | None = None, is_dir: bool = False) -> None:
         self.is_dir = is_dir
-        super().__init__(default, required=required)
+        super().__init__(default, required=required)  # type: ignore[arg-type]
 
     def run_validation(self, value: object) -> str:
         if not isinstance(value, str):
@@ -522,12 +522,12 @@ class Optional(Generic[T], BaseConfigOption[T | None]):
         self.option = config_option
         self.warnings = config_option.warnings
 
-    def __getattr__(self, key):
+    def __getattr__(self, key: str) -> Any:
         if key in ('option', 'warnings'):
             raise AttributeError
         return getattr(self.option, key)
 
-    def pre_validation(self, config: Config, key_name: str):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         return self.option.pre_validation(config, key_name)
 
     def run_validation(self, value: object) -> T | None:
@@ -535,24 +535,23 @@ class Optional(Generic[T], BaseConfigOption[T | None]):
             return None
         return self.option.validate(value)
 
-    def post_validation(self, config: Config, key_name: str):
-        result = self.option.post_validation(config, key_name)  # type: ignore[func-returns-value]
+    def post_validation(self, config: Config, key_name: str) -> None:
+        self.option.post_validation(config, key_name)
         self.warnings = self.option.warnings
-        return result
 
-    def reset_warnings(self):
+    def reset_warnings(self) -> None:
         self.option.reset_warnings()
         self.warnings = self.option.warnings
 
 
 class RepoURL(URL):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         warnings.warn(
             "RepoURL is no longer used in ProperDocs and will be removed.", DeprecationWarning
         )
         super().__init__(*args, **kwargs)
 
-    def post_validation(self, config: Config, key_name: str):
+    def post_validation(self, config: Config, key_name: str) -> None:
         repo_host = urlsplit(config['repo_url']).netloc.lower()
         edit_uri = config.get('edit_uri')
 
@@ -588,7 +587,7 @@ class EditURI(Type[str]):
         super().__init__(str)
         self.repo_url_key = repo_url_key
 
-    def post_validation(self, config: Config, key_name: str):
+    def post_validation(self, config: Config, key_name: str) -> None:
         edit_uri = config.get(key_name)
         repo_url = config.get(self.repo_url_key)
 
@@ -606,15 +605,15 @@ class EditURI(Type[str]):
         config[key_name] = edit_uri
 
 
-class EditURITemplate(BaseConfigOption[str]):
+class EditURITemplate(BaseConfigOption[Any]):
     class Formatter(string.Formatter):
-        def convert_field(self, value, conversion):
+        def convert_field(self, value: Any, conversion: str | None) -> Any:
             if conversion == 'q':
                 return urlquote(value, safe='')
             return super().convert_field(value, conversion)
 
     class Template(UserString):
-        def __init__(self, formatter, data) -> None:
+        def __init__(self, formatter: EditURITemplate.Formatter, data: Any) -> None:
             super().__init__(data)
             self.formatter = formatter
             try:
@@ -622,20 +621,20 @@ class EditURITemplate(BaseConfigOption[str]):
             except KeyError as e:
                 raise ValueError(f"Unknown template substitute: {e}")
 
-        def format(self, path, path_noext):
+        def format(self, path: str, path_noext: str) -> str:
             return self.formatter.format(self.data, path=path, path_noext=path_noext)
 
     def __init__(self, edit_uri_key: str | None = None) -> None:
         super().__init__()
         self.edit_uri_key = edit_uri_key
 
-    def run_validation(self, value: object):
+    def run_validation(self, value: object) -> Template:
         try:
             return self.Template(self.Formatter(), value)
         except Exception as e:
             raise ValidationError(e)
 
-    def post_validation(self, config: Config, key_name: str):
+    def post_validation(self, config: Config, key_name: str) -> None:
         if self.edit_uri_key and config.get(key_name) and config.get(self.edit_uri_key):
             self.warnings.append(
                 f"The option '{self.edit_uri_key}' has no effect when '{key_name}' is set."
@@ -647,7 +646,7 @@ class RepoName(Type[str]):
         super().__init__(str)
         self.repo_url_key = repo_url_key
 
-    def post_validation(self, config: Config, key_name: str):
+    def post_validation(self, config: Config, key_name: str) -> None:
         repo_name = config.get(key_name)
         repo_url = config.get(self.repo_url_key)
 
@@ -671,12 +670,12 @@ class FilesystemObject(Type[str]):
     existence_test: Callable[[str], bool] = staticmethod(os.path.exists)
     name = 'file or directory'
 
-    def __init__(self, exists: bool = False, **kwargs) -> None:
+    def __init__(self, exists: bool = False, **kwargs: Any) -> None:
         super().__init__(str, **kwargs)
         self.exists = exists
         self.config_dir: str | None = None
 
-    def pre_validation(self, config: Config, key_name: str):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         self.config_dir = (
             os.path.dirname(config.config_file_path) if config.config_file_path else None
         )
@@ -702,7 +701,7 @@ class Dir(FilesystemObject):
 
 
 class DocsDir(Dir):
-    def post_validation(self, config: Config, key_name: str):
+    def post_validation(self, config: Config, key_name: str) -> None:
         if not config.config_file_path:
             return
 
@@ -738,12 +737,12 @@ class ListOfPaths(ListOfItems[str]):
     """
 
     @overload
-    def __init__(self, default=[]): ...
+    def __init__(self, default: list[str] = []) -> None: ...
 
     @overload
-    def __init__(self, default=[], *, required: bool): ...
+    def __init__(self, default: list[str] = [], *, required: bool) -> None: ...
 
-    def __init__(self, default=[], required=None) -> None:
+    def __init__(self, default: list[str] = [], required: bool | None = None) -> None:
         super().__init__(FilesystemObject(exists=True), default)
         self.required = required
 
@@ -755,7 +754,7 @@ class SiteDir(Dir):
     Validates the site_dir and docs_dir directories do not contain each other.
     """
 
-    def post_validation(self, config: Config, key_name: str):
+    def post_validation(self, config: Config, key_name: str) -> None:
         super().post_validation(config, key_name)
         docs_dir = config['docs_dir']
         site_dir = config['site_dir']
@@ -786,11 +785,11 @@ class Theme(BaseConfigOption[theme.Theme]):
     Validate that the theme exists and build Theme instance.
     """
 
-    def __init__(self, default=None) -> None:
+    def __init__(self, default: Any = None) -> None:
         super().__init__()
         self.default = default
 
-    def pre_validation(self, config: Config, key_name: str):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         self.config_file_path = config.config_file_path
 
     def run_validation(self, value: object) -> theme.Theme:
@@ -857,14 +856,14 @@ class ProperDocsTheme(Theme):
         return super().run_validation(value)
 
 
-class Nav(OptionallyRequired):
+class Nav(OptionallyRequired[Any]):
     """
     Nav Config Option.
 
     Validate the Nav config.
     """
 
-    def run_validation(self, value: object, *, top=True):
+    def run_validation(self, value: object, *, top: bool = True) -> Any:
         if isinstance(value, list):
             for subitem in value:
                 self._validate_nav_item(subitem)
@@ -881,7 +880,7 @@ class Nav(OptionallyRequired):
             raise ValidationError(f"Expected nav to be a list, got {self._repr_item(value)}")
         return value
 
-    def _validate_nav_item(self, value):
+    def _validate_nav_item(self, value: object) -> None:
         if isinstance(value, str):
             pass
         elif isinstance(value, dict):
@@ -897,7 +896,7 @@ class Nav(OptionallyRequired):
             )
 
     @classmethod
-    def _repr_item(cls, value) -> str:
+    def _repr_item(cls, value: object) -> str:
         if isinstance(value, dict) and value:
             return f"dict with keys {tuple(value.keys())}"
         elif isinstance(value, (str, type(None))):
@@ -909,9 +908,10 @@ class Nav(OptionallyRequired):
 class Private(Generic[T], BaseConfigOption[T]):
     """A config option that can only be populated programmatically. Raises an error if set by the user."""
 
-    def run_validation(self, value: object) -> None:
+    def run_validation(self, value: object) -> T:
         if value is not None:
             raise ValidationError('For internal use only.')
+        return cast(T, None)
 
 
 class ExtraScriptValue(Config):
@@ -926,19 +926,19 @@ class ExtraScriptValue(Config):
     async_ = Type(bool, default=False)
     """Whether to add the `async` tag to the script."""
 
-    def __init__(self, path: str = '', config_file_path=None):
+    def __init__(self, path: str = '', config_file_path: str | None = None) -> None:
         super().__init__(config_file_path=config_file_path)
         self.path = path
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.path
 
-    def __fspath__(self):
+    def __fspath__(self) -> str:
         return self.path
 
 
 class ExtraScript(BaseConfigOption[ExtraScriptValue | str]):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.option_type = SubConfig[ExtraScriptValue]()
 
@@ -946,9 +946,9 @@ class ExtraScript(BaseConfigOption[ExtraScriptValue | str]):
         self.option_type.warnings = self.warnings
         if isinstance(value, str):
             if value.endswith('.mjs'):
-                return self.option_type.run_validation({'path': value, 'type': 'module'})
+                return self.option_type.run_validation({'path': value, 'type': 'module'})  # type: ignore[return-value]
             return value
-        return self.option_type.run_validation(value)
+        return self.option_type.run_validation(value)  # type: ignore[return-value]
 
 
 class MarkdownExtensions(OptionallyRequired[list[str]]):
@@ -968,7 +968,7 @@ class MarkdownExtensions(OptionallyRequired[list[str]]):
         builtins: list[str] | None = None,
         configkey: str = 'mdx_configs',
         default: list[str] = [],
-        **kwargs,
+        **kwargs: Any,
     ) -> None:
         super().__init__(default=default, **kwargs)
         self.builtins = builtins or []
@@ -983,14 +983,14 @@ class MarkdownExtensions(OptionallyRequired[list[str]]):
             raise ValidationError(f"Invalid config options for Markdown Extension '{ext}'.")
         self.configdata[ext] = cfg
 
-    def pre_validation(self, config, key_name):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         # To appease validation in case it involves the `!relative` tag.
         config._current_page = current_page = SimpleNamespace()  # type: ignore[attr-defined]
         current_page.file = SimpleNamespace()
         current_page.file.src_path = ''
 
     def run_validation(self, value: object) -> list[str]:
-        self.configdata: dict[str, dict] = {}
+        self.configdata: dict[str, Any] = {}
         if not isinstance(value, (list, tuple, dict)):
             raise ValidationError('Invalid Markdown Extensions configuration')
         extensions = []
@@ -1019,7 +1019,7 @@ class MarkdownExtensions(OptionallyRequired[list[str]]):
             try:
                 md.registerExtensions((ext,), self.configdata)
             except Exception as e:
-                stack: list = []
+                stack: list[Any] = []
                 for frame in reversed(traceback.extract_tb(sys.exc_info()[2])):
                     if not frame.line:  # Ignore frames before <frozen importlib._bootstrap>
                         break
@@ -1032,7 +1032,7 @@ class MarkdownExtensions(OptionallyRequired[list[str]]):
 
         return extensions
 
-    def post_validation(self, config: Config, key_name: str):
+    def post_validation(self, config: Config, key_name: str) -> None:
         config._current_page = None  # type: ignore[attr-defined]
         config[self.configkey] = self.configdata
 
@@ -1045,14 +1045,14 @@ class Plugins(OptionallyRequired[plugins.PluginCollection]):
     initializing the plugin class.
     """
 
-    def __init__(self, theme_key: str | None = None, **kwargs) -> None:
+    def __init__(self, theme_key: str | None = None, **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.installed_plugins = plugins.get_plugins()
         self.theme_key = theme_key
         self._config: Config | None = None
-        self.plugin_cache: dict[str, plugins.BasePlugin] = {}
+        self.plugin_cache: dict[str, plugins.BasePlugin[Any]] = {}
 
-    def pre_validation(self, config, key_name):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         self._config = config
 
     def run_validation(self, value: object) -> plugins.PluginCollection:
@@ -1065,7 +1065,7 @@ class Plugins(OptionallyRequired[plugins.PluginCollection]):
         return self.plugins
 
     @classmethod
-    def _parse_configs(cls, value: list | tuple | dict) -> Iterator[tuple[str, dict]]:
+    def _parse_configs(cls, value: list[Any] | tuple[Any, ...] | dict[Any, Any]) -> Iterator[tuple[str, dict[str, Any]]]:
         if isinstance(value, dict):
             for name, cfg in value.items():
                 if not isinstance(name, str):
@@ -1084,7 +1084,7 @@ class Plugins(OptionallyRequired[plugins.PluginCollection]):
                     raise ValidationError(f"'{name}' is not a valid plugin name.")
                 yield name, cfg
 
-    def load_plugin_with_namespace(self, name: str, config) -> tuple[str, plugins.BasePlugin]:
+    def load_plugin_with_namespace(self, name: str, config: Any) -> tuple[str, plugins.BasePlugin[Any]]:
         if '/' in name:  # It's already specified with a namespace.
             # Special case: allow to explicitly skip namespaced loading:
             name = name.removeprefix('/')
@@ -1100,7 +1100,7 @@ class Plugins(OptionallyRequired[plugins.PluginCollection]):
                         name = expanded_name
         return (name, self.load_plugin(name, config))
 
-    def load_plugin(self, name: str, config) -> plugins.BasePlugin:
+    def load_plugin(self, name: str, config: Any) -> plugins.BasePlugin[Any]:
         if name not in self.installed_plugins:
             raise ValidationError(f'The "{name}" plugin is not installed')
 
@@ -1163,7 +1163,7 @@ class Plugins(OptionallyRequired[plugins.PluginCollection]):
         return plugin
 
 
-class Hooks(BaseConfigOption[list[types.ModuleType]]):
+class Hooks(BaseConfigOption[Mapping[str, Any]]):
     """A list of Python scripts to be treated as instances of plugins."""
 
     def __init__(self, plugins_key: str) -> None:
@@ -1172,7 +1172,7 @@ class Hooks(BaseConfigOption[list[types.ModuleType]]):
         self.plugins_key = plugins_key
         self._loaded_hooks: dict[tuple[str, str], types.ModuleType] = {}
 
-    def pre_validation(self, config: Config, key_name: str):
+    def pre_validation(self, config: Config, key_name: str) -> None:
         self._base_option = ListOfItems(File(exists=True))
         self._base_option.pre_validation(config, key_name)
 
@@ -1180,6 +1180,7 @@ class Hooks(BaseConfigOption[list[types.ModuleType]]):
         paths = self._base_option.validate(value)
         self.warnings.extend(self._base_option.warnings)
         assert isinstance(value, list)
+        assert paths is not None
 
         hooks = {}
         for name, path in zip(value, paths, strict=True):
@@ -1208,7 +1209,7 @@ class Hooks(BaseConfigOption[list[types.ModuleType]]):
         self._loaded_hooks[name, path] = module
         return module
 
-    def post_validation(self, config: Config, key_name: str):
+    def post_validation(self, config: Config, key_name: str) -> None:
         plugins = config[self.plugins_key]
         for name, hook in config[key_name].items():
             plugins[name] = hook

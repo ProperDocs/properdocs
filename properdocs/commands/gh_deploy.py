@@ -34,7 +34,7 @@ def _is_cwd_git_repo() -> bool:
     return proc.wait() == 0
 
 
-def _get_current_sha(repo_path) -> str:
+def _get_current_sha(repo_path: str | None) -> str:
     proc = subprocess.Popen(
         ['git', 'rev-parse', '--short', 'HEAD'],
         cwd=repo_path or None,
@@ -101,10 +101,10 @@ def _check_version(branch: str) -> None:
 def gh_deploy(
     config: ProperDocsConfig,
     message: str | None = None,
-    force=False,
-    no_history=False,
-    ignore_version=False,
-    shell=False,
+    force: bool = False,
+    no_history: bool = False,
+    ignore_version: bool = False,
+    shell: bool = False,
 ) -> None:
     if not _is_cwd_git_repo():
         log.error('Cannot deploy - this directory does not appear to be a git repository')

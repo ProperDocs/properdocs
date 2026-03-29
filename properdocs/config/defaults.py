@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import logging
 from collections.abc import Mapping
-from typing import IO
+from typing import IO, Any
 
 from properdocs.config import base
 from properdocs.config import config_options as c
@@ -135,7 +135,7 @@ class ProperDocsConfig(base.Config):
     )
     """PyMarkdown extension names."""
 
-    mdx_configs = c.Private[dict[str, dict]]()
+    mdx_configs = c.Private[dict[str, dict[str, Any]]]()
     """PyMarkdown extension configs. Populated from `markdown_extensions`."""
 
     strict = c.Type(bool, default=False)
@@ -203,12 +203,12 @@ class ProperDocsConfig(base.Config):
     """The currently rendered page. Please do not access this and instead
     rely on the `page` argument to event handlers."""
 
-    def load_dict(self, patch: dict) -> None:
+    def load_dict(self, patch: dict[str, Any]) -> None:
         super().load_dict(patch)
         if 'config_file_path' in patch:
             raise base.ValidationError("Can't set config_file_path in config")
 
-    def load_file(self, config_file: IO) -> None:
+    def load_file(self, config_file: IO[Any]) -> None:
         """Load config options from the open file descriptor of a YAML file."""
         loader = get_yaml_loader(config=self)
         self.load_dict(yaml_load(config_file, loader))
