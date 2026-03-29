@@ -224,11 +224,10 @@ The specific version number in [`__init__.py`](https://github.com/ProperDocs/pro
 ## Code of Conduct
 
 Everyone interacting in the ProperDocs project's codebases, issue trackers, chat
-rooms, and mailing lists is expected to follow the [PyPA Code of Conduct].
+rooms, and mailing lists is expected to follow the [PSF Code of Conduct](https://www.python.org/psf/conduct/).
 
 [virtualenv]: https://virtualenv.pypa.io/en/latest/user_guide.html
 [Hatch]: https://hatch.pypa.io/
 [GitHub Actions]: https://docs.github.com/actions
-[PyPA Code of Conduct]: https://www.pypa.io/en/latest/code-of-conduct/
 [Translating Themes]: https://properdocs.org/dev-guide/translations/
 [Jinja's i18n extension]: https://jinja.palletsprojects.com/en/latest/extensions/#i18n-extension
