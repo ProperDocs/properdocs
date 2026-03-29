@@ -52,7 +52,7 @@ Note that for development you can just use [Hatch] directly as described below. 
 
 The main tool that is used for development is [Hatch]. It manages dependencies (in a virtualenv that is created on the fly) and is also the command runner.
 
-So first, [install it][install Hatch]. Ideally in an isolated way with **`pipx install hatch`** (after [installing `pipx`]), or just `pip install hatch` as a more well-known way.
+So first, [install it](https://hatch.pypa.io/latest/install/#pip). Ideally in an isolated way with **`pipx install hatch`** (after [installing `pipx`](https://pypa.github.io/pipx/installation/)), or just `pip install hatch` as a more well-known way.
 
 ## Running all checks
 
@@ -79,7 +79,7 @@ It will attempt to run the tests against all of the Python versions we support.
 
 ### Python code style
 
-Python code within ProperDocs' code base is formatted using [Ruff], all of which are configured in [`pyproject.toml`].
+Python code within ProperDocs' code base is formatted using [Ruff](https://docs.astral.sh/ruff/), all of which are configured in [`pyproject.toml`](https://github.com/ProperDocs/properdocs/blob/master/pyproject.toml).
 
 You can automatically check and format the code according to these tools with the following command:
 
@@ -87,7 +87,7 @@ You can automatically check and format the code according to these tools with th
 hatch run style:fix
 ```
 
-The code is also type-checked using [mypy] - also configured in [`pyproject.toml`], it can be run like this:
+The code is also type-checked using [mypy](https://mypy-lang.org/) - also configured in [`pyproject.toml`](https://github.com/ProperDocs/properdocs/blob/master/pyproject.toml), it can be run like this:
 
 ```bash
 hatch run types:check
@@ -117,20 +117,20 @@ Documentation files are also checked by markdownlint, so you should run this as 
 hatch run lint:check
 ```
 
-If you add a new plugin to properdocs.yml, you don't need to add it to any "requirements" file, because that is managed automatically via [hatch-properdocs].
+If you add a new plugin to properdocs.yml, you don't need to add it to any "requirements" file, because that is managed automatically via [hatch-properdocs](https://github.com/ProperDocs/hatch-properdocs).
 
 > INFO: If you don't want to use Hatch, for documentation you can install requirements into a virtualenv, in **one of** these ways (with `.venv` being the virtualenv directory):
 >
 > *   Exact versions of dependencies:
 >
 >     ```bash
->     .venv/bin/pip install -r requirements/requirements-docs.txt  # .
+>     .venv/bin/pip install -r requirements/requirements-docs.txt
 >     ```
 >
 > *   Latest versions of all dependencies:
 >
 >     ```bash
->     .venv/bin/pip install -r $(properdocs get-deps)  # 
+>     .venv/bin/pip install -r $(properdocs get-deps)
 >     ```
 
 ## Translating themes
@@ -149,7 +149,7 @@ most likely need to have tests and documentation if it is a new feature.
 When working with a pull request branch:  
 Unless otherwise agreed, prefer `commit` over `amend`, and `merge` over `rebase`. Avoid force-pushes, otherwise review history is much harder to navigate. For the end result, the "unclean" history is fine because most pull requests are squash-merged on GitHub.
 
-Do *not* add to [`release-notes.md`], this will be written later.
+Do *not* add to [`release-notes.md`](https://github.com/ProperDocs/properdocs/blob/master/docs/about/release-notes.md), this will be written later.
 
 ### Submitting changes to the builtin themes
 
@@ -190,11 +190,11 @@ Alternatively, pull requests can be merged as a merge commit, if the PR consists
 
 ## Cutting a release
 
-NOTE: First see additional important information in [`packages/README.md`].
+Note: First see additional important information in [`packages/README.md`](https://github.com/ProperDocs/properdocs/blob/master/packages/README.md).
 
 In order to make a release of ProperDocs, do the following:
 
-*   Create a pull request that bumps the version in all [`__init__.py`] files **and** writes down all user-visible changes since the previous version in [`release-notes.md`].
+*   Create a pull request that bumps the version in all [`__init__.py`](https://github.com/ProperDocs/properdocs/blob/master/properdocs/__init__.py) files **and** writes down all user-visible changes since the previous version in [`release-notes.md`](https://github.com/ProperDocs/properdocs/blob/master/docs/about/release-notes.md).
 
     * Changes specific to themes (if any) need separate headings, because they will go into separate releases. Search for `Version 1.6.7` as an example of this.
 
@@ -207,7 +207,7 @@ In order to make a release of ProperDocs, do the following:
 
 *   GitHub Actions will automatically produce a PyPI release for the main package.
 
-    But subpackages need to be released manually, if there were any changes to them. See [`packages/README.md`].
+    But subpackages need to be released manually, if there were any changes to them. See [`packages/README.md`](https://github.com/ProperDocs/properdocs/blob/master/packages/README.md).
 
 *   Finally, make a release post at [GitHub releases](https://github.com/ProperDocs/properdocs/releases)  - "Draft a new release".
 
@@ -215,7 +215,7 @@ In order to make a release of ProperDocs, do the following:
 
 ### Versioning policy
 
-The specific version number in [`__init__.py`] consists of 3 components in sequence:
+The specific version number in [`__init__.py`](https://github.com/ProperDocs/properdocs/blob/master/properdocs/__init__.py) consists of 3 components in sequence:
 
 * Major - permanently at 1
 * Minor - bump for new features and possibly minor breaking changes (breaking changes only if they aren't expected to affect anyone OR there have been sufficient warnings in previous versions.)
@@ -228,16 +228,7 @@ rooms, and mailing lists is expected to follow the [PyPA Code of Conduct].
 
 [virtualenv]: https://virtualenv.pypa.io/en/latest/user_guide.html
 [Hatch]: https://hatch.pypa.io/
-[install Hatch]: https://hatch.pypa.io/latest/install/#pip
-[installing `pipx`]: https://pypa.github.io/pipx/installation/
 [GitHub Actions]: https://docs.github.com/actions
 [PyPA Code of Conduct]: https://www.pypa.io/en/latest/code-of-conduct/
 [Translating Themes]: https://properdocs.org/dev-guide/translations/
 [Jinja's i18n extension]: https://jinja.palletsprojects.com/en/latest/extensions/#i18n-extension
-[Ruff]: https://docs.astral.sh/ruff/
-[mypy]: https://mypy-lang.org/
-[hatch-properdocs]: https://github.com/ProperDocs/hatch-properdocs
-[`pyproject.toml`]: pyproject.toml
-[`__init__.py`]: properdocs/__init__.py
-[`release-notes.md`]: docs/about/release-notes.md
-[`packages/README.md`]: packages/README.md
