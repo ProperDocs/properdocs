@@ -14,9 +14,7 @@ from pathlib import PurePath, PurePosixPath
 from typing import TYPE_CHECKING, overload
 from urllib.parse import quote as urlquote
 
-import pathspec
 import pathspec.gitignore
-import pathspec.util
 
 from properdocs import utils
 
@@ -367,7 +365,7 @@ class File:
     def _get_stem(self) -> str:
         """Soft-deprecated, do not use."""
         filename = posixpath.basename(self.src_uri)
-        stem, ext = posixpath.splitext(filename)
+        stem, _ext = posixpath.splitext(filename)
         return 'index' if stem == 'README' else stem
 
     name = cached_property(_get_stem)
@@ -376,7 +374,7 @@ class File:
     def _get_dest_path(self, use_directory_urls: bool | None = None) -> str:
         """Soft-deprecated, do not use."""
         if self.is_documentation_page():
-            parent, filename = posixpath.split(self.src_uri)
+            parent, _filename = posixpath.split(self.src_uri)
             if use_directory_urls is None:
                 use_directory_urls = self.use_directory_urls
             if not use_directory_urls or self.name == 'index':

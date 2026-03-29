@@ -45,7 +45,7 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_serve.call_count, 1)
-        args, kwargs = mock_serve.call_args
+        _args, kwargs = mock_serve.call_args
         self.assertTrue('config_file' in kwargs)
         self.assertIsInstance(kwargs['config_file'], io.BufferedReader)
         self.assertEqual(kwargs['config_file'].name, 'properdocs.yml')
@@ -227,7 +227,7 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_build.call_count, 1)
-        args, kwargs = mock_build.call_args
+        _args, kwargs = mock_build.call_args
         self.assertTrue('dirty' in kwargs)
         self.assertFalse(kwargs['dirty'])
         mock_load_config.assert_called_once_with(
@@ -247,7 +247,7 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_build.call_count, 1)
-        args, kwargs = mock_build.call_args
+        _args, kwargs = mock_build.call_args
         self.assertTrue('dirty' in kwargs)
         self.assertFalse(kwargs['dirty'])
 
@@ -258,7 +258,7 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_build.call_count, 1)
-        args, kwargs = mock_build.call_args
+        _args, kwargs = mock_build.call_args
         self.assertTrue('dirty' in kwargs)
         self.assertTrue(kwargs['dirty'])
 
@@ -272,7 +272,7 @@ class CLITests(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_build.call_count, 1)
         self.assertEqual(mock_load_config.call_count, 1)
-        args, kwargs = mock_load_config.call_args
+        _args, kwargs = mock_load_config.call_args
         self.assertTrue('config_file' in kwargs)
         self.assertIsInstance(kwargs['config_file'], io.BufferedReader)
         self.assertEqual(kwargs['config_file'].name, 'properdocs.yml')
@@ -395,7 +395,7 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_gh_deploy.call_count, 1)
-        g_args, g_kwargs = mock_gh_deploy.call_args
+        _g_args, g_kwargs = mock_gh_deploy.call_args
         self.assertTrue('message' in g_kwargs)
         self.assertEqual(g_kwargs['message'], None)
         self.assertTrue('force' in g_kwargs)
@@ -403,7 +403,7 @@ class CLITests(unittest.TestCase):
         self.assertTrue('ignore_version' in g_kwargs)
         self.assertEqual(g_kwargs['ignore_version'], False)
         self.assertEqual(mock_build.call_count, 1)
-        b_args, b_kwargs = mock_build.call_args
+        _b_args, b_kwargs = mock_build.call_args
         self.assertTrue('dirty' in b_kwargs)
         self.assertFalse(b_kwargs['dirty'])
         mock_load_config.assert_called_once_with(
@@ -425,7 +425,7 @@ class CLITests(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_gh_deploy.call_count, 1)
         self.assertEqual(mock_build.call_count, 1)
-        args, kwargs = mock_build.call_args
+        _args, kwargs = mock_build.call_args
         self.assertTrue('dirty' in kwargs)
         self.assertFalse(kwargs['dirty'])
 
@@ -438,7 +438,7 @@ class CLITests(unittest.TestCase):
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_gh_deploy.call_count, 1)
         self.assertEqual(mock_build.call_count, 1)
-        args, kwargs = mock_build.call_args
+        _args, kwargs = mock_build.call_args
         self.assertTrue('dirty' in kwargs)
         self.assertTrue(kwargs['dirty'])
 
@@ -454,7 +454,7 @@ class CLITests(unittest.TestCase):
         self.assertEqual(mock_gh_deploy.call_count, 1)
         self.assertEqual(mock_build.call_count, 1)
         self.assertEqual(mock_load_config.call_count, 1)
-        args, kwargs = mock_load_config.call_args
+        _args, kwargs = mock_load_config.call_args
         self.assertTrue('config_file' in kwargs)
         self.assertIsInstance(kwargs['config_file'], io.BufferedReader)
         self.assertEqual(kwargs['config_file'].name, 'properdocs.yml')
@@ -469,7 +469,7 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_gh_deploy.call_count, 1)
-        g_args, g_kwargs = mock_gh_deploy.call_args
+        _g_args, g_kwargs = mock_gh_deploy.call_args
         self.assertTrue('message' in g_kwargs)
         self.assertEqual(g_kwargs['message'], 'A commit message')
         self.assertEqual(mock_build.call_count, 1)
@@ -525,7 +525,7 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_gh_deploy.call_count, 1)
-        g_args, g_kwargs = mock_gh_deploy.call_args
+        _g_args, g_kwargs = mock_gh_deploy.call_args
         self.assertTrue('force' in g_kwargs)
         self.assertEqual(g_kwargs['force'], True)
         self.assertEqual(mock_build.call_count, 1)
@@ -541,7 +541,7 @@ class CLITests(unittest.TestCase):
 
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(mock_gh_deploy.call_count, 1)
-        g_args, g_kwargs = mock_gh_deploy.call_args
+        _g_args, g_kwargs = mock_gh_deploy.call_args
         self.assertTrue('ignore_version' in g_kwargs)
         self.assertEqual(g_kwargs['ignore_version'], True)
         self.assertEqual(mock_build.call_count, 1)

@@ -372,7 +372,7 @@ class SearchIndexTests(unittest.TestCase):
         full_content = ''.join(f"Heading{i}Content{i}" for i in range(1, 4))
 
         plugin = search.SearchPlugin()
-        errors, warnings = plugin.load_config({})
+        _errors, _warnings = plugin.load_config({})
 
         for page in pages:
             # Fake page.read_source() and page.render()

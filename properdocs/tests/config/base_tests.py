@@ -17,7 +17,7 @@ class ConfigBaseTests(unittest.TestCase):
             }
         )
 
-        failed, warnings = conf.validate()
+        _failed, warnings = conf.validate()
 
         self.assertEqual(
             warnings,

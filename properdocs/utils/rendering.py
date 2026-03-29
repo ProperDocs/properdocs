@@ -38,8 +38,7 @@ def _strip_tags(text: str) -> str:
         text = text[:start] + text[end + 1 :]
 
     # Collapse whitespace
-    text = ' '.join(text.split())
-    return text
+    return ' '.join(text.split())
 
 
 def _render_inner_html(el: etree.Element, md: markdown.Markdown) -> str:

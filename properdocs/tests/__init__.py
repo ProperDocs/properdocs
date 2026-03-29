@@ -13,4 +13,4 @@ class DisallowLogsHandler(logging.Handler):
         raise AssertionError(f'Unexpected log: {self.format(record)!r}')
 
 
-logging.lastResort = DisallowLogsHandler()  # type: ignore
+logging.lastResort = DisallowLogsHandler()

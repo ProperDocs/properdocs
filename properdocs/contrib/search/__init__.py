@@ -30,6 +30,7 @@ class LangOption(c.OptionallyRequired[list[str]]):
             lang_part = fallback.get(lang_part, lang_part)
             if os.path.isfile(os.path.join(base_path, 'lunr-language', f'lunr.{lang_part}.js')):
                 return lang_part
+        return None
 
     def run_validation(self, value: object):
         if isinstance(value, str):
@@ -70,7 +71,7 @@ class SearchPlugin(BasePlugin[_PluginConfig]):
             path = os.path.join(base_path, 'templates')
             config.theme.dirs.append(path)
             if 'search/main.js' not in config.extra_javascript:
-                config.extra_javascript.append('search/main.js')  # type: ignore
+                config.extra_javascript.append('search/main.js')
         if self.config.lang is None:
             # lang setting undefined. Set default based on theme locale
             validate = _PluginConfig.lang.run_validation

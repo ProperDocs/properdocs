@@ -7,6 +7,7 @@ import sys
 import textwrap
 import traceback
 import warnings
+from typing import ClassVar
 
 import click
 
@@ -39,7 +40,7 @@ def _showwarning(message, category, filename, lineno, file=None, line=None):
         stack = [frame for frame in traceback.extract_stack() if frame.line][-4:-2]
         # Make sure the actual affected file's name is still present (the case of syntax warning):
         if not any(frame.filename == filename for frame in stack):
-            stack = stack[-1:] + [traceback.FrameSummary(filename, lineno, '')]
+            stack = [*stack[-1:], traceback.FrameSummary(filename, lineno, '')]
 
         tb = ''.join(traceback.format_list(stack))
     except Exception:
@@ -62,7 +63,7 @@ def _enable_warnings():
 
 
 class ColorFormatter(logging.Formatter):
-    colors = {
+    colors: ClassVar = {
         'CRITICAL': 'red',
         'ERROR': 'red',
         'WARNING': 'yellow',

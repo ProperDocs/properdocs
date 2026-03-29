@@ -10,7 +10,7 @@ from urllib.parse import unquote as urlunquote
 from urllib.parse import urljoin, urlsplit, urlunsplit
 
 import markdown
-import markdown.htmlparser  # type: ignore
+import markdown.htmlparser
 import markdown.treeprocessors
 from markdown.util import AMP_SUBSTITUTE
 
@@ -55,7 +55,7 @@ class Page(StructureItem):
         self.markdown = None
         self._title_from_render: str | None = None
         self.content = None
-        self.toc = []  # type: ignore
+        self.toc = []  # type: ignore[assignment]
         self.meta = {}
 
     def __eq__(self, other) -> bool:

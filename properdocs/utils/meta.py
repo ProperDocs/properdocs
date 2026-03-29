@@ -40,10 +40,11 @@ from typing import Any
 
 import yaml
 
+SafeLoader: type[yaml.SafeLoader | yaml.CSafeLoader]
 try:
     from yaml import CSafeLoader as SafeLoader
 except ImportError:  # pragma: no cover
-    from yaml import SafeLoader  # type: ignore
+    from yaml import SafeLoader
 
 #####################################################################
 # Data Parser                                                       #

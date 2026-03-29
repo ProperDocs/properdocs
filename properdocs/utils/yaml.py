@@ -8,7 +8,7 @@ from collections.abc import Mapping
 from typing import IO, TYPE_CHECKING, Any
 
 import yaml
-import yaml_env_tag  # type: ignore
+import yaml_env_tag  # type: ignore[import-untyped]
 
 from properdocs import exceptions
 
@@ -131,7 +131,7 @@ def yaml_load(
     if loader is None:
         loader = get_yaml_loader()
     try:
-        result = yaml.load(source, Loader=loader)
+        result = yaml.load(source, Loader=loader)  # noqa: S506
     except yaml.YAMLError as e:
         raise exceptions.ConfigurationError(
             f"ProperDocs encountered an error parsing the configuration file: {e}"

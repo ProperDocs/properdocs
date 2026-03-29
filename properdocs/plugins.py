@@ -8,9 +8,6 @@ from collections.abc import Callable, MutableMapping
 from importlib.metadata import EntryPoint, entry_points
 from typing import TYPE_CHECKING, Any, Concatenate, Generic, Literal, TypeVar, overload
 
-if TYPE_CHECKING:
-    import jinja2
-
 from properdocs import utils
 from properdocs.config.base import (
     Config,
@@ -21,6 +18,8 @@ from properdocs.config.base import (
 )
 
 if TYPE_CHECKING:
+    import jinja2
+
     from properdocs.config.defaults import ProperDocsConfig
     from properdocs.livereload import LiveReloadServer
     from properdocs.structure.files import Files
@@ -68,7 +67,7 @@ class BasePlugin(Generic[SomeConfig]):
 
     config_class: type[SomeConfig] = LegacyConfig  # type: ignore[assignment]
     config_scheme: PlainConfigSchema = ()
-    config: SomeConfig = {}  # type: ignore[assignment]
+    config: SomeConfig = {}  # type: ignore[assignment]  # noqa: RUF012
 
     supports_multiple_instances: bool = False
     """Set to true in subclasses to declare support for adding the same plugin multiple times."""
@@ -91,7 +90,7 @@ class BasePlugin(Generic[SomeConfig]):
     ) -> tuple[ConfigErrors, ConfigWarnings]:
         """Load config from a dict of options. Returns a tuple of (errors, warnings)."""
         if self.config_class is LegacyConfig:
-            self.config = LegacyConfig(self.config_scheme, config_file_path=config_file_path)  # type: ignore
+            self.config = LegacyConfig(self.config_scheme, config_file_path=config_file_path)  # type: ignore[assignment]
         else:
             self.config = self.config_class(config_file_path=config_file_path)
 

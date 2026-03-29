@@ -136,7 +136,7 @@ class Config(UserDict):
                     "All values are required, or can be wrapped into config_options.Optional"
                 )
 
-    def __new__(cls, *args, **kwargs) -> Config:
+    def __new__(cls, *args, **kwargs) -> Config:  # noqa: PYI034
         """Compatibility: allow referring to `LegacyConfig(...)` constructor as `Config(...)`."""
         if cls is Config:
             return LegacyConfig(*args, **kwargs)

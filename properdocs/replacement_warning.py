@@ -41,7 +41,7 @@ For more info visit https://github.com/ProperDocs/properdocs/discussions/33 and 
 
 
 def setup():
-    global _warning_message
+    global _warning_message  # noqa: PLW0603
     if not _warning_message:
         return
 

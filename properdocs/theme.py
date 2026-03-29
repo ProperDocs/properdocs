@@ -9,14 +9,16 @@ from typing import Any
 import jinja2
 import yaml
 
-try:
-    from yaml import CSafeLoader as SafeLoader
-except ImportError:  # pragma: no cover
-    from yaml import SafeLoader  # type: ignore
-
 from properdocs import localization, utils
 from properdocs.config.base import ValidationError
 from properdocs.utils import templates
+
+SafeLoader: type[yaml.SafeLoader | yaml.CSafeLoader]
+try:
+    from yaml import CSafeLoader as SafeLoader
+except ImportError:  # pragma: no cover
+    from yaml import SafeLoader
+
 
 log = logging.getLogger(__name__)
 
@@ -44,8 +46,8 @@ class Theme(MutableMapping[str, Any]):
     ) -> None:
         self.name = name
         self._custom_dir = custom_dir
-        _vars: dict[str, Any] = {'name': name, 'locale': 'en'}
-        self.__vars = _vars
+        vars_: dict[str, Any] = {'name': name, 'locale': 'en'}
+        self.__vars = vars_
 
         # ProperDocs provided static templates are always included
         package_dir = os.path.abspath(os.path.dirname(__file__))
@@ -66,12 +68,12 @@ class Theme(MutableMapping[str, Any]):
 
         # Handle remaining user configs. Override theme configs (if set)
         self.static_templates.update(static_templates)
-        _vars.update(user_config)
+        vars_.update(user_config)
 
         # Validate locale and convert to Locale object
         if locale is None:
-            locale = _vars['locale']
-        _vars['locale'] = localization.parse_locale(locale)
+            locale = vars_['locale']
+        vars_['locale'] = localization.parse_locale(locale)
 
     name: str | None
 

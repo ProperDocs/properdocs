@@ -9,9 +9,9 @@ if TYPE_CHECKING:
 from markupsafe import Markup
 
 try:
-    from jinja2 import pass_context as contextfilter  # type: ignore
+    from jinja2 import pass_context as contextfilter
 except ImportError:
-    from jinja2 import contextfilter  # type: ignore
+    from jinja2 import contextfilter  # type: ignore  # noqa: PGH003
 
 from properdocs.utils import normalize_url
 
@@ -54,4 +54,4 @@ def script_tag_filter(context: TemplateContext, extra_script: ExtraScriptValue) 
         if extra_script.async_:
             html += ' async'
     html += '></script>'
-    return Markup(html).format(url_filter(context, str(extra_script)), extra_script)
+    return Markup(html).format(url_filter(context, str(extra_script)), extra_script)  # noqa: S704

@@ -64,6 +64,7 @@ class LocalizationTests(unittest.TestCase):
                 return theme_dir_translations
             else:
                 self.fail()
+            return None
 
         with mock.patch('properdocs.localization.Translations.load', side_effect=side_effet):
             install_translations(self.env, parse_locale('en'), [custom_dir, theme_dir])

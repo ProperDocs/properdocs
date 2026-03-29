@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 
-from ghp_import import GhpError  # type: ignore
+from ghp_import import GhpError  # type: ignore[import-untyped]
 
 from properdocs import __version__
 from properdocs.commands import gh_deploy
@@ -142,8 +142,10 @@ class TestGitHubDeploy(unittest.TestCase):
         self.assertEqual(
             cm.output,
             [
-                'ERROR:properdocs.commands.gh_deploy:Failed to deploy to GitHub with error: \n'
-                'TestError123'
+                (
+                    'ERROR:properdocs.commands.gh_deploy:Failed to deploy to GitHub with error: \n'
+                    'TestError123'
+                )
             ],
         )
 

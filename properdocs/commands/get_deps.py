@@ -27,7 +27,7 @@ except ImportError:
 log = logging.getLogger(__name__)
 
 
-class YamlLoaderWithSuppressions(SafeLoader):  # type: ignore
+class YamlLoaderWithSuppressions(SafeLoader):  # type: ignore  # noqa: PGH003
     pass
 
 

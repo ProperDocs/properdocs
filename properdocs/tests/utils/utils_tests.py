@@ -1,6 +1,7 @@
 import dataclasses
 import datetime
 import logging
+import operator
 import os
 import posixpath
 import stat
@@ -198,7 +199,7 @@ class UtilsTests(unittest.TestCase):
 
     def test_insort_key(self):
         a = [(1, 'a'), (1, 'b'), (2, 'c')]
-        utils.insort(a, (1, 'a'), key=lambda v: v[0])
+        utils.insort(a, (1, 'a'), key=operator.itemgetter(0))
         self.assertEqual(a, [(1, 'a'), (1, 'b'), (1, 'a'), (2, 'c')])
 
     def test_nest_paths(self, j=posixpath.join):

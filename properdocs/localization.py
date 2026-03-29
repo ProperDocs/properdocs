@@ -18,7 +18,7 @@ try:
 
     has_babel = True
 except ImportError:  # pragma: no cover
-    from properdocs.utils.babel_stub import Locale, UnknownLocaleError  # type: ignore
+    from properdocs.utils.babel_stub import Locale, UnknownLocaleError  # type: ignore[assignment]
 
     has_babel = False
 

@@ -94,7 +94,7 @@ class SubConfig(Generic[SomeConfig], BaseConfigOption[SomeConfig]):
     def run_validation(self, value: object) -> SomeConfig:
         config = self.config_class(config_file_path=self._config_file_path)
         try:
-            config.load_dict(value)  # type: ignore
+            config.load_dict(value)  # type: ignore[arg-type]
             failed, warnings = config.validate()
         except ConfigurationError as e:
             raise ValidationError(str(e))
@@ -359,7 +359,7 @@ class Choice(Generic[T], OptionallyRequired[T]):
     def run_validation(self, value: object) -> T:
         if value not in self.choices:
             raise ValidationError(f"Expected one of: {self.choices} but received: {value!r}")
-        return value  # type: ignore
+        return value  # type: ignore[return-value]
 
 
 class Deprecated(BaseConfigOption):
@@ -536,7 +536,7 @@ class Optional(Generic[T], BaseConfigOption[T | None]):
         return self.option.validate(value)
 
     def post_validation(self, config: Config, key_name: str):
-        result = self.option.post_validation(config, key_name)  # type: ignore
+        result = self.option.post_validation(config, key_name)  # type: ignore[func-returns-value]
         self.warnings = self.option.warnings
         return result
 

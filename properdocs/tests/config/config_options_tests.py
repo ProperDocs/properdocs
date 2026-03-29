@@ -12,14 +12,6 @@ import unittest
 from typing import TYPE_CHECKING, Any, TypeVar
 from unittest import mock
 
-if TYPE_CHECKING:
-    from typing_extensions import assert_type
-else:
-
-    def assert_type(val, typ):
-        return None
-
-
 import properdocs
 from properdocs.config import config_options as c
 from properdocs.config import defaults
@@ -28,6 +20,14 @@ from properdocs.plugins import BasePlugin, PluginCollection
 from properdocs.tests.base import tempdir
 from properdocs.theme import Theme
 from properdocs.utils import write_file, yaml_load
+
+if TYPE_CHECKING:
+    from typing_extensions import assert_type
+else:
+
+    def assert_type(val, typ):
+        return None
+
 
 SomeConfig = TypeVar('SomeConfig', bound=Config)
 

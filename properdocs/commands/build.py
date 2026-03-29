@@ -87,9 +87,7 @@ def _build_template(
     output = template.render(context)
 
     # Run `post_template` plugin events.
-    output = config.plugins.on_post_template(output, template_name=name, config=config)
-
-    return output
+    return config.plugins.on_post_template(output, template_name=name, config=config)
 
 
 def _build_theme_template(
@@ -321,8 +319,8 @@ def build(config: ProperDocsConfig, *, serve_url: str | None = None, dirty: bool
         if excluded:
             log.info(
                 "The following pages are being built only for the preview "
-                "but will be excluded from `properdocs build` per `draft_docs` config:\n  - "
-                + "\n  - ".join(excluded)
+                "but will be excluded from `properdocs build` per `draft_docs` config:\n  - %s",
+                "\n  - ".join(excluded),
             )
 
         # Run `env` plugin events.

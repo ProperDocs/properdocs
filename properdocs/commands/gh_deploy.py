@@ -6,7 +6,7 @@ import re
 import subprocess
 from typing import TYPE_CHECKING
 
-import ghp_import  # type: ignore
+import ghp_import  # type: ignore[import-untyped]
 from packaging import version
 
 import properdocs
@@ -43,8 +43,7 @@ def _get_current_sha(repo_path) -> str:
     )
 
     stdout, _ = proc.communicate()
-    sha = stdout.decode('utf-8').strip()
-    return sha
+    return stdout.decode('utf-8').strip()
 
 
 def _get_remote_url(remote_name: str) -> tuple[str, str] | tuple[None, None]:
@@ -78,7 +77,9 @@ def _check_version(branch: str) -> None:
 
     stdout, _ = proc.communicate()
     msg = stdout.decode('utf-8').strip()
-    m = re.search(r'\d+(\.\d+)+((a|b|rc)\d+)?(\.post\d+)?(\.dev\d+)?', msg, re.X | re.I)
+    m = re.search(
+        r'\d+(\.\d+)+((a|b|rc)\d+)?(\.post\d+)?(\.dev\d+)?', msg, re.VERBOSE | re.IGNORECASE
+    )
     previousv = version.parse(m.group()) if m else None
     currentv = version.parse(properdocs.__version__)
     if not previousv:
@@ -163,7 +164,6 @@ def gh_deploy(
         log.info('Your documentation should be available shortly.')
     else:
         username, repo = path.split('/', 1)
-        if repo.endswith('.git'):
-            repo = repo[: -len('.git')]
+        repo = repo.removesuffix('.git')
         url = f'https://{username}.github.io/{repo}/'
         log.info(f"Your documentation should shortly be available at: {url}")

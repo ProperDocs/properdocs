@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from properdocs.structure.toc import AnchorLink, TableOfContents
 
 try:
-    from lunr import lunr  # type: ignore
+    from lunr import lunr  # type: ignore[import-not-found]
 
     haslunrpy = True
 except ImportError:

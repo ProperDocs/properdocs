@@ -861,9 +861,7 @@ class BuildTests(PathAssertionMixin, unittest.TestCase):
                     )
 
                     summary_path = Path(site_dir, 'SUMMARY.html')
-                    if exclude == 'full':
-                        self.assertPathNotExists(summary_path)
-                    elif exclude == 'drafts' and not serve_url:
+                    if exclude == 'full' or (exclude == 'drafts' and not serve_url):
                         self.assertPathNotExists(summary_path)
                     else:
                         self.assertPathExists(summary_path)
@@ -957,4 +955,4 @@ class _TestExtension(markdown.extensions.Extension):
         md.preprocessors.register(_TestPreprocessor(self.base_path), "properdocs_test", priority=32)
 
 
-makeExtension = _TestExtension
+makeExtension = _TestExtension  # noqa: N816
