@@ -254,6 +254,6 @@ def _add_parent_links(nav) -> None:
 
 def _add_previous_and_next_links(pages: list[Page]) -> None:
     bookended = [None, *pages, None]
-    zipped = zip(bookended[:-2], pages, bookended[2:])
+    zipped = zip(bookended[:-2], pages, bookended[2:], strict=True)
     for page0, page1, page2 in zipped:
         page1.previous_page, page1.next_page = page0, page2

@@ -171,7 +171,7 @@ def get_relative_url(url: str, other: str) -> str:
     other_parts = _norm_parts(other)
     dest_parts = _norm_parts(url)
     common = 0
-    for a, b in zip(other_parts, dest_parts):
+    for a, b in zip(other_parts, dest_parts, strict=False):
         if a != b:
             break
         common += 1

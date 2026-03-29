@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import functools
 import logging
 import os
@@ -7,7 +8,6 @@ import sys
 import warnings
 from collections import UserDict
 from collections.abc import Iterator, Mapping, Sequence
-from contextlib import contextmanager
 from typing import IO, TYPE_CHECKING, Any, Generic, TypeVar, overload
 
 from properdocs import exceptions, utils
@@ -273,7 +273,7 @@ class LegacyConfig(Config):
         super().__init__(config_file_path)
 
 
-@contextmanager
+@contextlib.contextmanager
 def _open_config_file(config_file: str | IO | None) -> Iterator[IO]:
     """
     A context manager which yields an open file descriptor ready to be read.
@@ -314,10 +314,8 @@ def _open_config_file(config_file: str | IO | None) -> Iterator[IO]:
     else:
         log.debug(f"Loading configuration file: {result_config_file}")
         # Ensure file descriptor is at beginning
-        try:
+        with contextlib.suppress(OSError):
             result_config_file.seek(0)
-        except OSError:
-            pass
 
     try:
         yield result_config_file

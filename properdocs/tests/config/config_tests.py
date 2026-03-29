@@ -233,7 +233,7 @@ class ConfigTests(unittest.TestCase):
             },
         )
 
-        for config_contents, result in zip(configs, results):
+        for config_contents, result in zip(configs, results, strict=True):
             with self.subTest(config_contents):
                 conf = config.Config(schema=(('theme', c.Theme(default='mkdocs')),))
                 conf.load_dict(config_contents)

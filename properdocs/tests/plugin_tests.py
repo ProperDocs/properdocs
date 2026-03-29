@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 import unittest
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing_extensions import assert_type
@@ -76,7 +76,7 @@ class TestPluginClass(unittest.TestCase):
 
         assert_type(plugin.config.bar, int)
         self.assertEqual(plugin.config.bar, 0)
-        assert_type(plugin.config.dir, Optional[str])
+        assert_type(plugin.config.dir, str | None)
 
     def test_invalid_plugin_options(self):
         plugin = DummyPlugin()

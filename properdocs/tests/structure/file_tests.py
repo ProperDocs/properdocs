@@ -739,9 +739,9 @@ class TestFiles(PathAssertionMixin, unittest.TestCase):
         ]
         files = Files(fs)
         self.assertEqual(len(files), 2)
-        self.assertEqual(list(files)[0].src_uri, 'a.md')
+        self.assertEqual(next(iter(files)).src_uri, 'a.md')
         with self.assertWarns(DeprecationWarning):
             files.append(fs[0])
         self.assertEqual(len(files), 2)
-        self.assertEqual(list(files)[0].src_uri, 'b.jpg')
+        self.assertEqual(next(iter(files)).src_uri, 'b.jpg')
         self.assertEqual(list(files)[1].src_uri, 'a.md')

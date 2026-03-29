@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import functools
 import io
 import ipaddress
@@ -375,8 +376,6 @@ def _timestamp() -> int:
 def _try_relativize_path(path: str) -> str:
     """Make the path relative to current directory if it's under that directory."""
     p = pathlib.Path(path)
-    try:
+    with contextlib.suppress(ValueError):
         p = p.relative_to(os.getcwd())
-    except ValueError:
-        pass
     return str(p)

@@ -23,7 +23,7 @@ class SiteNavigationTests(unittest.TestCase):
         )
         cfg = load_config(nav=nav_cfg, site_url='http://example.com/')
         fs = [
-            File(list(item.values())[0], cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
+            File(next(iter(item.values())), cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
             for item in nav_cfg
         ]
         files = Files(fs)
@@ -46,7 +46,7 @@ class SiteNavigationTests(unittest.TestCase):
         )
         cfg = load_config(nav=nav_cfg, use_directory_urls=False, site_url='http://example.com/')
         fs = [
-            File(list(item.values())[0], cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
+            File(next(iter(item.values())), cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
             for item in nav_cfg
         ]
         files = Files(fs)
@@ -308,7 +308,7 @@ class SiteNavigationTests(unittest.TestCase):
         )
         cfg = load_config(nav=nav_cfg, site_url='http://example.com/')
         fs = [
-            File(list(item.values())[0], cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
+            File(next(iter(item.values())), cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
             for item in nav_cfg
         ]
         files = Files(fs)
@@ -459,7 +459,7 @@ class SiteNavigationTests(unittest.TestCase):
         )
         cfg = load_config(nav=nav_cfg, site_url='http://example.com/')
         fs = [
-            File(list(item.values())[0], cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
+            File(next(iter(item.values())), cfg.docs_dir, cfg.site_dir, cfg.use_directory_urls)
             for item in nav_cfg
         ]
         files = Files(fs)

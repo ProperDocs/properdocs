@@ -9,7 +9,7 @@ import re
 import sys
 import textwrap
 import unittest
-from typing import TYPE_CHECKING, Any, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Any, TypeVar
 from unittest import mock
 
 if TYPE_CHECKING:
@@ -119,7 +119,7 @@ class ChoiceTest(TestCase):
             option = c.Optional(c.Choice(('python', 'node')))
 
         conf = self.get_config(Schema, {'option': 'python'})
-        assert_type(conf.option, Optional[str])
+        assert_type(conf.option, str | None)
         self.assertEqual(conf.option, 'python')
 
         conf = self.get_config(Schema, {})
@@ -468,7 +468,7 @@ class EditURITest(TestCase):
             self.Schema,
             {'repo_url': "https://github.com/properdocs/properdocs"},
         )
-        assert_type(conf.repo_name, Optional[str])
+        assert_type(conf.repo_name, str | None)
         self.assertEqual(conf.repo_name, "GitHub")
 
     def test_repo_name_bitbucket(self) -> None:
@@ -497,8 +497,8 @@ class EditURITest(TestCase):
             self.Schema,
             {'repo_url': "https://github.com/properdocs/properdocs"},
         )
-        assert_type(conf.edit_uri, Optional[str])
-        assert_type(conf.repo_url, Optional[str])
+        assert_type(conf.edit_uri, str | None)
+        assert_type(conf.repo_url, str | None)
         self.assertEqual(conf.edit_uri, 'edit/master/docs/')
         self.assertEqual(conf.repo_url, "https://github.com/properdocs/properdocs")
 
@@ -540,7 +540,7 @@ class EditURITest(TestCase):
                 'edit_uri_template': 'edit/foo/docs/{path}',
             },
         )
-        assert_type(conf.edit_uri_template, Optional[str])
+        assert_type(conf.edit_uri_template, str | None)
         self.assertEqual(conf.edit_uri_template, 'edit/foo/docs/{path}')
 
     def test_edit_uri_template_errors(self) -> None:
@@ -643,7 +643,7 @@ class ListOfItemsTest(TestCase):
             option = c.Optional(c.ListOfItems(c.Type(str)))
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, Optional[list[str]])
+        assert_type(conf.option, list[str] | None)
         self.assertEqual(conf.option, None)
 
         conf = self.get_config(Schema, {'option': None})
@@ -657,7 +657,7 @@ class ListOfItemsTest(TestCase):
             option = c.ListOfItems(c.Optional(c.Type(int)), default=[])
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, list[Optional[int]])
+        assert_type(conf.option, list[int | None])
         self.assertEqual(conf.option, [])
 
         conf = self.get_config(Schema, {'option': [4, None]})
@@ -701,7 +701,7 @@ class ExtraScriptsTest(TestCase):
             option = c.ListOfItems(c.ExtraScript(), default=[])
 
         conf = self.get_config(Schema, {'option': ['foo.js', {'path': 'bar.js', 'async': True}]})
-        assert_type(conf.option, list[Union[c.ExtraScriptValue, str]])
+        assert_type(conf.option, list[c.ExtraScriptValue | str])
         self.assertEqual(len(conf.option), 2)
         self.assertIsInstance(conf.option[1], c.ExtraScriptValue)
         self.assertEqual(
@@ -719,7 +719,7 @@ class ExtraScriptsTest(TestCase):
         conf = self.get_config(
             Schema, {'option': ['foo.mjs', {'path': 'bar.js', 'type': 'module'}]}
         )
-        assert_type(conf.option, list[Union[c.ExtraScriptValue, str]])
+        assert_type(conf.option, list[c.ExtraScriptValue | str])
         self.assertEqual(len(conf.option), 2)
         self.assertIsInstance(conf.option[0], c.ExtraScriptValue)
         self.assertEqual(
@@ -809,7 +809,7 @@ class DictOfItemsTest(TestCase):
             option = c.Optional(c.DictOfItems(c.Type(str)))
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, Optional[dict[str, str]])
+        assert_type(conf.option, dict[str, str] | None)
         self.assertEqual(conf.option, None)
 
         conf = self.get_config(Schema, {'option': None})
@@ -823,7 +823,7 @@ class DictOfItemsTest(TestCase):
             option = c.DictOfItems(c.Optional(c.Type(int)), default={})
 
         conf = self.get_config(Schema, {})
-        assert_type(conf.option, dict[str, Optional[int]])
+        assert_type(conf.option, dict[str, int | None])
         self.assertEqual(conf.option, {})
 
         conf = self.get_config(Schema, {'option': {"a": 1, "b": None}})
@@ -1132,7 +1132,7 @@ class ThemeTest(TestCase):
 
         conf = self.get_config(Schema, {'option': "mkdocs"})
         assert_type(conf.option, Theme)
-        assert_type(conf.option.name, Optional[str])
+        assert_type(conf.option.name, str | None)
         self.assertEqual(conf.option.name, 'mkdocs')
 
     def test_uninstalled_theme_as_string(self) -> None:
@@ -1488,10 +1488,10 @@ class SubConfigTest(TestCase):
         self.assertEqual(conf.sub, None)
 
         conf = self.get_config(Schema, {'sub': [{'opt': 1}, {}]})
-        assert_type(conf.sub, Optional[list[Sub]])
+        assert_type(conf.sub, list[Sub] | None)
         self.assertEqual(conf.sub, [{'opt': 1}, {'opt': None}])
         assert conf.sub is not None
-        assert_type(conf.sub[0].opt, Optional[int])
+        assert_type(conf.sub[0].opt, int | None)
         self.assertEqual(conf.sub[0].opt, 1)
 
         conf = self.get_config(Schema, {'sub': []})
@@ -2419,7 +2419,7 @@ class SchemaTest(TestCase):
         conf = self.get_config(B, {'foo': 1, 'baz': ['b']})
         assert_type(conf.foo, int)
         self.assertEqual(conf.foo, 1)
-        assert_type(conf.bar, Optional[str])
+        assert_type(conf.bar, str | None)
         self.assertEqual(conf.bar, None)
         assert_type(conf.baz, list[str])
         self.assertEqual(conf.baz, ['b'])

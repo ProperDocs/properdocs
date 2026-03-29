@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import contextlib
 import enum
 import fnmatch
 import logging
@@ -482,10 +483,9 @@ class File:
         content = self._content
         if content is None:
             assert self.abs_src_path is not None
-            try:
+            # Suppress errors to let plugins write directly into site_dir.
+            with contextlib.suppress(shutil.SameFileError):
                 utils.copy_file(self.abs_src_path, output_path)
-            except shutil.SameFileError:
-                pass  # Let plugins write directly into site_dir.
         elif isinstance(content, str):
             with open(output_path, 'w', encoding='utf-8') as output_file:
                 output_file.write(content)
@@ -576,15 +576,12 @@ def get_files(config: ProperDocsConfig) -> Files:
                 log.warning(
                     f"Excluding '{a.src_uri}' from the site because it conflicts with '{b.src_uri}'."
                 )
-            try:
+            # Suppressing this to avoid errors if attempting to remove the same file twice.
+            with contextlib.suppress(ValueError):
                 files.remove(a)
-            except ValueError:
-                pass  # Catching this to avoid errors if attempting to remove the same file twice.
         else:
-            try:
+            with contextlib.suppress(ValueError):
                 files.remove(b)
-            except ValueError:
-                pass
 
     return Files(files)
 

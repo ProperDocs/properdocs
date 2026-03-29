@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from properdocs.structure.nav import Section
 
 
-class StructureItem(metaclass=abc.ABCMeta):
+class StructureItem(abc.ABC):
     """An item in ProperDocs structure - see concrete subclasses Section, Page or Link."""
 
     @abc.abstractmethod

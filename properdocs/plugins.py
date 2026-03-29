@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import logging
 from collections.abc import Callable, MutableMapping
 from importlib.metadata import EntryPoint, entry_points
@@ -527,10 +528,9 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
                 )
             utils.insort(events, method, key=lambda m: -getattr(m, 'mkdocs_priority', 0))
             if plugin_name:
-                try:
+                # Suppress in case the method is somehow not hashable.
+                with contextlib.suppress(TypeError):
                     self._event_origins[method] = plugin_name
-                except TypeError:  # If the method is somehow not hashable.
-                    pass
 
     def __getitem__(self, key: str) -> BasePlugin:
         return super().__getitem__(key)
