@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import gc
 import io
 import logging
 import unittest
@@ -13,6 +14,12 @@ from properdocs import __main__ as cli
 class CLITests(unittest.TestCase):
     def setUp(self):
         self.runner = CliRunner()
+
+    def tearDown(self):
+        super().tearDown()
+        # Cleanup of CliRunner, if done non-deterministically, can mess up tests that follow after.
+        del self.runner
+        gc.collect()
 
     @mock.patch('properdocs.commands.serve.serve', autospec=True)
     def test_serve_default(self, mock_serve):
