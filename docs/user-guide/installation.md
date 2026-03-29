@@ -67,41 +67,22 @@ properdocs, version 1.2.0 from /usr/local/lib/python3.8/site-packages/properdocs
 ```
 
 > NOTE:
-> If you would like manpages installed for ProperDocs, the [click-man] tool can
-> generate and install them for you. Simply run the following two commands:
->
-> ```bash
-> pip install click-man
-> click-man --target path/to/man/pages properdocs
-> ```
->
-> See the [click-man documentation] for an explanation of why manpages are
-> not automatically generated and installed by pip.
-<!-- -->
-> NOTE:
 > If you are using Windows, some of the above commands may not work
 > out-of-the-box.
 >
-> A quick solution may be to preface every Python command with `python -m`
+> A quick solution may be to preface every Python command with `py -m`
 > like this:
 >
 > ```bash
-> python -m pip install properdocs
-> python -m properdocs
+> py -m pip install properdocs
+> py -m properdocs
 > ```
 >
 > For a more permanent solution, you may need to edit your `PATH` environment
 > variable to include the `Scripts` directory of your Python installation.
-> Recent versions of Python include a script to do this for you. Navigate to
-> your Python installation directory (for example `C:\Python38\`), open the
-> `Tools`, then `Scripts` folder, and run the `win_add2path.py` file by double
-> clicking on it. Alternatively, you can download the [script][a2p] and run it
-> (`python win_add2path.py`).
+> Recent versions of Python include a script to do this for you.
 
 [Python]: https://www.python.org/
 [python.org]: https://www.python.org/downloads/
 [pip]: https://pip.readthedocs.io/en/stable/installing/
 [get-pip.py]: https://bootstrap.pypa.io/get-pip.py
-[click-man]: https://github.com/click-contrib/click-man
-[click-man documentation]: https://github.com/click-contrib/click-man#automatic-man-page-installation-with-setuptools-and-pip
-[a2p]: https://github.com/python/cpython/blob/master/Tools/scripts/win_add2path.py

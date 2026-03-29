@@ -6,10 +6,10 @@ An introductory tutorial!
 
 ## Installation
 
-To install ProperDocs, run the following command from the command line:
+To install ProperDocs and a basic theme for it, run the following command from the command line:
 
 ```bash
-pip install properdocs
+pip install properdocs properdocs-theme-mkdocs
 ```
 
 For more details, see the [Installation Guide].

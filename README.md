@@ -1,85 +1,50 @@
 # ProperDocs
 
-[![PyPI Version][pypi-v-image]][pypi-v-link]
-[![Build Status][GHAction-image]][GHAction-link]
+[![PyPI Version](https://img.shields.io/pypi/v/properdocs.svg)](https://pypi.org/project/properdocs/)
+[![Build Status](https://github.com/properdocs/properdocs/actions/workflows/ci.yml/badge.svg)](https://github.com/properdocs/properdocs/actions/workflows/ci.yml)
 
-ProperDocs is a static site generator intended for project documentation. Source files are written in Markdown and converted to static HTML during the build process.
+## Background
 
-Project configuration is defined in a YAML configuration file (`properdocs.yml`). This file specifies the documentation structure, theme configuration, and optional plugin settings.
+ProperDocs is a fork of [MkDocs](https://github.com/mkdocs/mkdocs/), aiming to be a complete drop-in replacement for it. We do not intend to make any breaking changes, but rather focus on bug fixes and incremental features. The fork was necessary because development of the original MkDocs project was abandoned.
 
-ProperDocs supports extension through plugins, themes and Markdown extensions.
+[**Please see our statement about forking MkDocs and how to migrate to ProperDocs**](https://github.com/orgs/ProperDocs/discussions/33).
 
-For usage instructions and examples, see the Documentation.
+New users can get started using the [**documentation**](https://properdocs.org).
 
----
+## Description
 
-## Features
+ProperDocs is a static site generator intended for project documentation. Source files are written in Markdown and converted to static HTML during the build process. This can then be deployed to any basic webserver (most commonly, [GitHub Pages](pages.github.com)).
 
-Current functionality includes:
+Project configuration is defined in a YAML configuration file ([`properdocs.yml`](https://properdocs.org/user-guide/configuration/)). This file specifies the documentation structure, theme configuration, and optional plugin settings.
 
-- Conversion of Markdown source files into static HTML pages
-- YAML-based configuration
-- Plugin system for extending functionality
-- Support for Markdown extensions
-- Support for third-party themes
-- Static output suitable for deployment on standard web servers
+ProperDocs is extensible through plugins, themes and Python-Markdown extensions. You can browse them in our [**catalog**](https://github.com/ProperDocs/catalog).
 
-Additional functionality is available through plugins.
+[Our own **documentation**](https://properdocs.org/) uses ProperDocs. Examples and instructions on how to get started can be found there.
 
----
+If you're coming from MkDocs, check our [message welcoming MkDocs users](https://github.com/orgs/ProperDocs/discussions/33).
 
-## Support
+## Support and discussions
 
-If you encounter problems while using ProperDocs, the following resources are available:
+If you need help, do not hesitate to get in contact with the community!
 
--   For questions and high-level discussions, use **[Discussions]** on GitHub.
-    - For small questions, a good alternative is the **[Discord server]**.
--   To report a bug or make a feature request, open an **[Issue]** on GitHub.
+*   To report a **bug** or make a **feature request** about **core ProperDocs functionality**, open an [**Issue**](https://github.com/ProperDocs/properdocs/issues/) on GitHub.  
 
-Support is generally limited to **core ProperDocs functionality**. Issues related to third-party themes, plugins or extensions should normally be reported to the maintainers of those projects.
+*   For **questions** and high-level **discussions**, use [**Discussions**](https://github.com/ProperDocs/properdocs/discussions/) on GitHub.
 
-Questions about such components may still be discussed in chat.
+    Note that typically we will not be familiar with *features* of third-party plugins, so questions about them should probably go to their specific repository.  
+    But we definitely want to hear in case there are any compatibility problems versus MkDocs.
 
----
-
-## Links
-
-- [Official Documentation][properdocs]
-- [Latest Release Notes][release-notes]
-- [Catalog of third-party plugins, themes and recipes][catalog]
-
----
+*   For **small questions of any kind**, a good option is the **[Discord server](https://discord.gg/CwYAgEPHZd)**.
 
 ## Contributing
 
-Contributions are welcome.
-
-For development setup, coding guidelines and contribution workflow, see the **[Contributing Guide]**.
-
----
+We welcome contributions from the community.  
+Details are described in the [**Contributing Guide**](https://properdocs.org/about/contributing/) - including the development setup, coding guidelines and contribution workflow.
 
 ## Code of Conduct
 
-All participants in the ProperDocs project are expected to follow the **[PSF Code of Conduct]**.
-
----
+All participants in the ProperDocs project are expected to follow the [**PSF Code of Conduct**](https://www.python.org/psf/conduct/).
 
 ## License
 
 ProperDocs is distributed under the [**BSD-2-Clause license**](LICENSE).
-
-<!-- Badges -->
-[pypi-v-image]: https://img.shields.io/pypi/v/properdocs.svg
-[pypi-v-link]: https://pypi.org/project/properdocs/
-[GHAction-image]: https://github.com/properdocs/properdocs/actions/workflows/ci.yml/badge.svg
-[GHAction-link]: https://github.com/properdocs/properdocs/actions/workflows/ci.yml
-
-<!-- Links -->
-[properdocs]: https://properdocs.org
-[Issue]: https://github.com/properdocs/properdocs/issues
-[Discussions]: https://github.com/properdocs/properdocs/discussions
-[Discord server]: https://discord.gg/CwYAgEPHZd
-[release-notes]: https://properdocs.org/about/release-notes/
-[Contributing Guide]: https://properdocs.org/about/contributing/
-[PSF Code of Conduct]: https://www.python.org/psf/conduct/
-[catalog]: https://github.com/properdocs/catalog
