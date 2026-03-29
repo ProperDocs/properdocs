@@ -6,9 +6,9 @@ The ProperDocs project welcomes contributions from developers and
 users in the open source community. Contributions can be made in a number of
 ways, a few examples are:
 
-- Code patches via pull requests
-- Documentation improvements
-- Bug reports and patch reviews
+* Code patches via pull requests
+* Documentation improvements
+* Bug reports and patch reviews
 
 For information about available communication channels please refer to the
 [README](https://github.com/properdocs/properdocs#readme) file in our
@@ -64,7 +64,7 @@ hatch run all
 
 **This will encompass all of the checks mentioned below.**
 
-All checks need to pass.
+All checks need to pass. If you make a pull request, [GitHub Actions] will also validate that all checks are passing.
 
 ### Running tests
 
@@ -75,13 +75,11 @@ hatch run test:test
 hatch run integration:test
 ```
 
-It will attempt to run the tests against all of the Python versions we
-support. So don't be concerned if you are missing some. The rest
-will be verified by [GitHub Actions] when you submit a pull request.
+It will attempt to run the tests against all of the Python versions we support.
 
 ### Python code style
 
-Python code within ProperDocs' code base is formatted using [Black] and [Isort] and lint-checked using [Ruff], all of which are configured in `pyproject.toml`.
+Python code within ProperDocs' code base is formatted using [Ruff], all of which are configured in [`pyproject.toml`].
 
 You can automatically check and format the code according to these tools with the following command:
 
@@ -89,7 +87,7 @@ You can automatically check and format the code according to these tools with th
 hatch run style:fix
 ```
 
-The code is also type-checked using [mypy] - also configured in `pyproject.toml`, it can be run like this:
+The code is also type-checked using [mypy] - also configured in [`pyproject.toml`], it can be run like this:
 
 ```bash
 hatch run types:check
@@ -111,7 +109,7 @@ After making edits to files under the `docs/` dir, you can preview the site loca
 hatch run docs:serve
 ```
 
-Note that any 'WARNING' should be resolved before submitting a contribution.
+Note that any 'WARNING' should be resolved before submitting a contribution. This is also validated by GitHub Actions.
 
 Documentation files are also checked by markdownlint, so you should run this as well:
 
@@ -119,14 +117,21 @@ Documentation files are also checked by markdownlint, so you should run this as 
 hatch run lint:check
 ```
 
-If you add a new plugin to properdocs.yml, you don't need to add it to any "requirements" file, because that is managed automatically.
+If you add a new plugin to properdocs.yml, you don't need to add it to any "requirements" file, because that is managed automatically via [hatch-properdocs].
 
-> INFO: If you don't want to use Hatch, for documentation you can install requirements into a virtualenv, in one of these ways (with `.venv` being the virtualenv directory):
+> INFO: If you don't want to use Hatch, for documentation you can install requirements into a virtualenv, in **one of** these ways (with `.venv` being the virtualenv directory):
 >
-> ```bash
-> .venv/bin/pip install -r requirements/requirements-docs.txt  # Exact versions of dependencies.
-> .venv/bin/pip install -r $(properdocs get-deps)  # Latest versions of all dependencies.
-> ```
+> *   Exact versions of dependencies:
+>
+>     ```bash
+>     .venv/bin/pip install -r requirements/requirements-docs.txt  # .
+>     ```
+>
+> *   Latest versions of all dependencies:
+>
+>     ```bash
+>     .venv/bin/pip install -r $(properdocs get-deps)  # 
+>     ```
 
 ## Translating themes
 
@@ -144,7 +149,7 @@ most likely need to have tests and documentation if it is a new feature.
 When working with a pull request branch:  
 Unless otherwise agreed, prefer `commit` over `amend`, and `merge` over `rebase`. Avoid force-pushes, otherwise review history is much harder to navigate. For the end result, the "unclean" history is fine because most pull requests are squash-merged on GitHub.
 
-Do *not* add to *release-notes.md*, this will be written later.
+Do *not* add to [`release-notes.md`], this will be written later.
 
 ### Submitting changes to the builtin themes
 
@@ -177,6 +182,45 @@ Contributors are not expected to provide translations with their changes to
 a theme's templates. However, they are expected to include an updated `pot`
 file so that everything is ready for translators to do their job.
 
+### Merging policy
+
+Pull requests should be merged as squash-merge. If a commit description is missing, try to incorporate it from the PR description.
+
+Alternatively, pull requests can be merged as a merge commit, if the PR consists of many clean separate commits.
+
+## Cutting a release
+
+NOTE: First see additional important information in [`packages/README.md`].
+
+In order to make a release of ProperDocs, do the following:
+
+*   Create a pull request that bumps the version in all [`__init__.py`] files **and** writes down all user-visible changes since the previous version in [`release-notes.md`].
+
+    * Changes specific to themes (if any) need separate headings, because they will go into separate releases. Search for `Version 1.6.7` as an example of this.
+
+*   After squash-merging that pull request, create a tag that exactly corresponds to that version number and push it:
+  
+    ```bash
+    git tag v1.22.333
+    git push origin v1.22.333
+    ```
+
+*   GitHub Actions will automatically produce a PyPI release for the main package.
+
+    But subpackages need to be released manually, if there were any changes to them. See [`packages/README.md`].
+
+*   Finally, make a release post at [GitHub releases](https://github.com/ProperDocs/properdocs/releases)  - "Draft a new release".
+
+    Select the latest tag, don't enter any title, and copy the release notes into the description.
+
+### Versioning policy
+
+The specific version number in [`__init__.py`] consists of 3 components in sequence:
+
+* Major - permanently at 1
+* Minor - bump for new features and possibly minor breaking changes (breaking changes only if they aren't expected to affect anyone OR there have been sufficient warnings in previous versions.)
+* Patch - bump for bugfixes and (rarely) reverts of something in the current minor release.
+
 ## Code of Conduct
 
 Everyone interacting in the ProperDocs project's codebases, issue trackers, chat
@@ -191,6 +235,9 @@ rooms, and mailing lists is expected to follow the [PyPA Code of Conduct].
 [Translating Themes]: https://properdocs.org/dev-guide/translations/
 [Jinja's i18n extension]: https://jinja.palletsprojects.com/en/latest/extensions/#i18n-extension
 [Ruff]: https://docs.astral.sh/ruff/
-[Black]: https://black.readthedocs.io/
-[Isort]: https://pycqa.github.io/isort/
 [mypy]: https://mypy-lang.org/
+[hatch-properdocs]: https://github.com/ProperDocs/hatch-properdocs
+[`pyproject.toml`]: pyproject.toml
+[`__init__.py`]: properdocs/__init__.py
+[`release-notes.md`]: docs/about/release-notes.md
+[`packages/README.md`]: packages/README.md
