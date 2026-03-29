@@ -145,7 +145,7 @@ def gh_deploy(
     # Does this repository have a CNAME set for GitHub Pages?
     if os.path.isfile(cname_file):
         # This GitHub Pages repository has a CNAME configured.
-        with open(cname_file) as f:
+        with open(cname_file, encoding='utf-8') as f:
             cname_host = f.read().strip()
         log.info(
             f'Based on your CNAME file, your documentation should be '

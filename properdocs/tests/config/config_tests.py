@@ -64,7 +64,7 @@ class ConfigTests(unittest.TestCase):
             """
         )
         config_path = os.path.join(temp_path, 'foo.yml')
-        with open(config_path, 'w') as config_file:
+        with open(config_path, 'w', encoding='utf-8') as config_file:
             config_file.write(file_contents)
 
         with self.assertRaises(ConfigurationError):
@@ -89,7 +89,7 @@ class ConfigTests(unittest.TestCase):
             """
         )
         config_path = os.path.join(temp_path, 'properdocs.yml')
-        with open(config_path, 'w') as config_file:
+        with open(config_path, 'w', encoding='utf-8') as config_file:
             config_file.write(file_contents)
         os.mkdir(os.path.join(temp_path, 'docs'))
 

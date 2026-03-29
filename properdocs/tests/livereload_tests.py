@@ -86,8 +86,9 @@ class BuildTests(unittest.TestCase):
         def rebuild():
             started_building.set()
             Path(site_dir, "foo.site").write_text(
-                Path(docs_dir, "foo.docs").read_text()
-                + Path(origin_dir, "properdocs.yml").read_text()
+                Path(docs_dir, "foo.docs").read_text(encoding="utf-8")
+                + Path(origin_dir, "properdocs.yml").read_text(encoding="utf-8"),
+                encoding="utf-8",
             )
 
         with testing_server(site_dir, rebuild) as server:
@@ -98,14 +99,14 @@ class BuildTests(unittest.TestCase):
             _, output = do_request(server, "GET /foo.site")
             self.assertEqual(output, "original")
 
-            Path(docs_dir, "foo.docs").write_text("docs2")
+            Path(docs_dir, "foo.docs").write_text("docs2", encoding="utf-8")
             self.assertTrue(started_building.wait(timeout=10))
             started_building.clear()
 
             _, output = do_request(server, "GET /foo.site")
             self.assertEqual(output, "docs2yml1")
 
-            Path(origin_dir, "properdocs.yml").write_text("yml2")
+            Path(origin_dir, "properdocs.yml").write_text("yml2", encoding="utf-8")
             self.assertTrue(started_building.wait(timeout=10))
             started_building.clear()
 
@@ -125,7 +126,7 @@ class BuildTests(unittest.TestCase):
             server.watch(docs_dir, rebuild)
             time.sleep(0.01)
 
-            Path(docs_dir, "foo.docs").write_text("b")
+            Path(docs_dir, "foo.docs").write_text("b", encoding="utf-8")
             self.assertTrue(started_building.wait(timeout=10))
 
             with self.assertLogs("properdocs.livereload"):
@@ -173,12 +174,12 @@ class BuildTests(unittest.TestCase):
             server.unwatch(site_dir)
             time.sleep(0.01)
 
-            Path(site_dir, "foo").write_text("foo")
+            Path(site_dir, "foo").write_text("foo", encoding="utf-8")
             self.assertTrue(started_building.wait(timeout=10))
             started_building.clear()
 
             server.unwatch(site_dir)
-            Path(site_dir, "foo").write_text("bar")
+            Path(site_dir, "foo").write_text("bar", encoding="utf-8")
             self.assertFalse(started_building.wait(timeout=0.5))
 
             with self.assertRaises(KeyError):
@@ -192,22 +193,22 @@ class BuildTests(unittest.TestCase):
 
         def rebuild():
             started_building.wait(timeout=10)
-            content1 = Path(docs_dir, "foo.docs").read_text()
-            content2 = Path(extra_dir, "foo.extra").read_text()
-            Path(site_dir, "foo.site").write_text(content1 + content2)
+            content1 = Path(docs_dir, "foo.docs").read_text(encoding="utf-8")
+            content2 = Path(extra_dir, "foo.extra").read_text(encoding="utf-8")
+            Path(site_dir, "foo.site").write_text(content1 + content2, encoding="utf-8")
 
         with testing_server(site_dir, rebuild) as server:
             server.watch(docs_dir)
             server.watch(extra_dir)
             time.sleep(0.01)
 
-            Path(docs_dir, "foo.docs").write_text("docs2")
+            Path(docs_dir, "foo.docs").write_text("docs2", encoding="utf-8")
             started_building.wait(timeout=10)
 
             _, output = do_request(server, "GET /foo.site")
             self.assertEqual(output, "docs2extra1")
 
-            Path(extra_dir, "foo.extra").write_text("extra2")
+            Path(extra_dir, "foo.extra").write_text("extra2", encoding="utf-8")
             started_building.wait(timeout=10)
 
             _, output = do_request(server, "GET /foo.site")
@@ -222,9 +223,9 @@ class BuildTests(unittest.TestCase):
         def rebuild():
             self.assertFalse(started_building.is_set())
             started_building.set()
-            content1 = Path(docs_dir, "foo.docs").read_text()
-            content2 = Path(extra_dir, "foo.extra").read_text()
-            Path(site_dir, "foo.site").write_text(content1 + content2)
+            content1 = Path(docs_dir, "foo.docs").read_text(encoding="utf-8")
+            content2 = Path(extra_dir, "foo.extra").read_text(encoding="utf-8")
+            Path(site_dir, "foo.site").write_text(content1 + content2, encoding="utf-8")
 
         with testing_server(site_dir, rebuild) as server:
             server.watch(docs_dir)
@@ -232,8 +233,8 @@ class BuildTests(unittest.TestCase):
             time.sleep(0.01)
 
             _, output = do_request(server, "GET /foo.site")
-            Path(docs_dir, "foo.docs").write_text("docs2")
-            Path(extra_dir, "foo.extra").write_text("extra2")
+            Path(docs_dir, "foo.docs").write_text("docs2", encoding="utf-8")
+            Path(extra_dir, "foo.extra").write_text("extra2", encoding="utf-8")
             self.assertTrue(started_building.wait(timeout=10))
 
             _, output = do_request(server, "GET /foo.site")
@@ -246,8 +247,8 @@ class BuildTests(unittest.TestCase):
         can_finish_building = threading.Event()
 
         def rebuild():
-            content = Path(docs_dir, "foo.docs").read_text()
-            Path(site_dir, "foo.site").write_text(content * 5)
+            content = Path(docs_dir, "foo.docs").read_text(encoding="utf-8")
+            Path(site_dir, "foo.site").write_text(content * 5, encoding="utf-8")
             before_finished_building.wait(timeout=10)
             self.assertTrue(can_finish_building.wait(timeout=10))
 
@@ -255,9 +256,9 @@ class BuildTests(unittest.TestCase):
             server.watch(docs_dir)
             time.sleep(0.01)
 
-            Path(docs_dir, "foo.docs").write_text("b")
+            Path(docs_dir, "foo.docs").write_text("b", encoding="utf-8")
             before_finished_building.wait(timeout=10)
-            Path(docs_dir, "foo.docs").write_text("c")
+            Path(docs_dir, "foo.docs").write_text("c", encoding="utf-8")
             can_finish_building.set()
 
             _, output = do_request(server, "GET /foo.site")
@@ -281,8 +282,8 @@ class BuildTests(unittest.TestCase):
             if build_count == 1:
                 raise ValueError("oh no")
             else:
-                content = Path(docs_dir, "foo.docs").read_text()
-                Path(site_dir, "foo.site").write_text(content * 5)
+                content = Path(docs_dir, "foo.docs").read_text(encoding="utf-8")
+                Path(site_dir, "foo.site").write_text(content * 5, encoding="utf-8")
 
         with testing_server(site_dir, rebuild) as server:
             server.watch(docs_dir)
@@ -290,10 +291,10 @@ class BuildTests(unittest.TestCase):
 
             err = io.StringIO()
             with contextlib.redirect_stderr(err), self.assertLogs("properdocs.livereload") as cm:
-                Path(docs_dir, "foo.docs").write_text("b")
+                Path(docs_dir, "foo.docs").write_text("b", encoding="utf-8")
                 started_building.wait(timeout=10)
 
-                Path(docs_dir, "foo.docs").write_text("c")
+                Path(docs_dir, "foo.docs").write_text("c", encoding="utf-8")
 
                 _, output = do_request(server, "GET /foo.site")
 
@@ -411,7 +412,7 @@ class BuildTests(unittest.TestCase):
             server.watch(docs_dir)
             time.sleep(0.01)
 
-            Path(docs_dir, "foo.docs").write_text("b")
+            Path(docs_dir, "foo.docs").write_text("b", encoding="utf-8")
 
             _, output = do_request(server, f"GET /livereload/{initial_epoch}/0")
 
@@ -536,13 +537,13 @@ class BuildTests(unittest.TestCase):
             server.watch(Path(origin_dir, "properdocs.yml"))
             time.sleep(0.01)
 
-            Path(origin_dir, "unrelated.md").write_text("foo")
+            Path(origin_dir, "unrelated.md").write_text("foo", encoding="utf-8")
             self.assertFalse(started_building.wait(timeout=0.5))
 
-            Path(tmp_dir, "properdocs.yml").write_text("edited")
+            Path(tmp_dir, "properdocs.yml").write_text("edited", encoding="utf-8")
             self.assertTrue(wait_for_build())
 
-            Path(dest_docs_dir, "subdir", "foo.md").write_text("edited")
+            Path(dest_docs_dir, "subdir", "foo.md").write_text("edited", encoding="utf-8")
             self.assertTrue(wait_for_build())
 
     @tempdir(["file_dest_1.md", "file_dest_2.md", "file_dest_unused.md"], prefix="tmp_dir")
@@ -570,19 +571,19 @@ class BuildTests(unittest.TestCase):
             server.watch(docs_dir)
             time.sleep(0.01)
 
-            Path(tmp_dir, "file_dest_1.md").write_text("edited")
+            Path(tmp_dir, "file_dest_1.md").write_text("edited", encoding="utf-8")
             self.assertTrue(wait_for_build())
 
-            Path(dir_to_link_to, "file_under.md").write_text("edited")
+            Path(dir_to_link_to, "file_under.md").write_text("edited", encoding="utf-8")
             self.assertTrue(wait_for_build())
 
-            Path(tmp_dir, "file_dest_2.md").write_text("edited")
+            Path(tmp_dir, "file_dest_2.md").write_text("edited", encoding="utf-8")
             self.assertTrue(wait_for_build())
 
             Path(docs_dir, "link1.md").unlink()
             self.assertTrue(wait_for_build())
 
-            Path(tmp_dir, "file_dest_unused.md").write_text("edited")
+            Path(tmp_dir, "file_dest_unused.md").write_text("edited", encoding="utf-8")
             self.assertFalse(started_building.wait(timeout=0.5))
 
     @tempdir(prefix="site_dir")
@@ -601,7 +602,7 @@ class BuildTests(unittest.TestCase):
             server.watch(docs_dir)
             time.sleep(0.01)
 
-            Path(origin_dir, "README.md").write_text("edited")
+            Path(origin_dir, "README.md").write_text("edited", encoding="utf-8")
             self.assertTrue(started_building.wait(timeout=10))
 
     @tempdir()
@@ -623,5 +624,5 @@ class BuildTests(unittest.TestCase):
             server.watch(docs_dir)
             time.sleep(0.01)
 
-            Path(docs_dir, "subdir", "test").write_text("test")
+            Path(docs_dir, "subdir", "test").write_text("test", encoding="utf-8")
             self.assertTrue(started_building.wait(timeout=10))

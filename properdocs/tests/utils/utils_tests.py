@@ -288,13 +288,13 @@ class UtilsTests(unittest.TestCase):
                 'deep2-2': 'baz',
             },
         }
-        with open(os.path.join(tdir, 'base.yml')) as fd:
+        with open(os.path.join(tdir, 'base.yml'), encoding='utf-8') as fd:
             result = utils.yaml_load(fd)
         self.assertEqual(result, expected)
 
     @tempdir(files={'base.yml': BASEYML})
     def test_yaml_inheritance_missing_parent(self, tdir):
-        with open(os.path.join(tdir, 'base.yml')) as fd:
+        with open(os.path.join(tdir, 'base.yml'), encoding='utf-8') as fd:
             with self.assertRaises(exceptions.ConfigurationError):
                 utils.yaml_load(fd)
 
@@ -323,7 +323,7 @@ class UtilsTests(unittest.TestCase):
             src, dst, expected = case['src_path'], case['dst_path'], case['expected']
             with self.subTest(src):
                 src = os.path.join(src_dir, src)
-                with open(src, 'w') as f:
+                with open(src, 'w', encoding='utf-8') as f:
                     f.write('content')
                 dst = os.path.join(dst_dir, dst)
                 utils.copy_file(src, dst)
@@ -343,7 +343,7 @@ class UtilsTests(unittest.TestCase):
                 src, expected = case['src_path'], case['expected']
                 with self.subTest(src):
                     src = os.path.join(src_dir, src)
-                    with open(src, 'w') as f:
+                    with open(src, 'w', encoding='utf-8') as f:
                         f.write('content')
                     # Set src file to read-only
                     os.chmod(src, stat.S_IRUSR)

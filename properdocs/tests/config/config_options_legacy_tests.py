@@ -831,7 +831,7 @@ class ListOfPathsTest(TestCase):
 
     @tempdir()
     def test_paths_localized_to_config(self, base_path):
-        with open(os.path.join(base_path, 'foo'), 'w') as f:
+        with open(os.path.join(base_path, 'foo'), 'w', encoding='utf-8') as f:
             f.write('hi')
 
         class Schema:

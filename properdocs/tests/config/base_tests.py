@@ -45,7 +45,7 @@ class ConfigBaseTests(unittest.TestCase):
         Users can explicitly set the config file using the '--config' option.
         Allows users to specify a config other than the default `properdocs.yml`.
         """
-        with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file:
+        with open(os.path.join(temp_dir, 'properdocs.yml'), 'w', encoding='utf-8') as config_file:
             config_file.write("site_name: ProperDocs Test\ntheme: mkdocs\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
 
@@ -56,7 +56,7 @@ class ConfigBaseTests(unittest.TestCase):
     @tempdir()
     def test_load_default_file(self, temp_dir):
         """Test that `properdocs.yml` will be loaded when '--config' is not set."""
-        with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file:
+        with open(os.path.join(temp_dir, 'properdocs.yml'), 'w', encoding='utf-8') as config_file:
             config_file.write("site_name: ProperDocs Test\ntheme: mkdocs\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
         with change_dir(temp_dir):
@@ -67,7 +67,7 @@ class ConfigBaseTests(unittest.TestCase):
     @tempdir()
     def test_load_default_file_with_yaml(self, temp_dir):
         """Test that `properdocs.yml` will be loaded when '--config' is not set."""
-        with open(os.path.join(temp_dir, 'properdocs.yaml'), 'w') as config_file:
+        with open(os.path.join(temp_dir, 'properdocs.yaml'), 'w', encoding='utf-8') as config_file:
             config_file.write("site_name: ProperDocs Test\ntheme: mkdocs\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
         with change_dir(temp_dir):
@@ -78,9 +78,9 @@ class ConfigBaseTests(unittest.TestCase):
     @tempdir()
     def test_load_default_file_prefer_yml(self, temp_dir):
         """Test that `properdocs.yml` will be loaded when '--config' is not set."""
-        with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file1:
+        with open(os.path.join(temp_dir, 'properdocs.yml'), 'w', encoding='utf-8') as config_file1:
             config_file1.write("site_name: ProperDocs Test1\ntheme: mkdocs\n")
-        with open(os.path.join(temp_dir, 'properdocs.yaml'), 'w') as config_file2:
+        with open(os.path.join(temp_dir, 'properdocs.yaml'), 'w', encoding='utf-8') as config_file2:
             config_file2.write("site_name: ProperDocs Test2\ntheme: mkdocs\n")
 
         os.mkdir(os.path.join(temp_dir, 'docs'))
@@ -99,7 +99,7 @@ class ConfigBaseTests(unittest.TestCase):
     def test_load_from_open_file(self, temp_path):
         """`load_config` can accept an open file descriptor."""
         config_fname = os.path.join(temp_path, 'properdocs.yml')
-        config_file = open(config_fname, 'w+')
+        config_file = open(config_fname, 'w+', encoding='utf-8')
         config_file.write("site_name: ProperDocs Test\n")
         config_file.flush()
         os.mkdir(os.path.join(temp_path, 'docs'))
@@ -121,7 +121,7 @@ class ConfigBaseTests(unittest.TestCase):
     @tempdir()
     def test_load_missing_required(self, temp_dir):
         """`site_name` is a required setting."""
-        with open(os.path.join(temp_dir, 'properdocs.yml'), 'w') as config_file:
+        with open(os.path.join(temp_dir, 'properdocs.yml'), 'w', encoding='utf-8') as config_file:
             config_file.write("site_dir: output\nsite_url: https://properdocs.org\n")
         os.mkdir(os.path.join(temp_dir, 'docs'))
 
@@ -241,7 +241,7 @@ class ConfigBaseTests(unittest.TestCase):
         config file, not the working directory.
         """
         config_fname = os.path.join(config_dir, 'properdocs.yml')
-        with open(config_fname, 'w') as config_file:
+        with open(config_fname, 'w', encoding='utf-8') as config_file:
             config_file.write("docs_dir: src\nsite_name: ProperDocs Test\ntheme: mkdocs\n")
         docs_dir = os.path.join(config_dir, 'src')
         os.mkdir(docs_dir)
