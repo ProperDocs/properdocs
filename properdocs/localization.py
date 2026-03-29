@@ -13,14 +13,17 @@ if TYPE_CHECKING:
     import jinja2
 
 try:
-    from babel.core import Locale, UnknownLocaleError
-    from babel.support import NullTranslations, Translations
+    from babel.core import Locale, UnknownLocaleError  # type: ignore[import-untyped]
+    from babel.support import NullTranslations, Translations  # type: ignore[import-untyped]
 
     has_babel = True
 except ImportError:  # pragma: no cover
-    from properdocs.utils.babel_stub import Locale, UnknownLocaleError  # type: ignore[assignment]
+    from properdocs.utils.babel_stub import Locale, UnknownLocaleError
 
     has_babel = False
+
+if TYPE_CHECKING:
+    from properdocs.utils.babel_stub import Locale as Locale  # noqa: F811
 
 
 log = logging.getLogger(__name__)
@@ -28,7 +31,7 @@ base_path = os.path.dirname(os.path.abspath(__file__))
 
 
 class NoBabelExtension(InternationalizationExtension):  # pragma: no cover
-    def __init__(self, environment):
+    def __init__(self, environment: jinja2.Environment) -> None:
         Extension.__init__(self, environment)
         environment.extend(
             install_null_translations=self._install_null,

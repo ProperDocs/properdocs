@@ -6,7 +6,7 @@ import contextlib
 import logging
 from collections.abc import Callable, MutableMapping
 from importlib.metadata import EntryPoint, entry_points
-from typing import TYPE_CHECKING, Any, Concatenate, Generic, Literal, TypeVar, overload
+from typing import TYPE_CHECKING, Any, Concatenate, Generic, Literal, TypeVar, cast, overload
 
 from properdocs import utils
 from properdocs.config.base import (
@@ -72,12 +72,12 @@ class BasePlugin(Generic[SomeConfig]):
     supports_multiple_instances: bool = False
     """Set to true in subclasses to declare support for adding the same plugin multiple times."""
 
-    def __class_getitem__(cls, config_class: type[Config]):
+    def __class_getitem__(cls, config_class: type[Config]) -> type[BasePlugin[Any]]:
         """Eliminates the need to write `config_class = FooConfig` when subclassing BasePlugin[FooConfig]."""
         name = f'{cls.__name__}[{config_class.__name__}]'
         return type(name, (cls,), dict(config_class=config_class))
 
-    def __init_subclass__(cls):
+    def __init_subclass__(cls) -> None:
         if not issubclass(cls.config_class, Config):
             raise TypeError(
                 f"config_class {cls.config_class} must be a subclass of `properdocs.config.base.Config`"
@@ -135,7 +135,7 @@ class BasePlugin(Generic[SomeConfig]):
         """
 
     def on_serve(
-        self, server: LiveReloadServer, /, *, config: ProperDocsConfig, builder: Callable
+        self, server: LiveReloadServer, /, *, config: ProperDocsConfig, builder: Callable[..., Any]
     ) -> LiveReloadServer | None:
         """
         The `serve` event is only called when the `serve` command is used during
@@ -453,8 +453,8 @@ def event_priority(priority: float) -> Callable[[T], T]:
     ```
     """
 
-    def decorator(event_method):
-        event_method.mkdocs_priority = priority
+    def decorator(event_method: T) -> T:
+        setattr(event_method, 'mkdocs_priority', priority)
         return event_method
 
     return decorator
@@ -486,14 +486,14 @@ class CombinedEvent(Generic[P, T]):
         self.methods = methods
 
     # This is only for mypy, so CombinedEvent can be a valid override of the methods in BasePlugin
-    def __call__(self, instance: BasePlugin, *args: P.args, **kwargs: P.kwargs) -> T:
+    def __call__(self, instance: BasePlugin[Any], *args: P.args, **kwargs: P.kwargs) -> T:
         raise TypeError(f"{type(self).__name__!r} object is not callable")
 
-    def __get__(self, instance, owner=None):
+    def __get__(self, instance: Any, owner: type[Any] | None = None) -> CombinedEvent[P, T]:
         return CombinedEvent(*(f.__get__(instance, owner) for f in self.methods))
 
 
-class PluginCollection(dict, MutableMapping[str, BasePlugin]):
+class PluginCollection(dict[str, BasePlugin[Any]], MutableMapping[str, BasePlugin[Any]]):
     """
     A collection of plugins.
 
@@ -504,13 +504,13 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
 
     _current_plugin: str | None
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
-        self.events: dict[str, list[Callable]] = {k: [] for k in EVENTS}
-        self._event_origins: dict[Callable, str] = {}
+        self.events: dict[str, list[Callable[..., Any]]] = {k: [] for k in EVENTS}
+        self._event_origins: dict[Callable[..., Any], str] = {}
 
     def _register_event(
-        self, event_name: str, method: CombinedEvent | Callable, plugin_name: str | None = None
+        self, event_name: str, method: CombinedEvent[..., Any] | Callable[..., Any], plugin_name: str | None = None
     ) -> None:
         """Register a method for an event."""
         if isinstance(method, CombinedEvent):
@@ -531,10 +531,10 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
                 with contextlib.suppress(TypeError):
                     self._event_origins[method] = plugin_name
 
-    def __getitem__(self, key: str) -> BasePlugin:
+    def __getitem__(self, key: str) -> BasePlugin[Any]:
         return super().__getitem__(key)
 
-    def __setitem__(self, key: str, value: BasePlugin) -> None:
+    def __setitem__(self, key: str, value: BasePlugin[Any]) -> None:
         super().__setitem__(key, value)
         # Register all of the event methods defined for this Plugin.
         for event_name in (x for x in dir(value) if x.startswith('on_')):
@@ -543,12 +543,12 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
                 self._register_event(event_name[3:], method, plugin_name=key)
 
     @overload
-    def run_event(self, name: str, **kwargs) -> Any: ...
+    def run_event(self, name: str, **kwargs: Any) -> Any: ...
 
     @overload
-    def run_event(self, name: str, item: T, **kwargs) -> T: ...
+    def run_event(self, name: str, item: T, **kwargs: Any) -> T: ...
 
-    def run_event(self, name: str, item=None, **kwargs):
+    def run_event(self, name: str, item: Any = None, **kwargs: Any) -> Any:
         """
         Run all registered methods of an event.
 
@@ -573,13 +573,13 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
         return item
 
     def on_startup(self, *, command: Literal['build', 'gh-deploy', 'serve'], dirty: bool) -> None:
-        return self.run_event('startup', command=command, dirty=dirty)
+        self.run_event('startup', command=command, dirty=dirty)
 
     def on_shutdown(self) -> None:
-        return self.run_event('shutdown')
+        self.run_event('shutdown')
 
     def on_serve(
-        self, server: LiveReloadServer, *, config: ProperDocsConfig, builder: Callable
+        self, server: LiveReloadServer, *, config: ProperDocsConfig, builder: Callable[..., Any]
     ) -> LiveReloadServer:
         return self.run_event('serve', server, config=config, builder=builder)
 
@@ -587,7 +587,7 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
         return self.run_event('config', config)
 
     def on_pre_build(self, *, config: ProperDocsConfig) -> None:
-        return self.run_event('pre_build', config=config)
+        self.run_event('pre_build', config=config)
 
     def on_files(self, files: Files, *, config: ProperDocsConfig) -> Files:
         return self.run_event('files', files, config=config)
@@ -595,14 +595,14 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
     def on_nav(self, nav: Navigation, *, config: ProperDocsConfig, files: Files) -> Navigation:
         return self.run_event('nav', nav, config=config, files=files)
 
-    def on_env(self, env: jinja2.Environment, *, config: ProperDocsConfig, files: Files):
+    def on_env(self, env: jinja2.Environment, *, config: ProperDocsConfig, files: Files) -> jinja2.Environment:
         return self.run_event('env', env, config=config, files=files)
 
     def on_post_build(self, *, config: ProperDocsConfig) -> None:
-        return self.run_event('post_build', config=config)
+        self.run_event('post_build', config=config)
 
     def on_build_error(self, *, error: Exception) -> None:
-        return self.run_event('build_error', error=error)
+        self.run_event('build_error', error=error)
 
     def on_pre_template(
         self, template: jinja2.Template, *, template_name: str, config: ProperDocsConfig
@@ -627,7 +627,7 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
         return self.run_event('pre_page', page, config=config, files=files)
 
     def on_page_read_source(self, *, page: Page, config: ProperDocsConfig) -> str | None:
-        return self.run_event('page_read_source', page=page, config=config)
+        return cast('str | None', self.run_event('page_read_source', page=page, config=config))
 
     def on_page_markdown(
         self, markdown: str, *, page: Page, config: ProperDocsConfig, files: Files
@@ -648,7 +648,7 @@ class PluginCollection(dict, MutableMapping[str, BasePlugin]):
         return self.run_event('post_page', output, page=page, config=config)
 
 
-class PrefixedLogger(logging.LoggerAdapter):
+class PrefixedLogger(logging.LoggerAdapter[logging.Logger]):
     """A logger adapter to prefix log messages."""
 
     def __init__(self, prefix: str, logger: logging.Logger) -> None:

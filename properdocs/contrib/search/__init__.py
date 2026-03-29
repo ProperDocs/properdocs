@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from properdocs import utils
 from properdocs.config import base
 from properdocs.config import config_options as c
+from properdocs.config.base import ValidationError
 from properdocs.contrib.search.search_index import SearchIndex
 from properdocs.plugins import BasePlugin
 
@@ -23,7 +24,7 @@ base_path = os.path.dirname(os.path.abspath(__file__))
 class LangOption(c.OptionallyRequired[list[str]]):
     """Validate Language(s) provided in config are known languages."""
 
-    def get_lunr_supported_lang(self, lang):
+    def get_lunr_supported_lang(self, lang: str) -> str | None:
         fallback = {'uk': 'ru'}
         for lang_part in lang.split("_"):
             lang_part = lang_part.lower()
@@ -32,11 +33,11 @@ class LangOption(c.OptionallyRequired[list[str]]):
                 return lang_part
         return None
 
-    def run_validation(self, value: object):
+    def run_validation(self, value: object) -> list[str]:
         if isinstance(value, str):
             value = [value]
         if not isinstance(value, list):
-            raise c.ValidationError('Expected a list of language codes.')
+            raise ValidationError('Expected a list of language codes.')
         for lang in value[:]:
             if lang != 'en':
                 lang_detected = self.get_lunr_supported_lang(lang)
@@ -63,7 +64,7 @@ class _PluginConfig(base.Config):
 class SearchPlugin(BasePlugin[_PluginConfig]):
     """Add a search feature to ProperDocs."""
 
-    def on_config(self, config: ProperDocsConfig, **kwargs) -> ProperDocsConfig:
+    def on_config(self, config: ProperDocsConfig, **kwargs: object) -> ProperDocsConfig:
         """Add plugin templates and scripts to config."""
         if config.theme.get('include_search_page'):
             config.theme.static_templates.add('search.html')
@@ -85,15 +86,15 @@ class SearchPlugin(BasePlugin[_PluginConfig]):
             )
         return config
 
-    def on_pre_build(self, config: ProperDocsConfig, **kwargs) -> None:
+    def on_pre_build(self, config: ProperDocsConfig, **kwargs: object) -> None:
         """Create search index instance for later use."""
         self.search_index = SearchIndex(**self.config)
 
-    def on_page_context(self, context: TemplateContext, page: Page, **kwargs) -> None:
+    def on_page_context(self, context: TemplateContext, page: Page, **kwargs: object) -> None:
         """Add page to search index."""
         self.search_index.add_entry_from_context(page)
 
-    def on_post_build(self, config: ProperDocsConfig, **kwargs) -> None:
+    def on_post_build(self, config: ProperDocsConfig, **kwargs: object) -> None:
         """Build search index."""
         output_base_path = os.path.join(config.site_dir, 'search')
         search_index = self.search_index.generate_search_index()

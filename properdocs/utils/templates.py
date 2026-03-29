@@ -43,7 +43,7 @@ def url_filter(context: TemplateContext, value: str) -> str:
 
 
 @contextfilter
-def script_tag_filter(context: TemplateContext, extra_script: ExtraScriptValue) -> str:
+def script_tag_filter(context: TemplateContext, extra_script: ExtraScriptValue | str) -> str:
     """Converts an ExtraScript value to an HTML <script> tag line."""
     html = '<script src="{0}"'
     if not isinstance(extra_script, str):

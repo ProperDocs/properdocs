@@ -7,7 +7,8 @@ import sys
 import textwrap
 import traceback
 import warnings
-from typing import ClassVar
+from collections.abc import Callable
+from typing import Any, ClassVar
 
 import click
 
@@ -29,7 +30,14 @@ if sys.platform.startswith("win"):
 log = logging.getLogger(__name__)
 
 
-def _showwarning(message, category, filename, lineno, file=None, line=None):
+def _showwarning(
+    message: Warning | str,
+    category: type[Warning],
+    filename: str,
+    lineno: int,
+    file: Any = None,
+    line: str | None = None,
+) -> None:
     try:
         # Last stack frames:
         # * ...
@@ -49,7 +57,7 @@ def _showwarning(message, category, filename, lineno, file=None, line=None):
     log.info(f'{category.__name__}: {message}\n{tb}')
 
 
-def _enable_warnings():
+def _enable_warnings() -> None:
     # When `python -W...` or `PYTHONWARNINGS` are used, `sys.warnoptions` is set.
     # In that case, we skip warnings configuration since
     # we don't want to overwrite the user configuration.
@@ -79,7 +87,7 @@ class ColorFormatter(logging.Formatter):
         subsequent_indent=' ' * 11,
     )
 
-    def format(self, record):
+    def format(self, record: logging.LogRecord) -> str:
         message = super().format(record)
         prefix = f'{record.levelname:<8}-  '
         if record.levelname in self.colors:
@@ -95,7 +103,7 @@ class ColorFormatter(logging.Formatter):
 class State:
     """Maintain logging level."""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.logger = logging.getLogger('properdocs')
         self.logger.setLevel(logging.INFO)
         self.logger.propagate = False
@@ -111,7 +119,7 @@ class State:
         self.stream.name = 'ProperDocsStreamHandler'
         self.logger.addHandler(self.stream)
 
-    def __del__(self):
+    def __del__(self) -> None:
         self.logger.removeHandler(self.stream)
 
 
@@ -158,8 +166,8 @@ projects_file_help = (
 )
 
 
-def add_options(*opts):
-    def inner(f):
+def add_options(*opts: Callable[..., Any]) -> Callable[..., Any]:
+    def inner(f: Callable[..., Any]) -> Callable[..., Any]:
         for i in reversed(opts):
             f = i(f)
         return f
@@ -167,8 +175,8 @@ def add_options(*opts):
     return inner
 
 
-def verbose_option(f):
-    def callback(ctx, param, value):
+def verbose_option(f: Callable[..., Any]) -> Callable[..., Any]:
+    def callback(ctx: click.Context, param: click.Parameter, value: Any) -> None:
         state = ctx.ensure_object(State)
         if value:
             state.logger.setLevel(logging.DEBUG)
@@ -183,8 +191,8 @@ def verbose_option(f):
     )(f)
 
 
-def quiet_option(f):
-    def callback(ctx, param, value):
+def quiet_option(f: Callable[..., Any]) -> Callable[..., Any]:
+    def callback(ctx: click.Context, param: click.Parameter, value: Any) -> None:
         state = ctx.ensure_object(State)
         if value:
             state.logger.setLevel(logging.ERROR)
@@ -199,8 +207,8 @@ def quiet_option(f):
     )(f)
 
 
-def color_option(f):
-    def callback(ctx, param, value):
+def color_option(f: Callable[..., Any]) -> Callable[..., Any]:
+    def callback(ctx: click.Context, param: click.Parameter, value: Any) -> None:
         state = ctx.ensure_object(State)
         if value is False or (
             value is None
@@ -253,7 +261,7 @@ PKG_DIR = os.path.dirname(os.path.abspath(__file__))
 )
 @common_options
 @color_option
-def cli():
+def cli() -> None:
     """ProperDocs - Project documentation with Markdown."""
 
 
@@ -271,7 +279,7 @@ def cli():
 )
 @common_config_options
 @common_options
-def serve_command(**kwargs):
+def serve_command(**kwargs: Any) -> None:
     """Run the builtin development server."""
     from properdocs.commands import serve
 
@@ -289,7 +297,7 @@ def serve_command(**kwargs):
 @common_config_options
 @click.option('-d', '--site-dir', type=click.Path(), help=site_dir_help)
 @common_options
-def build_command(clean, **kwargs):
+def build_command(clean: bool, **kwargs: Any) -> None:
     """Build the ProperDocs documentation."""
     from properdocs.commands import build
 
@@ -315,8 +323,8 @@ def build_command(clean, **kwargs):
 @click.option('-d', '--site-dir', type=click.Path(), help=site_dir_help)
 @common_options
 def gh_deploy_command(
-    clean, message, remote_branch, remote_name, force, no_history, ignore_version, shell, **kwargs
-):
+    clean: bool, message: str | None, remote_branch: str | None, remote_name: str | None, force: bool, no_history: bool, ignore_version: bool, shell: bool, **kwargs: Any
+) -> None:
     """Deploy your documentation to GitHub Pages."""
     from properdocs.commands import build, gh_deploy
 
@@ -347,7 +355,7 @@ def gh_deploy_command(
     help=projects_file_help,
     show_default=True,
 )
-def get_deps_command(config_file, projects_file):
+def get_deps_command(config_file: Any, projects_file: str | None) -> None:
     """Show required PyPI packages inferred from plugins in properdocs.yml."""
     from properdocs.commands.get_deps import get_deps, get_projects_file
     from properdocs.config.base import _open_config_file
@@ -370,7 +378,7 @@ def get_deps_command(config_file, projects_file):
 @cli.command(name="new")
 @click.argument("project_directory")
 @common_options
-def new_command(project_directory):
+def new_command(project_directory: str) -> None:
     """Create a new ProperDocs project."""
     from properdocs.commands import new
 

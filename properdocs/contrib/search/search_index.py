@@ -5,6 +5,7 @@ import logging
 import os
 import re
 import subprocess
+from collections.abc import Iterable
 from html.parser import HTMLParser
 from typing import TYPE_CHECKING
 
@@ -28,11 +29,11 @@ class SearchIndex:
     tags and their following content are sections).
     """
 
-    def __init__(self, **config) -> None:
-        self._entries: list[dict] = []
+    def __init__(self, **config: object) -> None:
+        self._entries: list[dict[str, object]] = []
         self.config = config
 
-    def _find_toc_by_id(self, toc, id_: str | None) -> AnchorLink | None:
+    def _find_toc_by_id(self, toc: Iterable[AnchorLink], id_: str | None) -> AnchorLink | None:
         """
         Given a table of contents and HTML ID, iterate through
         and return the matched item in the TOC.
@@ -155,7 +156,9 @@ class ContentSection:
         self.id = id_
         self.title = title
 
-    def __eq__(self, other):
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, ContentSection):
+            return NotImplemented
         return self.text == other.text and self.id == other.id and self.title == other.title
 
 
@@ -169,8 +172,8 @@ class ContentParser(HTMLParser):
     for that section.
     """
 
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
+    def __init__(self) -> None:
+        super().__init__()
 
         self.data: list[ContentSection] = []
         self.section: ContentSection | None = None

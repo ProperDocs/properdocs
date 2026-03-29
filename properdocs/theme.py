@@ -3,8 +3,8 @@ from __future__ import annotations
 import logging
 import os
 import warnings
-from collections.abc import Collection, MutableMapping
-from typing import Any
+from collections.abc import Collection, Iterator, MutableMapping
+from typing import TYPE_CHECKING, Any, cast
 
 import jinja2
 import yaml
@@ -12,6 +12,9 @@ import yaml
 from properdocs import localization, utils
 from properdocs.config.base import ValidationError
 from properdocs.utils import templates
+
+if TYPE_CHECKING:
+    from properdocs.utils.babel_stub import Locale
 
 SafeLoader: type[yaml.SafeLoader | yaml.CSafeLoader]
 try:
@@ -42,7 +45,7 @@ class Theme(MutableMapping[str, Any]):
         custom_dir: str | None = None,
         static_templates: Collection[str] = (),
         locale: str | None = None,
-        **user_config,
+        **user_config: Any,
     ) -> None:
         self.name = name
         self._custom_dir = custom_dir
@@ -78,8 +81,8 @@ class Theme(MutableMapping[str, Any]):
     name: str | None
 
     @property
-    def locale(self) -> localization.Locale:
-        return self['locale']
+    def locale(self) -> Locale:
+        return cast('Locale', self['locale'])
 
     @property
     def custom_dir(self) -> str | None:
@@ -109,19 +112,19 @@ class Theme(MutableMapping[str, Any]):
     def __getitem__(self, key: str) -> Any:
         return self.__vars[key]
 
-    def __setitem__(self, key: str, value):
+    def __setitem__(self, key: str, value: Any) -> None:
         self.__vars[key] = value
 
-    def __delitem__(self, key: str):
+    def __delitem__(self, key: str) -> None:
         del self.__vars[key]
 
     def __contains__(self, item: object) -> bool:
         return item in self.__vars
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.__vars)
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[str]:
         return iter(self.__vars)
 
     def _load_theme_config(self, name: str) -> None:

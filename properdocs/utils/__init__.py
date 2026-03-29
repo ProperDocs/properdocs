@@ -14,7 +14,7 @@ import posixpath
 import re
 import shutil
 import warnings
-from bisect import insort  # noqa: F401 - legacy re-export
+from bisect import insort as insort  # noqa: F401 - legacy re-export
 from collections import defaultdict
 from collections.abc import Callable, Collection, Iterable
 from datetime import datetime, timezone
