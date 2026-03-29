@@ -78,7 +78,9 @@ properdocs, version 1.2.0 from /usr/local/lib/python3.8/site-packages/properdocs
 > py -m properdocs
 > ```
 >
-> For a more permanent solution, you may need to edit your `PATH` environment
+> See information about the [Python Launcher for Windows](https://docs.python.org/3/using/windows.html#basic-use).
+> 
+> Or you may need to edit your `PATH` environment
 > variable to include the `Scripts` directory of your Python installation.
 > Recent versions of Python include a script to do this for you.
 
