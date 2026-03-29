@@ -79,7 +79,7 @@ It will attempt to run the tests against all of the Python versions we support.
 
 ### Python code style
 
-Python code within ProperDocs' code base is formatted using [Ruff](https://docs.astral.sh/ruff/), all of which are configured in [`pyproject.toml`](https://github.com/ProperDocs/properdocs/blob/master/pyproject.toml).
+Python code within ProperDocs' code base is formatted using [Ruff](https://docs.astral.sh/ruff/), and all style settings are configured near the bottom of [`pyproject.toml`](https://github.com/ProperDocs/properdocs/blob/master/pyproject.toml).
 
 You can automatically check and format the code according to these tools with the following command:
 
