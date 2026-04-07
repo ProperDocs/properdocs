@@ -26,7 +26,7 @@ from collections.abc import Callable, Iterable
 from typing import Any, BinaryIO
 
 import watchdog.events
-import watchdog.observers.polling
+import watchdog.observers
 
 _SCRIPT_TEMPLATE_STR = """
 var livereload = function(epoch, requestId) {
@@ -132,15 +132,17 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
         self._rebuild_cond = threading.Condition()  # Must be held when accessing _want_rebuild.
 
         self._shutdown = False
+        self._building = False
         self.serve_thread = threading.Thread(target=lambda: self.serve_forever(shutdown_delay))
-        self.observer = watchdog.observers.polling.PollingObserver(timeout=polling_interval)
+        self.observer = watchdog.observers.Observer(timeout=polling_interval)
 
         self._watched_paths: dict[str, int] = {}
         self._watch_refs: dict[str, Any] = {}
+        self._extra_watch_refs: dict[str, list[Any]] = {}
 
     def watch(self, path: str, func: None = None, *, recursive: bool = True) -> None:
         """Add the 'path' to watched paths, call the function and reload when any file changes under it."""
-        path = os.path.abspath(path)
+        path = os.path.realpath(path)
         if not (func is None or func is self.builder):  # type: ignore[unreachable]
             raise TypeError("Plugins can no longer pass a 'func' parameter to watch().")
 
@@ -152,6 +154,8 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
         def callback(event):
             if event.is_directory:
                 return
+            if self._building:
+                return
             log.debug(str(event))
             with self._rebuild_cond:
                 self._want_rebuild = True
@@ -162,14 +166,79 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
         log.debug(f"Watching '{path}'")
         self._watch_refs[path] = self.observer.schedule(handler, path, recursive=recursive)
 
+        # Watch symlink targets outside the watched tree so that native file system
+        # observers (inotify, FSEvents) detect changes to symlinked files.
+        if recursive and os.path.isdir(path):
+            self._watch_symlink_targets(path, callback)
+
+    def _watch_symlink_targets(self, root: str, callback: Callable) -> None:
+        file_targets: set[str] = set()
+        dir_targets: set[str] = set()
+        self._collect_symlink_targets(root, root, file_targets, dir_targets)
+        if not file_targets and not dir_targets:
+            return
+
+        def filtered_callback(event: Any) -> None:
+            if event.is_directory:
+                return None
+            src = os.path.realpath(event.src_path)
+            if src in file_targets:
+                return callback(event)
+            for d in dir_targets:
+                if src.startswith(d + os.sep):
+                    return callback(event)
+            return None
+
+        filtered_handler = watchdog.events.FileSystemEventHandler()
+        filtered_handler.on_any_event = filtered_callback  # type: ignore[method-assign]
+
+        extra_refs: list[Any] = []
+        watched_dirs: set[str] = set()
+        for target in file_targets:
+            parent = os.path.dirname(target)
+            if parent not in watched_dirs:
+                watched_dirs.add(parent)
+                extra_refs.append(self.observer.schedule(filtered_handler, parent, recursive=False))
+        for d in dir_targets:
+            if d not in watched_dirs:
+                watched_dirs.add(d)
+                extra_refs.append(self.observer.schedule(filtered_handler, d, recursive=True))
+        if extra_refs:
+            self._extra_watch_refs[root] = extra_refs
+
+    def _collect_symlink_targets(
+        self, scan_dir: str, root: str, file_targets: set[str], dir_targets: set[str]
+    ) -> None:
+        try:
+            entries = list(os.scandir(scan_dir))
+        except OSError:
+            return
+        for entry in entries:
+            if entry.is_symlink():
+                try:
+                    target = os.path.realpath(entry.path)
+                except OSError:
+                    continue
+                if target == root or target.startswith(root + os.sep):
+                    continue
+                if os.path.isdir(target):
+                    dir_targets.add(target)
+                    self._collect_symlink_targets(target, root, file_targets, dir_targets)
+                elif os.path.isfile(target):
+                    file_targets.add(target)
+            elif entry.is_dir(follow_symlinks=False):
+                self._collect_symlink_targets(entry.path, root, file_targets, dir_targets)
+
     def unwatch(self, path: str) -> None:
         """Stop watching file changes for path. Raises if there was no corresponding `watch` call."""
-        path = os.path.abspath(path)
+        path = os.path.realpath(path)
 
         self._watched_paths[path] -= 1
         if self._watched_paths[path] <= 0:
             self._watched_paths.pop(path)
             self.observer.unschedule(self._watch_refs.pop(path))
+            for ref in self._extra_watch_refs.pop(path, []):
+                self.observer.unschedule(ref)
 
     def serve(self, *, open_in_browser=False):
         self.server_bind()
@@ -210,6 +279,7 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
                 self._want_rebuild = False
 
             try:
+                self._building = True
                 self.builder()
             except Exception as e:
                 if isinstance(e, SystemExit):
@@ -220,6 +290,12 @@ class LiveReloadServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGISe
                     "An error happened during the rebuild. The server will appear stuck until build errors are resolved."
                 )
                 continue
+            finally:
+                self._building = False
+                # Discard any file change events generated by the build itself
+                # (e.g. from plugins that write into the docs directory).
+                with self._rebuild_cond:
+                    self._want_rebuild = False
 
             with self._epoch_cond:
                 log.info("Reloading browsers")
