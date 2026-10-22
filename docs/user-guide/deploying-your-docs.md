@@ -119,6 +119,53 @@ You need to add `pip install properdocs` to the `.readthedocs.yaml` file's
 [rtd]: https://readthedocs.org/
 [instructions]: https://docs.readthedocs.com/platform/stable/intro/mkdocs.html
 
+## git-pages
+
+[git-pages] is a self-hostable alternative to solutions such as GitHub Pages. It is
+generally compatible with any git-forge (GitHub, GitLab, Forgejo, etc.) and different
+public instances are available to use, such as [Codeberg Pages].
+
+For example, a simple Forgejo Actions Workflow to deploy your Site to Codeberg Pages
+might look something like this:
+
+```yaml
+name: Deploy Site
+
+on:
+  push:
+
+jobs:
+  deploy:
+    runs-on: codeberg-tiny
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v7
+      - uses: https://code.forgejo.org/actions/setup-python@v7
+        with:
+          python-version: 3.7
+      - run: |
+          pip install properdocs properdocs-theme-mkdocs
+          properdocs build
+      - uses: https://code.forgejo.org/actions/git-pages@v2
+        with:
+          site: https://example.codeberg.page
+          source: site/
+```
+
+### Custom Domains
+
+git-pages uses a different approach to Custom Domains compared to GitHub Pages. What
+method is used depends on the instance's configuration and how you deploy your site:
+
+-   Deploying through a webhook requires a `TXT` Record with `_git-pages-repository`
+    (optionally with subdomain) and your Git Repository URL from where you deploy as
+    value.
+-   Deploying through git-pages' Forgejo Action requires a `TXT` Record with `git-pages-forge-allowlist`
+    (optionally with subdomain) and your Git Repository URL from where you deploy as
+    value.
+
+[git-pages]: https://git-pages.org/
+[Codeberg Pages]: https://codeberg.page
+
 ## Other Providers
 
 Any hosting provider which can serve static files can be used to serve
