@@ -112,8 +112,12 @@ create an account and point it at your publicly hosted repository. If properly
 configured, your documentation will update each time you push commits to your
 public repository.
 
+WARNING:
+You need to add `pip install properdocs` to the `.readthedocs.yaml` file's
+`pre_install` list or ProperDocs will not be installed!
+
 [rtd]: https://readthedocs.org/
-[instructions]: https://docs.readthedocs.io/en/stable/intro/getting-started-with-properdocs.html
+[instructions]: https://docs.readthedocs.com/platform/stable/intro/mkdocs.html
 
 ## Other Providers
 
