@@ -153,14 +153,15 @@ jobs:
 
 ### Custom Domains
 
-git-pages uses a different aproach to Custom Domains compared to GitHub Pages. What
+git-pages uses a different approach to Custom Domains compared to GitHub Pages. What
 method is used depends on the instance's configuration and how you deploy your site:
 
-- Deploying through a webhook requires a `TXT` Record with `_git-pages-repository`
-(optionally with subdomain) and your Git Repository URL from where you deploy as value.
-- Deploying through git-pages' Forgejo Action requires a `TXT` Record with
-`git-pages-forge-allowlist` (optionally with subdomain) and your Git Repository URL
-from where you deploy as value.
+-   Deploying through a webhook requires a `TXT` Record with `_git-pages-repository`
+    (optionally with subdomain) and your Git Repository URL from where you deploy as
+    value.
+-   Deploying through git-pages' Forgejo Action requires a `TXT` Record with `git-pages-forge-allowlist`
+    (optionally with subdomain) and your Git Repository URL from where you deploy as
+    value.
 
 [git-pages]: https://git-pages.org/
 [Codeberg Pages]: https://codeberg.page
