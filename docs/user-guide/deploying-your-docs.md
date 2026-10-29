@@ -105,19 +105,49 @@ documentation on [Troubleshooting custom domains].
 
 ## Read the Docs
 
-[Read the Docs][rtd] offers free documentation hosting. You can import your docs
-using the Git version control system. Read the Docs supports ProperDocs out-of-the-box.
+[Read the Docs][rtd] offers free documentation hosting for open source
+projects. You can import your docs using the Git version control system. Read
+the Docs supports ProperDocs via [custom build steps].
 Follow the [instructions] on their site to arrange the files in your repository properly,
 create an account and point it at your publicly hosted repository. If properly
 configured, your documentation will update each time you push commits to your
 public repository.
 
-WARNING:
-You need to add `pip install properdocs` to the `.readthedocs.yaml` file's
-`pre_install` list or ProperDocs will not be installed!
+Your `.readthedocs.yaml` file must install the required packages for building
+documentation (the properdocs package itself at a minimum), and then invoke the
+`properdocs build` command specifying the correct output location:
+
+```yaml
+version: 2
+
+build:
+  os: ubuntu-lts-latest
+  tools:
+    python: "3"
+  jobs:
+    install:
+      - pip install properdocs
+    build:
+      html:
+        - properdocs build --strict --site-dir $READTHEDOCS_OUTPUT/html
+```
+
+If your documentation requires other Python packages in order to build, we
+recommend listing them all in a requirements file (such as
+`requirements-doc.txt`) and calling out that file in the install step instead:
+
+```yaml
+    install:
+      - pip install -r requirements-doc.txt
+```
+
+Using a `requirements-doc.txt` file also helps developers build docs locally,
+since it simplifies creating an environment with all required packages using
+any compatible virtual environment tool.
 
 [rtd]: https://readthedocs.org/
-[instructions]: https://docs.readthedocs.com/platform/stable/intro/mkdocs.html
+[instructions]: https://docs.readthedocs.com/platform/stable/tutorial/index.html
+[custom build steps]: https://docs.readthedocs.com/platform/stable/build-customization.html
 
 ## Other Providers
 
