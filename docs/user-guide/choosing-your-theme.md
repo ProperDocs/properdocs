@@ -4,11 +4,9 @@ Selecting and configuring a theme.
 
 ---
 
-MkDocs includes two built-in themes ([mkdocs](#mkdocs) and
-[readthedocs](#readthedocs)), as documented below. However, many [third party
-themes] are available to choose from as well.
+ProperDocs includes two official themes ([mkdocs](#mkdocs) and [readthedocs](#readthedocs)), as documented below. Many [third party themes] are available to choose from as well.
 
-To choose a theme, set the [theme] configuration option in your `mkdocs.yml`
+To choose a theme, set the [theme] configuration option in your `properdocs.yml`
 config file.
 
 ```yaml
@@ -18,8 +16,13 @@ theme:
 
 ## mkdocs
 
-The default theme, which was built as a custom [Bootstrap] theme, supports almost
-every feature of MkDocs.
+The `mkdocs` theme is the default official theme, built as a custom [Bootstrap] theme, and supports almost every feature of ProperDocs.
+
+Which can be installed with pip:
+
+```bash
+pip install properdocs-theme-mkdocs
+```
 
 <div id="mkdocs-theme-images" class="carousel slide carousel-fade" data-bs-ride="carousel">
   <div class="carousel-inner">
@@ -126,15 +129,19 @@ supports the following options:
     The following locales are supported by this theme:
 
     * `en`: English (default)
-    * (see the list of existing directories `mkdocs/themes/mkdocs/locales/*/`)
+    * (see the list of existing directories `packages/properdocs-theme-mkdocs/properdocs_theme_mkdocs/locales/*/`)
 
     See the guide on [localizing your theme] for more information.
 
 ## readthedocs
 
-A clone of the default theme used by the [Read the Docs] service, which offers
-the same restricted feature set as its parent theme. Like its parent theme, only
-two levels of navigation are supported.
+A clone of the default theme used by the [Read the Docs] service, which offers the same restricted feature set as its parent theme. Like its parent theme, only two levels of navigation are supported.  
+
+Which can be installed with pip:
+
+```bash
+pip install properdocs-theme-readthedocs
+```
 
 ![ReadTheDocs](../img/readthedocs.png)
 
@@ -176,7 +183,7 @@ theme supports the following options:
         set this to `True`. Default: `False`.
 
 *   **`include_homepage_in_sidebar`**: Lists the homepage in the sidebar menu. As
-    MkDocs requires that the homepage be listed in the `nav` configuration
+    ProperDocs requires that the homepage be listed in the `nav` configuration
     option, this setting allows the homepage to be included or excluded from
     the sidebar. Note that the site name/logo always links to the homepage.
     Default: `True`.
@@ -203,7 +210,7 @@ theme supports the following options:
     The following locales are supported by this theme:
 
     * `en`: English (default)
-    * (see the list of existing directories `mkdocs/themes/readthedocs/locales/*/`)
+    * (see the list of existing directories `packages/properdocs-theme-readthedocs/properdocs_theme_readthedocs/locales/*/`)
 
     See the guide on [localizing your theme] for more information.
 
@@ -214,16 +221,16 @@ theme supports the following options:
 
 A list of third party themes can be found at the [community wiki] page and [the ranked catalog][catalog]. If you have created your own, please add them there.
 
-WARNING: Installing an MkDocs theme means installing a Python package and executing any code that the author has put in there. So, exercise the usual caution; there's no attempt at sandboxing.
+WARNING: Installing a ProperDocs theme means installing a Python package and executing any code that the author has put in there. So, exercise the usual caution; there's no attempt at sandboxing.
 
 [third party themes]: #third-party-themes
 [theme]: configuration.md#theme
 [Bootstrap]: https://getbootstrap.com/
 [highlight.js]: https://highlightjs.org/
-[styles]: https://highlightjs.org/static/demo/
+[styles]: https://highlightjs.org/demo
 [setup-GA4]: https://support.google.com/analytics/answer/9304153?hl=en&ref_topic=9303319
 [upgrade-GA4]: https://support.google.com/analytics/answer/9744165?hl=en&ref_topic=9303319
 [Read the Docs]: https://readthedocs.org/
-[community wiki]: https://github.com/mkdocs/mkdocs/wiki/MkDocs-Themes
-[catalog]: https://github.com/mkdocs/catalog#-theming
+[community wiki]: https://github.com/properdocs/properdocs/wiki/ProperDocs-Themes
+[catalog]: https://github.com/properdocs/catalog#-theming
 [localizing your theme]: localizing-your-theme.md

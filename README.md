@@ -1,79 +1,50 @@
-# MkDocs
+# ProperDocs
 
-> *Project documentation with Markdown*
+[![PyPI Version](https://img.shields.io/pypi/v/properdocs.svg)](https://pypi.org/project/properdocs/)
+[![Build Status](https://github.com/properdocs/properdocs/actions/workflows/ci.yml/badge.svg)](https://github.com/properdocs/properdocs/actions/workflows/ci.yml)
 
-[![PyPI Version][pypi-v-image]][pypi-v-link]
-[![Build Status][GHAction-image]][GHAction-link]
-[![Coverage Status][codecov-image]][codecov-link]
+## Background
 
-MkDocs is a **fast**, **simple** and **downright gorgeous** static site
-generator that's geared towards building project documentation. Documentation
-source files are written in Markdown, and configured with a single YAML
-configuration file. It is designed to be easy to use and can be extended with
-third-party themes, plugins, and Markdown extensions.
+ProperDocs is a fork of [MkDocs](https://github.com/mkdocs/mkdocs/), aiming to be a complete drop-in replacement for it. We do not intend to make any breaking changes, but rather focus on bug fixes and incremental features. The fork was necessary because development of the original MkDocs project was abandoned.
 
-Please see the [Documentation][mkdocs] for an introductory tutorial and a full
-user guide.
+[**Please see our statement about forking MkDocs and how to migrate to ProperDocs**](https://github.com/orgs/ProperDocs/discussions/33).
 
-## Features
+New users can get started using the [**documentation**](https://properdocs.org).
 
-- Build static HTML files from Markdown files.
-- Use Plugins and Markdown Extensions to enhance MkDocs.
-- Use the built-in themes, third party themes or create your own.
-- Publish your documentation anywhere that static files can be served.
-- Much more!
+## Description
 
-## Support
+ProperDocs is a static site generator intended for project documentation. Source files are written in Markdown and converted to static HTML during the build process. This can then be deployed to any basic webserver (most commonly, [GitHub Pages](pages.github.com)).
 
-If you need help with MkDocs, do not hesitate to get in contact with us!
+Project configuration is defined in a YAML configuration file ([`properdocs.yml`](https://properdocs.org/user-guide/configuration/)). This file specifies the documentation structure, theme configuration, and optional plugin settings.
 
--   For questions and high-level discussions, use **[Discussions]** on GitHub.
-    -   For small questions, a good alternative is the **[Chat room]** on
-        Gitter/Matrix.
--   To report a bug or make a feature request, open an **[Issue]** on GitHub.
+ProperDocs is extensible through plugins, themes and Python-Markdown extensions. You can browse them in our [**catalog**](https://github.com/ProperDocs/catalog).
 
-Please note that we may only provide
-support for problems/questions regarding core features of MkDocs. Any
-questions or bug reports about features of third-party themes, plugins,
-extensions or similar should be made to their respective projects.  
-But, such questions are *not* banned from the [chat room].
+[Our own **documentation**](https://properdocs.org/) uses ProperDocs. Examples and instructions on how to get started can be found there.
 
-Make sure to stick around to answer some questions as well!
+If you're coming from MkDocs, check our [message welcoming MkDocs users](https://github.com/orgs/ProperDocs/discussions/33).
 
-## Links
+## Support and discussions
 
-- [Official Documentation][mkdocs]
-- [Latest Release Notes][release-notes]
-- [Catalog of third-party plugins, themes and recipes][catalog]
+If you need help, do not hesitate to get in contact with the community!
 
-## Contributing to MkDocs
+*   To report a **bug** or make a **feature request** about **core ProperDocs functionality**, open an [**Issue**](https://github.com/ProperDocs/properdocs/issues/) on GitHub.  
 
-The MkDocs project welcomes, and depends on, contributions from developers and
-users in the open source community. Please see the [Contributing Guide] for
-information on how you can help.
+*   For **questions** and high-level **discussions**, use [**Discussions**](https://github.com/ProperDocs/properdocs/discussions/) on GitHub.
+
+    Note that typically we will not be familiar with *features* of third-party plugins, so questions about them should probably go to their specific repository.  
+    But we definitely want to hear in case there are any compatibility problems versus MkDocs.
+
+*   For **small questions of any kind**, a good option is the **[Discord server](https://discord.gg/CwYAgEPHZd)**.
+
+## Contributing
+
+We welcome contributions from the community.  
+Details are described in the [**Contributing Guide**](https://properdocs.org/about/contributing/) - including the development setup, coding guidelines and contribution workflow.
 
 ## Code of Conduct
 
-Everyone interacting in the MkDocs project's codebases, issue trackers, and
-discussion forums is expected to follow the [PyPA Code of Conduct].
-
-<!-- Badges -->
-[codecov-image]: https://codecov.io/github/mkdocs/mkdocs/coverage.svg?branch=master
-[codecov-link]: https://codecov.io/github/mkdocs/mkdocs?branch=master
-[pypi-v-image]: https://img.shields.io/pypi/v/mkdocs.svg
-[pypi-v-link]: https://pypi.org/project/mkdocs/
-[GHAction-image]: https://github.com/mkdocs/mkdocs/actions/workflows/ci.yml/badge.svg
-[GHAction-link]: https://github.com/mkdocs/mkdocs/actions/workflows/ci.yml
-<!-- Links -->
-[mkdocs]: https://www.mkdocs.org
-[Issue]: https://github.com/mkdocs/mkdocs/issues
-[Discussions]: https://github.com/mkdocs/mkdocs/discussions
-[Chat room]: https://gitter.im/mkdocs/community
-[release-notes]: https://www.mkdocs.org/about/release-notes/
-[Contributing Guide]: https://www.mkdocs.org/about/contributing/
-[PyPA Code of Conduct]: https://www.pypa.io/en/latest/code-of-conduct/
-[catalog]: https://github.com/mkdocs/catalog
+All participants in the ProperDocs project are expected to follow the [**PSF Code of Conduct**](https://www.python.org/psf/conduct/).
 
 ## License
 
-[BSD-2-Clause](https://github.com/mkdocs/mkdocs/blob/master/LICENSE)
+ProperDocs is distributed under the [**BSD-2-Clause license**](LICENSE).

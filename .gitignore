@@ -66,5 +66,5 @@ target/
 venv/
 ENV/
 
-# MkDocs documentation
+# ProperDocs documentation
 site*/

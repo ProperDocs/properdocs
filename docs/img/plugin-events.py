@@ -7,7 +7,7 @@ import re
 
 from graphviz import Digraph
 
-graph = Digraph("MkDocs", format="svg")
+graph = Digraph("ProperDocs", format="svg")
 graph.attr(compound="true", bgcolor="transparent")
 graph.graph_attr.update(fontname="inherit", tooltip=" ")
 graph.node_attr.update(fontname="inherit", tooltip=" ", style="filled")

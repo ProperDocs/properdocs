@@ -1,0 +1,113 @@
+# Ukrainian translations for ProperDocs.
+# Copyright (C) 2022 MkDocs
+# This file is distributed under the same license as the ProperDocs project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MkDocs 1.3.1\n"
+"Report-Msgid-Bugs-To: \"https://github.com/properdocs/properdocs/issues\"\n"
+"POT-Creation-Date: 2024-04-09 16:13+0200\n"
+"PO-Revision-Date: 2022-09-17 15:51+0200\n"
+"Last-Translator: Oleh Prypin <@oprypin>\n"
+"Language: uk\n"
+"Language-Team: uk <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: properdocs_theme_readthedocs/404.html:7
+msgid "Page not found"
+msgstr "Сторінку не знайдено"
+
+#: properdocs_theme_readthedocs/base.html:96
+msgid "Logo"
+msgstr "Логотип"
+
+#: properdocs_theme_readthedocs/base.html:110
+msgid "Navigation menu"
+msgstr "Меню навігації"
+
+#: properdocs_theme_readthedocs/base.html:147
+msgid "Mobile navigation menu"
+msgstr "Мобільна версія меню"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:3
+msgid "Docs"
+msgstr "Документація"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:18
+#: properdocs_theme_readthedocs/breadcrumbs.html:20
+#: properdocs_theme_readthedocs/breadcrumbs.html:22
+#: properdocs_theme_readthedocs/breadcrumbs.html:24
+#, python-format
+msgid "Edit on %(repo_name)s"
+msgstr "Редагувати в %(repo_name)s"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:26
+msgid "Edit"
+msgstr "Редагувати"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:34
+msgid "Breadcrumb Navigation"
+msgstr "Навігаційна стежка"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:36
+#: properdocs_theme_readthedocs/footer.html:7
+#: properdocs_theme_readthedocs/versions.html:21
+msgid "Previous"
+msgstr "Назад"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:39
+#: properdocs_theme_readthedocs/footer.html:10
+#: properdocs_theme_readthedocs/versions.html:24
+msgid "Next"
+msgstr "Вперед"
+
+#: properdocs_theme_readthedocs/footer.html:5
+msgid "Footer Navigation"
+msgstr "Нижнє меню навігації"
+
+#: properdocs_theme_readthedocs/footer.html:25
+#, python-format
+msgid ""
+"Built with %(properdocs_link)s using a %(sphinx_link)s provided by "
+"%(rtd_link)s."
+msgstr ""
+"Зібрано у %(properdocs_link)s з використанням %(sphinx_link)s від "
+"%(rtd_link)s."
+
+#: properdocs_theme_readthedocs/footer.html:25
+msgid "theme"
+msgstr "теми"
+
+#: properdocs_theme_readthedocs/search.html:5
+msgid "Search Results"
+msgstr "Результати пошуку"
+
+#: properdocs_theme_readthedocs/search.html:9
+msgid "Search the Docs"
+msgstr "Пошук у документах"
+
+#: properdocs_theme_readthedocs/search.html:9
+#: properdocs_theme_readthedocs/searchbox.html:3
+msgid "Type search term here"
+msgstr "Введіть пошуковий запит"
+
+#: properdocs_theme_readthedocs/search.html:12
+msgid "No results found"
+msgstr "Нічого не знайдено"
+
+#: properdocs_theme_readthedocs/search.html:13
+msgid "Searching..."
+msgstr "Пошук..."
+
+#: properdocs_theme_readthedocs/searchbox.html:3
+msgid "Search docs"
+msgstr "Пошук у документації"
+
+#: properdocs_theme_readthedocs/versions.html:1
+msgid "Versions"
+msgstr "Версії"

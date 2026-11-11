@@ -1,8 +1,8 @@
 # Command Line Interface
 
 ::: mkdocs-click
-    :module: mkdocs.__main__
+    :module: properdocs.__main__
     :command: cli
-    :prog_name: mkdocs
+    :prog_name: properdocs
     :style: table
     :list_subcommands: true

@@ -1,0 +1,113 @@
+# Polish translations for ProperDocs.
+# Copyright (C) 2024 MkDocs
+# This file is distributed under the same license as the ProperDocs project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: MkDocs 1.3.1\n"
+"Report-Msgid-Bugs-To: \"https://github.com/properdocs/properdocs/issues\"\n"
+"POT-Creation-Date: 2024-04-09 16:13+0200\n"
+"PO-Revision-Date: 2024-03-21 17:46+0100\n"
+"Last-Translator: Szymon Rakowski <szymon.rakowski@ac.com.pl>\n"
+"Language: pl\n"
+"Language-Team: pl <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.14.0\n"
+
+#: properdocs_theme_readthedocs/404.html:7
+msgid "Page not found"
+msgstr "Nie znaleziono strony"
+
+#: properdocs_theme_readthedocs/base.html:96
+msgid "Logo"
+msgstr "Logo"
+
+#: properdocs_theme_readthedocs/base.html:110
+msgid "Navigation menu"
+msgstr "Menu nawigacji"
+
+#: properdocs_theme_readthedocs/base.html:147
+msgid "Mobile navigation menu"
+msgstr "Mobilne menu nawigacji"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:3
+msgid "Docs"
+msgstr "Dokumentacja"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:18
+#: properdocs_theme_readthedocs/breadcrumbs.html:20
+#: properdocs_theme_readthedocs/breadcrumbs.html:22
+#: properdocs_theme_readthedocs/breadcrumbs.html:24
+#, python-format
+msgid "Edit on %(repo_name)s"
+msgstr "Edytuj w %(repo_name)s"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:26
+msgid "Edit"
+msgstr "Edytuj"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:34
+msgid "Breadcrumb Navigation"
+msgstr "Nawigacja typu Breadcrumb"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:36
+#: properdocs_theme_readthedocs/footer.html:7
+#: properdocs_theme_readthedocs/versions.html:21
+msgid "Previous"
+msgstr "Wstecz"
+
+#: properdocs_theme_readthedocs/breadcrumbs.html:39
+#: properdocs_theme_readthedocs/footer.html:10
+#: properdocs_theme_readthedocs/versions.html:24
+msgid "Next"
+msgstr "Dalej"
+
+#: properdocs_theme_readthedocs/footer.html:5
+msgid "Footer Navigation"
+msgstr "Nawigacja w stopce"
+
+#: properdocs_theme_readthedocs/footer.html:25
+#, python-format
+msgid ""
+"Built with %(properdocs_link)s using a %(sphinx_link)s provided by "
+"%(rtd_link)s."
+msgstr ""
+"Zbudowano przy użyciu pakietu %(properdocs_link)s oraz %(sphinx_link)s "
+"dostarczonego przez %(rtd_link)s."
+
+#: properdocs_theme_readthedocs/footer.html:25
+msgid "theme"
+msgstr "motywu"
+
+#: properdocs_theme_readthedocs/search.html:5
+msgid "Search Results"
+msgstr "Wyniki wyszukiwania"
+
+#: properdocs_theme_readthedocs/search.html:9
+msgid "Search the Docs"
+msgstr "Przeszukaj dokumentację"
+
+#: properdocs_theme_readthedocs/search.html:9
+#: properdocs_theme_readthedocs/searchbox.html:3
+msgid "Type search term here"
+msgstr "Wpisz tutaj frazę do wyszukania"
+
+#: properdocs_theme_readthedocs/search.html:12
+msgid "No results found"
+msgstr "Nie znaleziono wyników"
+
+#: properdocs_theme_readthedocs/search.html:13
+msgid "Searching..."
+msgstr "Wyszukiwanie..."
+
+#: properdocs_theme_readthedocs/searchbox.html:3
+msgid "Search docs"
+msgstr "Przeszukaj dokumentację"
+
+#: properdocs_theme_readthedocs/versions.html:1
+msgid "Versions"
+msgstr "Wersje"

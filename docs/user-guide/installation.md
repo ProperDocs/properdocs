@@ -1,4 +1,4 @@
-# MkDocs Installation
+# ProperDocs Installation
 
 A detailed guide.
 
@@ -6,7 +6,7 @@ A detailed guide.
 
 ## Requirements
 
-MkDocs requires a recent version of [Python] and the Python package
+ProperDocs requires a recent version of [Python] and the Python package
 manager, [pip], to be installed on your system.
 
 You can check if you already have these installed from the command line:
@@ -19,7 +19,7 @@ pip 20.0.2 from /usr/local/lib/python3.8/site-packages/pip (python 3.8)
 ```
 
 If you already have those packages installed, you may skip down to [Installing
-MkDocs](#installing-mkdocs).
+ProperDocs](#installing-properdocs).
 
 ### Installing Python
 
@@ -50,58 +50,41 @@ Then run the following command to install it:
 python get-pip.py
 ```
 
-## Installing MkDocs
+## Installing ProperDocs
 
-Install the `mkdocs` package using pip:
+Install the `properdocs` package using pip:
 
 ```bash
-pip install mkdocs
+pip install properdocs
 ```
 
-You should now have the `mkdocs` command installed on your system. Run `mkdocs
+You should now have the `properdocs` command installed on your system. Run `properdocs
 --version` to check that everything worked okay.
 
 ```console
-$ mkdocs --version
-mkdocs, version 1.2.0 from /usr/local/lib/python3.8/site-packages/mkdocs (Python 3.8)
+$ properdocs --version
+properdocs, version 1.2.0 from /usr/local/lib/python3.8/site-packages/properdocs (Python 3.8)
 ```
 
-> NOTE:
-> If you would like manpages installed for MkDocs, the [click-man] tool can
-> generate and install them for you. Simply run the following two commands:
->
-> ```bash
-> pip install click-man
-> click-man --target path/to/man/pages mkdocs
-> ```
->
-> See the [click-man documentation] for an explanation of why manpages are
-> not automatically generated and installed by pip.
-<!-- -->
 > NOTE:
 > If you are using Windows, some of the above commands may not work
 > out-of-the-box.
 >
-> A quick solution may be to preface every Python command with `python -m`
+> A quick solution may be to preface every Python command with `py -m`
 > like this:
 >
 > ```bash
-> python -m pip install mkdocs
-> python -m mkdocs
+> py -m pip install properdocs
+> py -m properdocs
 > ```
 >
-> For a more permanent solution, you may need to edit your `PATH` environment
+> See information about the [Python Launcher for Windows](https://docs.python.org/3/using/windows.html#basic-use).
+>
+> Or you may need to edit your `PATH` environment
 > variable to include the `Scripts` directory of your Python installation.
-> Recent versions of Python include a script to do this for you. Navigate to
-> your Python installation directory (for example `C:\Python38\`), open the
-> `Tools`, then `Scripts` folder, and run the `win_add2path.py` file by double
-> clicking on it. Alternatively, you can download the [script][a2p] and run it
-> (`python win_add2path.py`).
+> Recent versions of Python include a script to do this for you.
 
 [Python]: https://www.python.org/
 [python.org]: https://www.python.org/downloads/
 [pip]: https://pip.readthedocs.io/en/stable/installing/
 [get-pip.py]: https://bootstrap.pypa.io/get-pip.py
-[click-man]: https://github.com/click-contrib/click-man
-[click-man documentation]: https://github.com/click-contrib/click-man#automatic-man-page-installation-with-setuptools-and-pip
-[a2p]: https://github.com/python/cpython/blob/master/Tools/scripts/win_add2path.py
